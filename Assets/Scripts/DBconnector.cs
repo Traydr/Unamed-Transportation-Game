@@ -3,11 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Data.SQLite;
 
+/* TO DO LIST:
+ * - ADD DELETE
+ * - ADD
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
 public class DBconnector : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
+        // Tests for database commands, all commands should eventually get their own functions!
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=C:\Users\titas\Desktop\Games & Programs\ProjectFiles\Databases\testdb.db;Version=3;");
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
@@ -28,7 +40,15 @@ public class DBconnector : MonoBehaviour
 
     void DBInsert(string table, string tableAttributes, string dataIn)
     {
+        SQLiteConnection connection = new SQLiteConnection(@"Data Source=C:\Users\titas\Desktop\Games & Programs\ProjectFiles\Databases\testdb.db;Version=3;");
+        connection.Open();
+
+        SQLiteCommand cmd = connection.CreateCommand();
         string combinedCommand = "INSERT INTO ";
-        combinedCommand += table + " (" + tableAttributes + ") VALUES (" + dataIn + ;
+        combinedCommand += table + " (" + tableAttributes + ") VALUES (" + dataIn + ")";
+        cmd.CommandText = combinedCommand;
+
+        cmd.ExecuteNonQuery();
+        connection.Close();
     }
 }
