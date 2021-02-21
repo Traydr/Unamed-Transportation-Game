@@ -21,12 +21,14 @@ public class DBconnector : MonoBehaviour
 
     void Start()
     {
-        // Tests for database commands, all commands should eventually get their own functions!
+        /*
+         * CURRENTLY NOT IN USE // NOT SURE WHAT TO DO WITH IT FOR NOW
+         * 
+
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=C:\Users\titas\Desktop\Games & Programs\ProjectFiles\Databases\testdb.db;Version=3;");
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
-        /* Written Originally For Testing
         cmd.CommandType = System.Data.CommandType.Text;
         cmd.CommandText = "CREATE TABLE IF NOT EXISTS 'highscores' ( " +
                           "  'id' INTEGER PRIMARY KEY, " +
@@ -35,9 +37,10 @@ public class DBconnector : MonoBehaviour
                           ");";
 
         cmd.CommandText = "INSERT INTO highscores (id,name,score) VALUES (0,User,0)";
-        */
+        
         cmd.ExecuteNonQuery();
         connection.Close();
+        */
     }
 
     void DBInsert(string table, string columnName, string dataIn)
@@ -74,6 +77,19 @@ public class DBconnector : MonoBehaviour
         SQLiteCommand cmd = connection.CreateCommand();
 
         string combinedCommand = string.Format("SELECT {0} FROM {1}", columnName, table);
+        cmd.CommandText = combinedCommand;
+
+        cmd.ExecuteNonQuery();
+        connection.Close();
+    }
+
+    void DBUpdate(string table, string columnID, string columnUpdate, string id, string dataUpdate)
+    {
+        SQLiteConnection connection = new SQLiteConnection(@"Data Source=C:\Users\titas\Desktop\Games & Programs\ProjectFiles\Databases\testdb.db;Version=3;");
+        connection.Open();
+        SQLiteCommand cmd = connection.CreateCommand();
+
+        string combinedCommand = string.Format("UPDATE {0} SET {1} = {2} WHERE {3} = {4}", table, columnUpdate, dataUpdate, columnID, id);
         cmd.CommandText = combinedCommand;
 
         cmd.ExecuteNonQuery();
