@@ -1,0 +1,53 @@
+TO DO:
+
+// OBJECT'S
+	-> ROADS
+		Create between shops and cities
+		Add randomness so that a new playthrough wont have exactly the same strategy
+
+	-> VEHICLES
+		Weight limit
+		Volume limit
+		Maintenance costs (Weakly/7D)
+	-> WAREHOUSES
+		Volume limit
+	-> UPGRADES
+		Warehouses
+			Increasing volume limits (static)
+		Vehicles
+			Increasing volume limits (static)
+			Increasing weight limits (static)
+			'Oddball' vehicles where they are significantly weighed in 1 directon e.g. high weight limit, but low volume limit
+	
+// MENU'S
+	-> INVENTORY (DB)
+		A table with items that the player currently has on his vehicle
+		Display as a menu, attached to a hotkey e.g. 'e'
+	-> WISLIST (DB)
+		A table that stores data on goods that the player wants to keep track of
+		Display as a menu, attached to a hotkey e.g. 'r'
+	-> EVALUATION MENU
+		Displays graphs
+			Revenue
+			Costs
+			Profits
+		Time Frames
+			24H, 3D, 7D, 30D, 356D, All Time
+		Actions for diffrent time frames
+			Average, Maximum, Minimum, SUM
+
+-> COSTS OF TRAVEL
+	When a player moves between diffrent cities and shop, certain actions should be taken
+		Time moves in relation to the distance that the player has traveled
+		Cost incurred from travelling e.g. diesel/gas
+		Diffrent vehicle upgrades might have a weight (changing multiplier) on the costs
+
+// SYSTEM'S
+	-> IN-GAME ECONOMY
+		Shops
+		Cities
+	-> TIME
+		Arrangment
+			Shown at the top right of the screen
+		Denominations
+			Days, Hours (Possibility of weeks, to be decided)

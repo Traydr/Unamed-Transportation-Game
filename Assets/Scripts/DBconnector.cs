@@ -21,6 +21,8 @@ public class DBconnector : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("DBconnector.Start");
+        
         /*
          * CURRENTLY NOT IN USE // NOT SURE WHAT TO DO WITH IT FOR NOW
          * 

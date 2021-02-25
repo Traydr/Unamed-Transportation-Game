@@ -30,8 +30,10 @@ public class MouseClickDetection : MonoBehaviour
                 switch (tempTag)
                 {
                     case "Shops":
+                        Debug.Log("HIT SHOP");
                         break;
                     case "Cities":
+                        Debug.Log("HIT CITY");
                         break;
                     default:
                         Debug.Log("Did not hit A city or shop");
