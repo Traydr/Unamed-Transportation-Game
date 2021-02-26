@@ -8,11 +8,11 @@ using UnityEngine;
  */
 public class RoadGen : MonoBehaviour
 {
-    
+    public Transform loc1; public Transform loc2;
 
     void Start()
     {
-        
+
     }
 
 }
