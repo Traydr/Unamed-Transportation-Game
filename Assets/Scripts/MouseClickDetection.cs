@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class MouseClickDetection : MonoBehaviour
 {
-    public Transform player; public Transform selfObject;
+    public Transform player;
     
     // Start is called before the first frame update
     void Start()
@@ -21,19 +22,20 @@ public class MouseClickDetection : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            Debug.Log("Registered_Click_1");
 
             if (Physics.Raycast(ray, out hit))
             {
                 string tempTag = hit.transform.tag;
-                Debug.Log("Registered_Click_2");
+                string test = hit.transform.name;
                 switch (tempTag)
                 {
                     case "Shops":
-                        Debug.Log("HIT SHOP");
+                        Debug.Log("HIT SHOP " + test);
+                        PMovement(hit.transform);
                         break;
                     case "Cities":
-                        Debug.Log("HIT CITY");
+                        Debug.Log("HIT CITY " + test);
+                        PMovement(hit.transform);
                         break;
                     default:
                         Debug.Log("Did not hit A city or shop");
@@ -43,5 +45,11 @@ public class MouseClickDetection : MonoBehaviour
             }
             else { Debug.Log("No_Click"); }
         }
+    }
+
+    void PMovement(Transform target)
+    {
+        Vector3 targetPos = new Vector3(target.position.x + 10, target.position.y, 1);
+        player.position = targetPos;
     }
 }
