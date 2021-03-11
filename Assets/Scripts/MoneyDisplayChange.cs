@@ -11,7 +11,7 @@ public class MoneyDisplayChange : MonoBehaviour
     void Start()
     {
         Debug.Log("MoneyDisplayChange.Start");
-        money.text = "0";
+        money.text = "2000";
     }
 
     // Update is called once per frame
@@ -19,10 +19,22 @@ public class MoneyDisplayChange : MonoBehaviour
     {
         if (Input.GetKey("e"))
         {
-            int currentMoney = int.Parse(money.text);
-            currentMoney += 100;
-            money.text = currentMoney.ToString();
+            MoneyChange(100, true);
         }
         else { }
+    }
+
+    public void MoneyChange(int amount, bool postiveValue)
+    {
+        int currentMoney = int.Parse(money.text);
+        if (postiveValue == true)
+        {
+            currentMoney += amount;
+        }
+        else
+        {
+            currentMoney -= amount;
+        }
+        money.text = currentMoney.ToString();
     }
 }

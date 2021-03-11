@@ -30,7 +30,7 @@ public class MouseClickDetection : MonoBehaviour
 
                 playerM.GetComponent<PlayerMovement>().PMovement(hit.transform);
 
-                /*
+                /* Possibly still needed TBD
                 switch (tempTag)
                 {
                     case "Shops":
@@ -48,15 +48,7 @@ public class MouseClickDetection : MonoBehaviour
                 }
                 */
             }
-            else { Debug.Log("No_Click"); }
+            else { }
         }
     }
-
-    /*
-    void PMovement(Transform target)
-    {
-        Vector3 targetPos = new Vector3(target.position.x + 10, target.position.y, 1);
-        player.position = targetPos;
-    }
-    */
 }

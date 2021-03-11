@@ -1,13 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     public Transform player; public Transform initialStart; public Transform lastTarget;
+    public GameObject MoneyChange;
 
     void Start()
     {
@@ -23,12 +26,13 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 targetPos = new Vector3(target.position.x + 10, target.position.y, 1);
             player.position = targetPos;
+            MoneyChange.GetComponent<MoneyDisplayChange>().MoneyChange(CalcFeulCost(lastTarget, target), false);
             lastTarget = target;
         }
         else { }
     }
 
-    private int FindIndexOfLocation(string targetName)
+    private int FindIndexOfLocation(string targetName) // Gets the index of a location and returns the index
     {
         int locationIndex = -1;
         string[] locationIndexArr = new string[] { "City", "City (1)", "City (2)", "Shop", "Shop (1)", "Shop (2)" };
@@ -44,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         return locationIndex;
     }
 
-    private bool FindConnectionBetweenTwoLocations(int indexinitial, int indexTarget)
+    private bool FindConnectionBetweenTwoLocations(int indexinitial, int indexTarget) // Finds if there is a conection between 2 locations and returns true or false
     {
         bool connectionFound = false;
         int[,] locationConnectionArray = new int[,] 
@@ -64,5 +68,20 @@ public class PlayerMovement : MonoBehaviour
         else { }
 
         return connectionFound;
+    }
+
+    // To be decided if this should remain here
+    // Something is going very wrong here and I dont know how to correct it right now
+    int CalcFeulCost(Transform initialPos, Transform targetPos)
+    {
+        int feulCost = 0; int multiplier = 10;
+        int iPosX = Convert.ToInt32(initialPos.position.x); int iPosY = Convert.ToInt32(initialPos.position.y);
+        int tPosX = Convert.ToInt32(targetPos.position.x); int tPosY = Convert.ToInt32(targetPos.position.y);
+
+        float tempFeul = math.trunc((((tPosY - iPosY) / (tPosX - iPosX)) * ((tPosY - iPosY) / (tPosX - iPosX))) * multiplier);
+        Debug.Log(tempFeul);
+        feulCost = Convert.ToInt32(tempFeul);
+        Debug.Log(feulCost);
+        return feulCost;
     }
 }
