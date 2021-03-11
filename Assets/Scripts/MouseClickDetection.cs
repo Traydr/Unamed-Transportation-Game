@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class MouseClickDetection : MonoBehaviour
 {
-    public Transform player;
+    public Transform player; public GameObject playerM;
     
     // Start is called before the first frame update
     void Start()
@@ -27,29 +27,36 @@ public class MouseClickDetection : MonoBehaviour
             {
                 string tempTag = hit.transform.tag;
                 string test = hit.transform.name;
+
+                playerM.GetComponent<PlayerMovement>().PMovement(hit.transform);
+
+                /*
                 switch (tempTag)
                 {
                     case "Shops":
                         Debug.Log("HIT SHOP " + test);
-                        PMovement(hit.transform);
+                        //PMovement(hit.transform);
                         break;
                     case "Cities":
                         Debug.Log("HIT CITY " + test);
-                        PMovement(hit.transform);
+                        //PMovement(hit.transform);
                         break;
                     default:
                         Debug.Log("Did not hit A city or shop");
                         break;
 
                 }
+                */
             }
             else { Debug.Log("No_Click"); }
         }
     }
 
+    /*
     void PMovement(Transform target)
     {
         Vector3 targetPos = new Vector3(target.position.x + 10, target.position.y, 1);
         player.position = targetPos;
     }
+    */
 }

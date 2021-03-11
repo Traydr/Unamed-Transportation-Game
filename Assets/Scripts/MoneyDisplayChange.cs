@@ -10,7 +10,7 @@ public class MoneyDisplayChange : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("MoneyDisplayChange Initited");
+        Debug.Log("MoneyDisplayChange.Start");
         money.text = "0";
     }
 
