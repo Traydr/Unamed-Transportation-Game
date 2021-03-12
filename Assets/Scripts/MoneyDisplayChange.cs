@@ -17,7 +17,7 @@ public class MoneyDisplayChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("e"))
+        if (Input.GetKey("f"))
         {
             MoneyChange(100, true);
         }

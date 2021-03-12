@@ -2,7 +2,7 @@ TO DO:
 
 // OBJECT'S
 	-> ROADS
-		Create between shops and cities
+		[DONE] Create between shops and cities 
 		Add randomness so that a new playthrough wont have exactly the same strategy
 
 	-> VEHICLES
@@ -39,7 +39,7 @@ TO DO:
 -> COSTS OF TRAVEL
 	When a player moves between diffrent cities and shop, certain actions should be taken
 		Time moves in relation to the distance that the player has traveled
-		Cost incurred from travelling e.g. diesel/gas
+		[DONE] Cost incurred from travelling e.g. diesel/gas 
 		Diffrent vehicle upgrades might have a weight (changing multiplier) on the costs
 
 // SYSTEM'S

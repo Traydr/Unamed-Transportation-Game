@@ -29,6 +29,11 @@ public class PlayerMovement : MonoBehaviour
             MoneyChange.GetComponent<MoneyDisplayChange>().MoneyChange(CalcFeulCost(lastTarget, target), false);
             lastTarget = target;
         }
+        else if (target == initialStart)
+        {
+            Vector3 targetPos = new Vector3(target.position.x + 10, target.position.y, 1);
+            player.position = targetPos;
+        }
         else { }
     }
 
@@ -53,12 +58,12 @@ public class PlayerMovement : MonoBehaviour
         bool connectionFound = false;
         int[,] locationConnectionArray = new int[,] 
         {
-        {0, 1, 0, 1, 0, 0},
-        {1, 0, 0, 0, 1, 0},
-        {0, 0, 0, 1, 1, 0},
-        {1, 0, 1, 0, 0, 1},
-        {0, 1, 1, 0, 0, 0},
-        {0, 0, 0, 1, 0, 0} 
+        {0, 1, 0, 1, 0, 0}, // C, C1, C2, S, S1, S2
+        {1, 0, 0, 0, 1, 0}, // C1
+        {0, 0, 0, 1, 1, 0}, // C2
+        {1, 0, 1, 0, 0, 1}, // S
+        {0, 1, 1, 0, 0, 0}, // S1
+        {0, 0, 0, 1, 0, 0}  // s2
         }; // 2d array of all connections between locations
 
         if (locationConnectionArray[indexinitial, indexTarget] == 1)
@@ -74,14 +79,13 @@ public class PlayerMovement : MonoBehaviour
     // Something is going very wrong here and I dont know how to correct it right now
     int CalcFeulCost(Transform initialPos, Transform targetPos)
     {
-        int feulCost = 0; int multiplier = 10;
+        int feulCost = 0;
         int iPosX = Convert.ToInt32(initialPos.position.x); int iPosY = Convert.ToInt32(initialPos.position.y);
         int tPosX = Convert.ToInt32(targetPos.position.x); int tPosY = Convert.ToInt32(targetPos.position.y);
+        float deltaX = tPosX - iPosX; float deltaY = tPosY - iPosY;
 
-        float tempFeul = math.trunc((((tPosY - iPosY) / (tPosX - iPosX)) * ((tPosY - iPosY) / (tPosX - iPosX))) * multiplier);
-        Debug.Log(tempFeul);
+        float tempFeul = math.round(math.sqrt(deltaX * deltaX + deltaY * deltaY));
         feulCost = Convert.ToInt32(tempFeul);
-        Debug.Log(feulCost);
         return feulCost;
     }
 }
