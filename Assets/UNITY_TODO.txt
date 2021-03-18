@@ -24,6 +24,7 @@ TO DO:
 		A table with items that the player currently has on his vehicle
 		Display as a menu, attached to a hotkey e.g. 'e'
 	-> WISLIST (DB)
+		MAX number of tags - 6?
 		A table that stores data on goods that the player wants to keep track of
 		Display as a menu, attached to a hotkey e.g. 'r'
 	-> EVALUATION MENU
