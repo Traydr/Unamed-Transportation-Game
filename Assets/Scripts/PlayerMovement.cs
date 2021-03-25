@@ -29,11 +29,6 @@ public class PlayerMovement : MonoBehaviour
             MoneyChange.GetComponent<MoneyDisplayChange>().MoneyChange(CalcFeulCost(lastTarget, target), false);
             lastTarget = target;
         }
-        else if (target == initialStart)
-        {
-            Vector3 targetPos = new Vector3(target.position.x + 10, target.position.y, 1);
-            player.position = targetPos;
-        }
         else { }
     }
 
@@ -58,12 +53,12 @@ public class PlayerMovement : MonoBehaviour
         bool connectionFound = false;
         int[,] locationConnectionArray = new int[,] 
         {
-        {0, 1, 0, 1, 0, 0}, // C, C1, C2, S, S1, S2
-        {1, 0, 0, 0, 1, 0}, // C1
-        {0, 0, 0, 1, 1, 0}, // C2
-        {1, 0, 1, 0, 0, 1}, // S
-        {0, 1, 1, 0, 0, 0}, // S1
-        {0, 0, 0, 1, 0, 0}  // s2
+        {1, 1, 0, 1, 0, 0}, // C, C1, C2, S, S1, S2
+        {1, 1, 0, 0, 1, 0}, // C1
+        {0, 0, 1, 1, 1, 0}, // C2
+        {1, 0, 1, 1, 0, 1}, // S
+        {0, 1, 1, 0, 1, 0}, // S1
+        {0, 0, 0, 1, 0, 1}  // s2
         }; // 2d array of all connections between locations
 
         if (locationConnectionArray[indexinitial, indexTarget] == 1)

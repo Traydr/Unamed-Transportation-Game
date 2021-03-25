@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class MouseClickDetection : MonoBehaviour
 {
     public Transform player; public GameObject playerM;
-    
+
     // Start is called before the first frame update
     void Start()
     {
