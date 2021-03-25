@@ -63,11 +63,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\MainMenu.cs" />
     <Compile Include="Assets\Scripts\DBconnector.cs" />
     <Compile Include="Assets\Scripts\GUIWindowCreation.cs" />
     <Compile Include="Assets\Scripts\GameHandler.cs" />
     <Compile Include="Assets\Scripts\KeyboardControls.cs" />
+    <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\MoneyDisplayChange.cs" />
     <Compile Include="Assets\Scripts\MouseClickDetection.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
