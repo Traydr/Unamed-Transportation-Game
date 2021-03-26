@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GUIWindowCreation : MonoBehaviour
 {
+    // Dont know what I want to do with this yet. debug?
+    
     // Start is called before the first frame update
     void Start()
     {

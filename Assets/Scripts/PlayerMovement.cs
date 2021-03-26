@@ -74,12 +74,12 @@ public class PlayerMovement : MonoBehaviour
     // Something is going very wrong here and I dont know how to correct it right now
     int CalcFeulCost(Transform initialPos, Transform targetPos)
     {
-        int feulCost = 0;
+        int feulCost = 0; int multiplier = 1;
         int iPosX = Convert.ToInt32(initialPos.position.x); int iPosY = Convert.ToInt32(initialPos.position.y);
         int tPosX = Convert.ToInt32(targetPos.position.x); int tPosY = Convert.ToInt32(targetPos.position.y);
         float deltaX = tPosX - iPosX; float deltaY = tPosY - iPosY;
 
-        float tempFeul = math.round(math.sqrt(deltaX * deltaX + deltaY * deltaY));
+        float tempFeul = math.round(math.sqrt(deltaX * deltaX + deltaY * deltaY) * multiplier);
         feulCost = Convert.ToInt32(tempFeul);
         return feulCost;
     }

@@ -30,7 +30,7 @@ public class MouseClickDetection : MonoBehaviour
 
                 playerM.GetComponent<PlayerMovement>().PMovement(hit.transform);
 
-                /* Possibly still needed TBD
+                /* //Possibly still needed TBD as debug
                 switch (tempTag)
                 {
                     case "Shops":

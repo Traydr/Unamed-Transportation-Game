@@ -7,26 +7,16 @@ using UnityEngine.UI;
 public class MoneyDisplayChange : MonoBehaviour
 {
     public Text money;
-    // Start is called before the first frame update
+
     void Start()
     {
         Debug.Log("MoneyDisplayChange.Start");
-        money.text = "2000";
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKey("f"))
-        {
-            MoneyChange(100, true);
-        }
-        else { }
+        money.text = "2000"; // starting amount of money
     }
 
     public void MoneyChange(int amount, bool postiveValue)
     {
-        int currentMoney = int.Parse(money.text);
+        int currentMoney = ReadMoney();
         if (postiveValue == true)
         {
             currentMoney += amount;
@@ -35,6 +25,17 @@ public class MoneyDisplayChange : MonoBehaviour
         {
             currentMoney -= amount;
         }
-        money.text = currentMoney.ToString();
+        WriteMoney(currentMoney);
+    }
+
+    int ReadMoney()
+    {
+        int currentMoney = int.Parse(money.text);
+        return currentMoney;
+    }
+
+    void WriteMoney(int moneyInput)
+    {
+        money.text = moneyInput.ToString();
     }
 }
