@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class ItemMenu : MonoBehaviour
 {
-    public GameObject sellMenu; public GameObject buyMenu;
+    public GameObject sellMenu; public GameObject buyMenu; public GameObject gameHandler; public GameObject player;
     public int numRows = 4; public int numCol = 4;
 
     void Start()
@@ -35,7 +35,18 @@ public class ItemMenu : MonoBehaviour
 
     void UIDetection() // Needs to take the last target from public variable in the player movement script
     {
+        Transform currentlocation = player.GetComponent<PlayerMovement>().lastTarget;
 
+        if (currentlocation.tag == "Shops")
+        {
+
+        }
+        else if (currentlocation.tag == "Cities")
+        {
+
+        }
+        else { }
+        
     }
 
     public void ResolveSell(GameObject menu)
@@ -64,10 +75,14 @@ public class ItemMenu : MonoBehaviour
             }
             else
             {
+                int revenue = Convert.ToInt32(Math.Round(itemToSell * itemPrice));
                 itemStockInInventory -= itemToSell;
                 WriteRow(tempRow, itemName, itemPrice, itemStockInInventory);
                 WipeInput(tempRow);
+                gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(revenue, true);
             }
+
+            WipeInput(tempRow);
         }
     }
 
@@ -146,6 +161,18 @@ public class ItemMenu : MonoBehaviour
         GameObject input = row.transform.GetChild(3).gameObject;
         TMP_InputField inputTMPI = input.GetComponent<TMP_InputField>();
         inputTMPI.text = "";
+    }
+
+    public void WipeAllInputs(GameObject menu)
+    {
+        int[] rowChildIndex = new int[numRows];
+        rowChildIndex = FindRowsWithinMenu(menu);
+
+        for (int i = 0; i < rowChildIndex.Length; i++)
+        {
+            GameObject tempRow = menu.transform.GetChild(rowChildIndex[i]).gameObject;
+            WipeInput(tempRow);
+        }
     }
     
 }
