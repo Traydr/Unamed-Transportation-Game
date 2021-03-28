@@ -7,20 +7,21 @@ using UnityEngine.UI;
 
 public class ItemMenu : MonoBehaviour
 {
-    public GameObject sellMenu;
+    public GameObject sellMenu; public GameObject buyMenu;
+    public int numRows = 4; public int numCol = 4;
 
     void Start()
     {
         Debug.Log("ItemMenu.Start");
 
         // Testing below functions
-        int[] rowChildIndex = new int[4];
+        int[] rowChildIndex = new int[numRows];
         rowChildIndex = FindRowsWithinMenu(sellMenu);
         
         for (int i = 0; i < rowChildIndex.Length; i++)
         {
             GameObject tempRow = sellMenu.transform.GetChild(rowChildIndex[i]).gameObject;
-            string[] rowData = new string[4];
+            string[] rowData = new string[numCol];
             rowData = ReadRow(tempRow);
 
             for (int x = 0; x < rowData.Length; x++)
@@ -32,10 +33,53 @@ public class ItemMenu : MonoBehaviour
         }
     }
 
+    void UIDetection() // Needs to take the last target from public variable in the player movement script
+    {
+
+    }
+
+    public void ResolveSell(GameObject menu)
+    {
+        int[] rowChildIndex = new int[numRows];
+        string[] rowElements = new string[numCol];
+
+        rowChildIndex = FindRowsWithinMenu(menu);
+
+        for (int i = 0; i < rowChildIndex.Length; i++)
+        {
+            GameObject tempRow = menu.transform.GetChild(rowChildIndex[i]).gameObject;
+            rowElements = ReadRow(tempRow);
+            string itemName = rowElements[0];
+            float itemPrice = float.Parse(rowElements[1]);
+            int itemStockInInventory = int.Parse(rowElements[2]);
+            int itemToSell = int.Parse(rowElements[3]);
+
+            if (itemToSell < 0)
+            {
+                Debug.LogError("To Sell is negative");
+            }
+            else if (itemToSell > itemStockInInventory)
+            {
+                Debug.LogError("Not enough stock in inventory");
+            }
+            else
+            {
+                itemStockInInventory -= itemToSell;
+                WriteRow(tempRow, itemName, itemPrice, itemStockInInventory);
+                WipeInput(tempRow);
+            }
+        }
+    }
+
+    public void ResolveBuy()
+    {
+
+    }
+
     int[] FindRowsWithinMenu(GameObject menu) // Finds the child index of any game objects with the first 3 letters containing 'Row' and then returns an array of indexes
     {
         int menuChildCount = menu.transform.childCount;
-        int[] rowChildIndex = new int[4];
+        int[] rowChildIndex = new int[numRows];
         int currentIndex = 0;
 
         for (int i = 0; i < menuChildCount; i++)
@@ -56,7 +100,7 @@ public class ItemMenu : MonoBehaviour
 
     string[] ReadRow(GameObject row) // Reads the item, price, stock and input values from the shop or city menu and then outputs them as an array of strings
     {
-        string[] rowChildValues = new string[4];
+        string[] rowElements = new string[numCol];
         
         GameObject item = row.transform.GetChild(0).gameObject;
         TextMeshProUGUI itemTMP = item.GetComponent<TextMeshProUGUI>();
@@ -74,12 +118,12 @@ public class ItemMenu : MonoBehaviour
         TMP_InputField inputTMPI = input.GetComponent<TMP_InputField>();
         string inputString = inputTMPI.text;
 
-        rowChildValues[0] = itemString;
-        rowChildValues[1] = Convert.ToString(priceFloat);
-        rowChildValues[2] = Convert.ToString(stockInt);
-        rowChildValues[3] = inputString;
+        rowElements[0] = itemString;
+        rowElements[1] = Convert.ToString(priceFloat);
+        rowElements[2] = Convert.ToString(stockInt);
+        rowElements[3] = inputString;
 
-        return rowChildValues;
+        return rowElements;
     }
 
     void WriteRow(GameObject row, string itemString, float priceFloat, int stockInt) // Writes to the shop or city menus
@@ -95,6 +139,13 @@ public class ItemMenu : MonoBehaviour
         GameObject stock = row.transform.GetChild(2).gameObject;
         TextMeshProUGUI stockTMP = stock.GetComponent<TextMeshProUGUI>();
         stockTMP.text = Convert.ToString(stockInt);
+    }
+
+    void WipeInput(GameObject row)
+    {
+        GameObject input = row.transform.GetChild(3).gameObject;
+        TMP_InputField inputTMPI = input.GetComponent<TMP_InputField>();
+        inputTMPI.text = "";
     }
     
 }

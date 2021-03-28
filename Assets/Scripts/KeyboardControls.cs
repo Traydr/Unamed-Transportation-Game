@@ -27,11 +27,6 @@ public class KeyboardControls : MonoBehaviour
             gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(100, false);
         }
         else { }
-        //if (Input.GetKey("p"))
-        //{
-        //    gameHandler.GetComponent<SellMenu>().CalcResult(row, true);
-        //}
-        //else { }
         if (Input.GetKeyDown("q"))
         {
             canvasBackground.SetActive(!canvasBackground.activeSelf);

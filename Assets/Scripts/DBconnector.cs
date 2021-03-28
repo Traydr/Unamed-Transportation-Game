@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Data.SQLite;
 
-/* TO DO LIST:
- * - ADD DELETE
- * - ADD
- *  - REMEMBER TO CHANGE THE DIRECTORIES OF THE // SQLiteConnection // TO FINAL DATABASE LOCATION AND FILE NAME
- */
-
 public class DBconnector : MonoBehaviour
 {
     

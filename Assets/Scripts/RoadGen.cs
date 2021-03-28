@@ -5,8 +5,7 @@ using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 /* This script is intended to only ever run once when the game is running / when a save file is loaded
- * Generate black rectangles between 2 points.
- * New plan: enable or disable manually placed roads depending on an excel file
+ * Activate or deactivate pre-made roads. Changing the 2d array of raods that currently exists inside Playermovement.cs
  */
 public class RoadGen : MonoBehaviour
 {
