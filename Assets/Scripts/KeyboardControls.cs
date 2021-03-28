@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class KeyboardControls : MonoBehaviour
 {
-    // Money
-    public GameObject moneyChange;
+    // GameHandler
+    public GameObject gameHandler; public GameObject row;
 
     // Menu's
     public GameObject canvasBackground; public GameObject shopUI; public GameObject cityUI; public GameObject escMenu; public GameObject moneyDisplay;
@@ -19,14 +19,19 @@ public class KeyboardControls : MonoBehaviour
     {
         if (Input.GetKey("j"))
         {
-            moneyChange.GetComponent<MoneyDisplayChange>().MoneyChange(100, true);
+            gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(100, true);
         }
         else { }
         if (Input.GetKey("h"))
         {
-            moneyChange.GetComponent<MoneyDisplayChange>().MoneyChange(100, false);
+            gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(100, false);
         }
         else { }
+        //if (Input.GetKey("p"))
+        //{
+        //    gameHandler.GetComponent<SellMenu>().CalcResult(row, true);
+        //}
+        //else { }
         if (Input.GetKeyDown("q"))
         {
             canvasBackground.SetActive(!canvasBackground.activeSelf);
