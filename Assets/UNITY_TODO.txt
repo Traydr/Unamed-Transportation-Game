@@ -6,8 +6,8 @@ TO DO:
 		Add randomness so that a new playthrough wont have exactly the same strategy
 
 	-> VEHICLES
-		Weight limit
-		Volume limit
+		Weight limit KG
+		Volume limit Liters
 		Maintenance costs (Weakly/7D)
 	-> WAREHOUSES
 		Volume limit

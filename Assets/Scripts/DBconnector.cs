@@ -39,17 +39,30 @@ public class DBconnector : MonoBehaviour
 
     }
 
-    void DBSelect(string table, string columnName)
+    public string[,] DBSelect(string table, string columnName)
     {
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
-
+        
+        //SELECT STATEMENT
         string combinedCommand = string.Format("SELECT {0} FROM {1}", columnName, table);
         cmd.CommandText = combinedCommand;
 
+        // SQL DATA READER
+        SQLiteDataReader sqlReader = cmd.ExecuteReader();
+        string[,] arrayOfTable = new string[sqlReader.FieldCount,10];
+        int indexCounter = 0;
+
+        while (sqlReader.Read())
+        {
+            Debug.Log(sqlReader.GetString(0));
+        }
+
         cmd.ExecuteNonQuery();
         connection.Close();
+
+        return arrayOfTable;
     }
 
     void DBUpdate(string table, string columnID, string columnUpdate, string id, string dataUpdate)
