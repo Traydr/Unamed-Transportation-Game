@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Data.SQLite;
+using System;
 
 public class DBconnector : MonoBehaviour
 {
@@ -13,12 +14,6 @@ public class DBconnector : MonoBehaviour
     void Start()
     {
         Debug.Log("DBconnector.Start");
-
-        // Testing
-        string[,] arrayOfTable = new string[20, 20];
-        arrayOfTable = DBSelect("Location","LocationID");
-
-        // End of Testing
     }
 
     // SECTION: COPY PASTE [START OF SECTION - TO BE DELETED]
@@ -95,18 +90,58 @@ public class DBconnector : MonoBehaviour
 
     public string[,] DBLTSelect()
     {
-        string[,] selectionResult = new string[6, 4];
+        string[,] selectionResult = new string[6, 4]; int indexCounter = 0;
 
+        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        connection.Open();
+        SQLiteCommand cmd = connection.CreateCommand();
 
+        string combinedCommand = string.Format("SELECT * FROM Location ORDER BY LocationID ASC");
+        cmd.CommandText = combinedCommand;
+
+        SQLiteDataReader sqlReader = cmd.ExecuteReader();
+
+        while (sqlReader.Read())
+        {
+            selectionResult[indexCounter, 0] = sqlReader.GetString(0);
+            selectionResult[indexCounter, 1] = sqlReader.GetString(1);
+            selectionResult[indexCounter, 2] = sqlReader.GetString(2);
+            selectionResult[indexCounter, 3] = sqlReader.GetString(3);
+            indexCounter += 1;
+        }
+
+        connection.Close();
 
         return selectionResult;
     }
 
     // PRODUCTS (Shorthand: PD)
 
-    public string[,] DBPDSelect()
+    public string[,] DBPDSelect(string colName, string whereValue)
     {
-        string[,] selectionResult = new string[7, 6];
+        string[,] selectionResult = new string[1, 6]; int indexCounter = 0;
+
+        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        connection.Open();
+        SQLiteCommand cmd = connection.CreateCommand();
+
+        string combinedCommand = string.Format("SELECT * FROM Product WHERE {0} = {1} ORDER BY ProductID ASC", colName, whereValue);
+        cmd.CommandText = combinedCommand;
+
+        SQLiteDataReader sqlReader = cmd.ExecuteReader();
+
+        while (sqlReader.Read())
+        {
+            selectionResult[indexCounter, 0] = sqlReader.GetString(0);
+            selectionResult[indexCounter, 1] = sqlReader.GetString(1);
+            selectionResult[indexCounter, 2] = sqlReader.GetString(2);
+            selectionResult[indexCounter, 3] = sqlReader.GetString(3);
+            selectionResult[indexCounter, 4] = sqlReader.GetString(4);
+            selectionResult[indexCounter, 5] = sqlReader.GetString(5);
+            indexCounter += 1;
+        }
+
+        connection.Close();
 
 
 
@@ -115,11 +150,30 @@ public class DBconnector : MonoBehaviour
 
     // PRODUCTLOCATION (Shorthand: PDLT)
 
-    public string[,] DBPDLTSelect()
+    public string[,] DBPDLTSelect(string colName, string whereValue)
     {
-        string[,] selectionResult = new string[24, 5];
+        string[,] selectionResult = new string[24, 5]; int indexCounter = 0;
 
+        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        connection.Open();
+        SQLiteCommand cmd = connection.CreateCommand();
 
+        string combinedCommand = string.Format("SELECT * FROM ProductLocation WHERE {0} = {1} ORDER BY ProductID ASC", colName, whereValue);
+        cmd.CommandText = combinedCommand;
+
+        SQLiteDataReader sqlReader = cmd.ExecuteReader();
+
+        while (sqlReader.Read())
+        {
+            selectionResult[indexCounter, 0] = Convert.ToString(sqlReader.GetInt32(0));
+            selectionResult[indexCounter, 1] = Convert.ToString(sqlReader.GetInt32(1));
+            selectionResult[indexCounter, 2] = Convert.ToString(sqlReader.GetInt32(2));
+            selectionResult[indexCounter, 3] = Convert.ToString(sqlReader.GetFloat(3));
+            selectionResult[indexCounter, 4] = Convert.ToString(sqlReader.GetValue(4));
+            indexCounter += 1;
+        }
+
+        connection.Close();
 
         return selectionResult;
     }

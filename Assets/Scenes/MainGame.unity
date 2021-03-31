@@ -970,6 +970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fab43bb437846d24d83c0ea6e986b32f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameHandler: {fileID: 343716350}
 --- !u!4 &343716352
 Transform:
   m_ObjectHideFlags: 0
@@ -1019,7 +1020,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 343716350}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c29e080fbd9e6442b4e0708d71d52ce, type: 3}
   m_Name: 
@@ -1028,10 +1029,16 @@ MonoBehaviour:
   selfObject: {fileID: 343716352}
   windowRect:
     serializedVersion: 2
-    x: 500
+    x: 400
     y: 200
-    width: 120
-    height: 50
+    width: 300
+    height: 100
+  buttonRect:
+    serializedVersion: 2
+    x: 10
+    y: 20
+    width: 275
+    height: 40
 --- !u!114 &343716356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1067,8 +1074,8 @@ MonoBehaviour:
   buyMenu: {fileID: 1525501191}
   gameHandler: {fileID: 343716350}
   player: {fileID: 783787197}
-  numRows: 4
-  numCol: 4
+  numRowsInMenu: 4
+  numColInMenu: 4
 --- !u!114 &343716358
 MonoBehaviour:
   m_ObjectHideFlags: 0
