@@ -8,20 +8,20 @@ using UnityEngine.UI;
 public class ItemMenu : MonoBehaviour
 {
     public GameObject sellMenu; public GameObject buyMenu; public GameObject gameHandler; public GameObject player;
-    public int numRows = 4; public int numCol = 4;
+    public int numRowsInMenu = 4; public int numColInMenu = 4;
 
     void Start()
     {
         Debug.Log("ItemMenu.Start");
 
         // Testing below functions
-        int[] rowChildIndex = new int[numRows];
+        int[] rowChildIndex = new int[numRowsInMenu];
         rowChildIndex = FindRowsWithinMenu(sellMenu);
         
         for (int i = 0; i < rowChildIndex.Length; i++)
         {
             GameObject tempRow = sellMenu.transform.GetChild(rowChildIndex[i]).gameObject;
-            string[] rowData = new string[numCol];
+            string[] rowData = new string[numColInMenu];
             rowData = ReadRow(tempRow);
 
             for (int x = 0; x < rowData.Length; x++)
@@ -51,8 +51,8 @@ public class ItemMenu : MonoBehaviour
 
     public void ResolveSell(GameObject menu)
     {
-        int[] rowChildIndex = new int[numRows];
-        string[] rowElements = new string[numCol];
+        int[] rowChildIndex = new int[numRowsInMenu];
+        string[] rowElements = new string[numColInMenu];
 
         rowChildIndex = FindRowsWithinMenu(menu);
 
@@ -67,11 +67,13 @@ public class ItemMenu : MonoBehaviour
 
             if (itemToSell < 0)
             {
-                Debug.LogError("To Sell is negative");
+                gameHandler.GetComponent<GUIWindowCreation>().enabled = true;
+                gameHandler.GetComponent<GUIWindowCreation>().errorMessage = "To Sell is negative";
             }
             else if (itemToSell > itemStockInInventory)
             {
-                Debug.LogError("Not enough stock in inventory");
+                gameHandler.GetComponent<GUIWindowCreation>().enabled = true;
+                gameHandler.GetComponent<GUIWindowCreation>().errorMessage = "Not enough stock in inventory";
             }
             else
             {
@@ -94,7 +96,7 @@ public class ItemMenu : MonoBehaviour
     int[] FindRowsWithinMenu(GameObject menu) // Finds the child index of any game objects with the first 3 letters containing 'Row' and then returns an array of indexes
     {
         int menuChildCount = menu.transform.childCount;
-        int[] rowChildIndex = new int[numRows];
+        int[] rowChildIndex = new int[numRowsInMenu];
         int currentIndex = 0;
 
         for (int i = 0; i < menuChildCount; i++)
@@ -115,7 +117,7 @@ public class ItemMenu : MonoBehaviour
 
     string[] ReadRow(GameObject row) // Reads the item, price, stock and input values from the shop or city menu and then outputs them as an array of strings
     {
-        string[] rowElements = new string[numCol];
+        string[] rowElements = new string[numColInMenu];
         
         GameObject item = row.transform.GetChild(0).gameObject;
         TextMeshProUGUI itemTMP = item.GetComponent<TextMeshProUGUI>();
@@ -165,7 +167,7 @@ public class ItemMenu : MonoBehaviour
 
     public void WipeAllInputs(GameObject menu)
     {
-        int[] rowChildIndex = new int[numRows];
+        int[] rowChildIndex = new int[numRowsInMenu];
         rowChildIndex = FindRowsWithinMenu(menu);
 
         for (int i = 0; i < rowChildIndex.Length; i++)
