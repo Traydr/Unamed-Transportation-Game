@@ -37,7 +37,7 @@ public class ItemMenu : MonoBehaviour
     {
         Transform currentlocation = player.GetComponent<PlayerMovement>().lastTarget;
 
-        if (currentlocation.tag == "Shops")
+        if (currentlocation.tag == "Shops") // Takes the tag to open correct menu, then gets the data from DB and then writes it to the menu
         {
 
         }

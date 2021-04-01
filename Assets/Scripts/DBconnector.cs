@@ -115,6 +115,8 @@ public class DBconnector : MonoBehaviour
         return selectionResult;
     }
 
+
+
     // PRODUCTS (Shorthand: PD)
 
     public string[,] DBPDSelect(string colName, string whereValue)
