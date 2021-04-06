@@ -31,6 +31,11 @@ public class KeyboardControls : MonoBehaviour
             gameHandler.GetComponent<InGameTime>().UpdateTime(1);
         }
         else { }
+        if (Input.GetKeyDown("l"))
+        {
+            Debug.Log(gameHandler.GetComponent<InGameTime>().GetTimeInHours());
+        }
+        else { }
         if (Input.GetKeyDown("q")) // Activates shop menu
         {
             canvasBackground.SetActive(!canvasBackground.activeSelf);

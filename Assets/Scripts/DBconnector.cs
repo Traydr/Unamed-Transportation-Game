@@ -208,6 +208,7 @@ public class DBconnector : MonoBehaviour
 
 
     // PLAYER (Shorthand: PL)
+    // IMPORTANT: CITIES DONT NEED STOCK
 
     public string[] DBPLSelect(string colName, string whereValue)
     {
