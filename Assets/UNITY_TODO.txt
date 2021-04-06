@@ -11,6 +11,7 @@ TO DO:
 		Maintenance costs (Weakly/7D)
 	-> WAREHOUSES
 		Volume limit
+		Not a place on the map, instead its a menu, where stuff can be taken out and put into storage at a cost, anywhere on the map
 	-> UPGRADES
 		Warehouses
 			Increasing volume limits (static)

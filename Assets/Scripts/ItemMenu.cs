@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,9 +32,12 @@ public class ItemMenu : MonoBehaviour
 
             WriteRow(tempRow, "Test", 1.5f, 100);
         }
+
+        WriteFromDBToMenu("3", sellMenu);
+        // End of Testing
     }
 
-    void UIDetection() // Needs to take the last target from public variable in the player movement script
+    public void UIDetection() // Needs to take the last target from public variable in the player movement script || DO NOT FORGET TO GET RID OF SETACTIVE City UI on OPEN UI Button
     {
         Transform currentlocation = player.GetComponent<PlayerMovement>().lastTarget;
 
@@ -47,6 +51,24 @@ public class ItemMenu : MonoBehaviour
         }
         else { }
         
+    }
+
+    void WriteFromDBToMenu(string locIndex, GameObject menu)
+    {
+        string[,] arrMenuData = new string[4, 5]; int[] rowChildindex = new int[4]; string[,] getProduct = new string[1, 6];
+        arrMenuData = gameHandler.GetComponent<DBconnector>().DBPDLTSelect("LocationID", locIndex);
+        rowChildindex = FindRowsWithinMenu(menu);
+
+        for (int i = 0; i < 4; i++)
+        {
+            GameObject tempRow = menu.transform.GetChild(rowChildindex[i]).gameObject;
+            getProduct = gameHandler.GetComponent<DBconnector>().DBPDSelect("ProductID", arrMenuData[i, 0]);
+            string itemString = getProduct[0, 1];
+            float priceFloat = float.Parse(arrMenuData[i, 3]);
+            int stockInt = int.Parse(arrMenuData[i, 2]);
+
+            WriteRow(tempRow, itemString, priceFloat, stockInt);
+        }
     }
 
     public void ResolveSell(GameObject menu)

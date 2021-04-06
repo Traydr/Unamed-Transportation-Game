@@ -10,7 +10,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Transform player; public Transform initialStart; public Transform lastTarget;
-    public GameObject MoneyChange;
+    public GameObject gameHandler;
 
     void Start()
     {
@@ -26,7 +26,8 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 targetPos = new Vector3(target.position.x + 10, target.position.y, 1);
             player.position = targetPos;
-            MoneyChange.GetComponent<MoneyDisplayChange>().MoneyChange(CalcFeulCost(lastTarget, target), false);
+            gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(CalcFeulCost(lastTarget, target), false);
+            gameHandler.GetComponent<InGameTime>().UpdateTime(3); // Should probably be a public var, also should be a more dynamic time cost
             lastTarget = target;
         }
         else { }
