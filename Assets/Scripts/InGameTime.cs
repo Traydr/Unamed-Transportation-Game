@@ -23,6 +23,7 @@ public class InGameTime : MonoBehaviour
 
     }
 
+    // Addition for UpdateTime, each time the loop is done, an event script should be called to evaluate the day !!
     public void UpdateTime(int advanceTimeByNumHours) // Takes in a number of hours to add to the current time, then it correctly calculates how it should be displayed and dsiplays it
     {
         int newDayValue = 0; int newHourValue = 0; int[] storedTime = new int[2];
@@ -33,6 +34,7 @@ public class InGameTime : MonoBehaviour
         {
             newHourValue -= 24;
             newDayValue += 1;
+            // MAKE CALL HERE
         }
 
         SetTime(newDayValue, newHourValue);
@@ -54,5 +56,21 @@ public class InGameTime : MonoBehaviour
     public void SetTime(int dayValue, int hourValue)
     {
         timeDisplay.text = string.Format("{0}D {1}H", dayValue, hourValue);
+    }
+
+    public void SetTimeFromTotalHours(int totalHours)
+    {
+        SetTime(0, 0);
+        UpdateTime(totalHours);
+    }
+
+    public int GetTimeInHours()
+    {
+        int totalHours = 0; int[] currentTime = new int[2];
+        currentTime = GetTime();
+
+        totalHours = (currentTime[0] * 24) + (currentTime[1]);
+
+        return totalHours;
     }
 }

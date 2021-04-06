@@ -43,7 +43,8 @@ public class ItemMenu : MonoBehaviour
 
         if (currentlocation.tag == "Shops") // Takes the tag to open correct menu, then gets the data from DB and then writes it to the menu
         {
-
+            // Make Shop UI Active
+            // Write data to shop ui
         }
         else if (currentlocation.tag == "Cities")
         {

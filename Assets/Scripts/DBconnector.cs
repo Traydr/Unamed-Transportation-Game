@@ -6,86 +6,28 @@ using System;
 
 public class DBconnector : MonoBehaviour
 {
-    /* NOTES FOR SCRIPT
-     * - EACH TABLE NEEDS COMMAND THAT ARE ONLY NEEDED FOR ITSELF
-     * 
-     */
+    public GameObject gameHandler;
 
     void Start()
     {
         Debug.Log("DBconnector.Start");
     }
 
-    // SECTION: COPY PASTE [START OF SECTION - TO BE DELETED]
-    void DBInsert(string table, string columnName, string dataIn)
+    // General Function Start
+
+    float CalcNewAVG(float avg, int numItems, float newValue, int newNumItem)
     {
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
-        connection.Open();
-        SQLiteCommand cmd = connection.CreateCommand();
+        float numAVG = 0;
 
-        string combinedCommand = string.Format("INSERT INTO {0} ({1}) VALUES ({2})", table, columnName, dataIn);
-        cmd.CommandText = combinedCommand;
+        numAVG = ((avg * numItems) + (newValue * newNumItem)) / (numItems * newNumItem);
 
-        cmd.ExecuteNonQuery();
-        connection.Close();
+        return numAVG;
     }
 
-    void DBDelete(string table, string columnName, string dataToDelete)
-    {
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
-        connection.Open();
-        SQLiteCommand cmd = connection.CreateCommand();
-
-        string combinedCommand = string.Format("DELETE FROM {0} WHERE {1} = {2}", table, columnName, dataToDelete);
-        cmd.CommandText = combinedCommand;
-
-        cmd.ExecuteNonQuery();
-        connection.Close();
-
-    }
-
-    public string[,] DBSelect(string table, string columnName)
-    {
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
-        connection.Open();
-        SQLiteCommand cmd = connection.CreateCommand();
-
-        //SELECT STATEMENT
-        //string combinedCommand = string.Format("SELECT {0} FROM {1}", columnName, table);
-        string combinedCommand = string.Format("SELECT * FROM {0} ORDER BY {1} ASC", table, columnName);
-        cmd.CommandText = combinedCommand;
-
-        // SQL DATA READER
-        SQLiteDataReader sqlReader = cmd.ExecuteReader();
-        string[,] arrayOfTable = new string[sqlReader.FieldCount,10];
-
-        while (sqlReader.Read())
-        {
-            string logDebug = string.Format("{0}, {1}, {2}, {3}", sqlReader.GetInt32(0), sqlReader.GetString(1), sqlReader.GetString(2), sqlReader.GetString(3));
-            Debug.Log(logDebug);
-        }
-
-        connection.Close();
-
-        return arrayOfTable;
-    }
-
-    void DBUpdate(string table, string columnID, string columnUpdate, string id, string dataUpdate)
-    {
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
-        connection.Open();
-        SQLiteCommand cmd = connection.CreateCommand();
-
-        string combinedCommand = string.Format("UPDATE {0} SET {1} = {2} WHERE {3} = {4}", table, columnUpdate, dataUpdate, columnID, id);
-        cmd.CommandText = combinedCommand;
-
-        cmd.ExecuteNonQuery();
-        connection.Close();
-    }
-    // END OF SECTION: COPY PASTE
+    // General Functions End
 
 
-    // ALL TABLES
+    // SPECIFIC TABLES
     // LOCATION (Shorthand: LT)
 
     public string[,] DBLTSelect()
@@ -114,7 +56,6 @@ public class DBconnector : MonoBehaviour
 
         return selectionResult;
     }
-
 
 
     // PRODUCTS (Shorthand: PD)
@@ -150,7 +91,8 @@ public class DBconnector : MonoBehaviour
         return selectionResult;
     }
 
-    // PRODUCTLOCATION (Shorthand: PDLT) || NOTE NEEDS TO BE ABLE TO CHANGE VALUES WITHIN ROWS
+
+    // PRODUCTLOCATION (Shorthand: PDLT)
 
     public string[,] DBPDLTSelect(string colName, string whereValue)
     {
@@ -180,6 +122,20 @@ public class DBconnector : MonoBehaviour
         return selectionResult;
     }
 
+    public void DBPDLTUpdate(string setCol, string setVal, string arCol1, string arVal1, string arCol2, string arVal2)
+    {
+        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        connection.Open();
+        SQLiteCommand cmd = connection.CreateCommand();
+
+        string combinedCommand = string.Format("UPDATE ProductLocation SET {0} = {1} WHERE {2} = {3} AND {4} = {5}", setCol, setVal, arCol1, arVal1, arCol2, arVal2);
+        cmd.CommandText = combinedCommand;
+
+        cmd.ExecuteNonQuery();
+        connection.Close();
+    }
+
+
     // PRODUCTCHANGES (Shorthand: PDCH)
 
     public string[,] DBPDCHSelect(string colName, string whereValue)
@@ -190,7 +146,7 @@ public class DBconnector : MonoBehaviour
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
-        string combinedCommand = string.Format("SELECT * FROM ProductLocation WHERE {0} = {1} ORDER BY ProductID ASC", colName, whereValue);
+        string combinedCommand = string.Format("SELECT * FROM ProductChanges WHERE {0} = {1} ORDER BY ProductID ASC", colName, whereValue);
         cmd.CommandText = combinedCommand;
 
         SQLiteDataReader sqlReader = cmd.ExecuteReader();
@@ -211,36 +167,137 @@ public class DBconnector : MonoBehaviour
         return selectionResult;
     }
 
-    // PLAYER (Shorthand: PL)
-
-    public string[,] DBPLSelect(string colName, string whereValue)
+    public void DBPDCHInsert(int productID, int locationID, float newPrice, int newStock)
     {
-        string[,] selectionResult = new string[10, 4]; int indexCounter = 0;
+        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        connection.Open();
+        SQLiteCommand cmd = connection.CreateCommand();
+
+        int currentTimeHours = gameHandler.GetComponent<InGameTime>().GetTimeInHours();
+        int changeID = 0; changeID = DBPDCHGetMaxChangeID() + 1;
+
+        string combinedCommand = string.Format("INSERT INTO ProductChanges (ChangeID, ProductID, LocationID, NewPrice, NewStock, InGameTime) VALUES ({0}, {1}, {2}, {3}, {4}, {5})", changeID, productID, locationID, newPrice, newStock, currentTimeHours);
+        cmd.CommandText = combinedCommand;
+
+        cmd.ExecuteNonQuery();
+        connection.Close();
+    }
+
+    int DBPDCHGetMaxChangeID()
+    {
+        int maxChangeID = 0;
 
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
-        string combinedCommand = string.Format("SELECT * FROM ProductLocation WHERE {0} = {1} ORDER BY ProductID ASC", colName, whereValue);
+        string combinedCommand = string.Format("SELECT MAX(ChangeID) FROM ProductChanges");
         cmd.CommandText = combinedCommand;
 
         SQLiteDataReader sqlReader = cmd.ExecuteReader();
 
         while (sqlReader.Read())
         {
-            selectionResult[indexCounter, 0] = Convert.ToString(sqlReader.GetInt32(0));
-            selectionResult[indexCounter, 1] = Convert.ToString(sqlReader.GetFloat(1));
-            selectionResult[indexCounter, 2] = Convert.ToString(sqlReader.GetInt32(2));
-            selectionResult[indexCounter, 3] = Convert.ToString(sqlReader.GetValue(3));
-            indexCounter += 1;
+            maxChangeID = sqlReader.GetInt32(0); 
         }
 
         connection.Close();
 
+        return maxChangeID;
+    }
 
 
+    // PLAYER (Shorthand: PL)
+
+    public string[] DBPLSelect(string colName, string whereValue)
+    {
+        string[] selectionResult = new string[4];
+
+        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        connection.Open();
+        SQLiteCommand cmd = connection.CreateCommand();
+
+        string combinedCommand = string.Format("SELECT * FROM PlayerInventory WHERE {0} = {1} ORDER BY ProductID ASC", colName, whereValue);
+        cmd.CommandText = combinedCommand;
+
+        SQLiteDataReader sqlReader = cmd.ExecuteReader();
+
+        while (sqlReader.Read())
+        {
+            selectionResult[0] = Convert.ToString(sqlReader.GetInt32(0));
+            selectionResult[1] = Convert.ToString(sqlReader.GetFloat(1));
+            selectionResult[2] = Convert.ToString(sqlReader.GetInt32(2));
+            selectionResult[3] = Convert.ToString(sqlReader.GetValue(3));
+        }
+
+        connection.Close();
         return selectionResult;
     }
+
+    public void DBPLInput(int productID, float priceAVG, int stock, bool pOrW, bool sellT_or_BuyF)
+    {
+        string[] invList = new string[4];
+        invList = DBPLSelect("ProductID", Convert.ToString(productID));
+
+        if (invList[0] is null)
+        {
+            DBPLInsert(productID, priceAVG, stock, pOrW);
+        }
+        else
+        {
+            if (sellT_or_BuyF == true)
+            {
+                if (stock == int.Parse(invList[2]))
+                {
+                    DBPLUpdate("LastPrceAVG", "0", "ProductID", Convert.ToString(productID));
+                    DBPLUpdate("Stock", "0", "ProductID", Convert.ToString(productID));
+                }
+                else
+                {
+                    float newPriceAVG = CalcNewAVG(int.Parse(invList[1]), int.Parse(invList[2]), priceAVG, -stock);
+                    int newStock = int.Parse(invList[2]) - stock;
+
+                    DBPLUpdate("LastPrceAVG", Convert.ToString(newPriceAVG), "ProductID", Convert.ToString(productID));
+                    DBPLUpdate("Stock", Convert.ToString(newStock), "ProductID", Convert.ToString(productID));
+                }
+            }
+            else
+            {
+                float newPriceAVG = CalcNewAVG(int.Parse(invList[1]), int.Parse(invList[2]), priceAVG, stock);
+                int newStock = int.Parse(invList[2]) + stock;
+
+                DBPLUpdate("LastPrceAVG", Convert.ToString(newPriceAVG), "ProductID", Convert.ToString(productID));
+                DBPLUpdate("Stock", Convert.ToString(newStock), "ProductID", Convert.ToString(productID));
+            }
+        }
+    }
+
+    void DBPLUpdate(string setCol, string setVal, string arCol1, string arVal1)
+    {
+        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        connection.Open();
+        SQLiteCommand cmd = connection.CreateCommand();
+
+        string combinedCommand = string.Format("UPDATE PlayerInventory SET {0} = {1} WHERE {2} = {3}", setCol, setVal, arCol1, arVal1);
+        cmd.CommandText = combinedCommand;
+
+        cmd.ExecuteNonQuery();
+        connection.Close();
+    }
+
+    void DBPLInsert(int productID, float priceAVG, int stock, bool pOrW)
+    {
+        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        connection.Open();
+        SQLiteCommand cmd = connection.CreateCommand();
+
+        string combinedCommand = string.Format("INSERT INTO PlayerInventory (ProductID, LastPriceAVG, Stock, PlayerT_or_WarehouseF) VALUES ({0}, {1}, {2}, {3})", productID, priceAVG, stock, pOrW);
+        cmd.CommandText = combinedCommand;
+
+        cmd.ExecuteNonQuery();
+        connection.Close();
+    }
+
 
     // UPGRADES (Shorthand: UG)
 
@@ -254,7 +311,7 @@ public class DBconnector : MonoBehaviour
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
-        string combinedCommand = string.Format("SELECT * FROM ProductLocation WHERE {0} = {1} ORDER BY ProductID ASC", colName, whereValue);
+        string combinedCommand = string.Format("SELECT * FROM Upgrades WHERE {0} = {1} ORDER BY ProductID ASC", colName, whereValue);
         cmd.CommandText = combinedCommand;
 
         SQLiteDataReader sqlReader = cmd.ExecuteReader();
@@ -274,5 +331,18 @@ public class DBconnector : MonoBehaviour
         connection.Close();
 
         return selectionResult;
+    }
+
+    public void DBUPUpdate(string setCol, string setVal, string arCol1, string arVal1)
+    {
+        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        connection.Open();
+        SQLiteCommand cmd = connection.CreateCommand();
+
+        string combinedCommand = string.Format("UPDATE Upgrades SET {0} = {1} WHERE {2} = {3}", setCol, setVal, arCol1, arVal1);
+        cmd.CommandText = combinedCommand;
+
+        cmd.ExecuteNonQuery();
+        connection.Close();
     }
 }
