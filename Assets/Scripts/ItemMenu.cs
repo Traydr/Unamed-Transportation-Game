@@ -83,7 +83,7 @@ public class ItemMenu : MonoBehaviour
         }
     }
 
-    public void ResolveSell(GameObject menu)
+    public void ResolveSell(GameObject menu) // needs to check against vehicles weight and volume!!
     {
         int[] rowChildIndex = new int[numRowsInMenu];
         string[] rowElements = new string[numColInMenu];
@@ -118,7 +118,7 @@ public class ItemMenu : MonoBehaviour
                 gameHandler.GetComponent<GUIWindowCreation>().enabled = true;
                 gameHandler.GetComponent<GUIWindowCreation>().errorMessage = "Not enough stock in inventory";
             }
-            else
+            else // Add changes to DB
             {
                 int revenue = Convert.ToInt32(Math.Round(itemToSell * itemPrice));
                 itemStockInInventory -= itemToSell;
