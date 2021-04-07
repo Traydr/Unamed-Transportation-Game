@@ -26,10 +26,4 @@ public class GameHandler : MonoBehaviour
         }
         // End of Testing
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

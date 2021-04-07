@@ -33,7 +33,7 @@ public class ItemMenu : MonoBehaviour
             WriteRow(tempRow, "Test", 1.5f, 100);
         }
 
-        WriteFromDBToMenu("3", sellMenu);
+        WriteFromDBToMenu("3", sellMenu, false);
         // End of Testing
     }
 
@@ -54,20 +54,31 @@ public class ItemMenu : MonoBehaviour
         
     }
 
-    void WriteFromDBToMenu(string locIndex, GameObject menu)
+    void WriteFromDBToMenu(string locIndex, GameObject menu, bool sellT_or_BuyF)
     {
-        string[,] arrMenuData = new string[4, 5]; int[] rowChildindex = new int[4]; string[,] getProduct = new string[1, 6];
+        string[,] arrMenuData = new string[4, 5]; int[] rowChildindex = new int[4]; string[,] getProduct = new string[1, 6]; string[] playerInv = new string[4];
         arrMenuData = gameHandler.GetComponent<DBconnector>().DBPDLTSelect("LocationID", locIndex);
         rowChildindex = FindRowsWithinMenu(menu);
+        
 
         for (int i = 0; i < 4; i++)
         {
             GameObject tempRow = menu.transform.GetChild(rowChildindex[i]).gameObject;
             getProduct = gameHandler.GetComponent<DBconnector>().DBPDSelect("ProductID", arrMenuData[i, 0]);
+            playerInv = gameHandler.GetComponent<DBconnector>().DBPLSelect("ProductID", arrMenuData[i, 0]);
             string itemString = getProduct[0, 1];
             float priceFloat = float.Parse(arrMenuData[i, 3]);
-            int stockInt = int.Parse(arrMenuData[i, 2]);
+            int stockInt = 0;
 
+            if (sellT_or_BuyF)
+            {
+                stockInt = int.Parse(playerInv[2]);
+            }
+            else
+            {
+                stockInt = int.Parse(arrMenuData[i, 2]);
+            }
+            
             WriteRow(tempRow, itemString, priceFloat, stockInt);
         }
     }
@@ -86,7 +97,16 @@ public class ItemMenu : MonoBehaviour
             string itemName = rowElements[0];
             float itemPrice = float.Parse(rowElements[1]);
             int itemStockInInventory = int.Parse(rowElements[2]);
-            int itemToSell = int.Parse(rowElements[3]);
+            int itemToSell = 0;
+
+            if (rowElements[3] == "") // Could be folded into the other if statement below
+            {
+                itemToSell = 0;
+            }
+            else
+            {
+                itemToSell = int.Parse(rowElements[3]);
+            }
 
             if (itemToSell < 0)
             {
