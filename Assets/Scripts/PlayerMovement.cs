@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
         PMovement(initialStart);
     }
 
-    public void PMovement(Transform target)
+    public void PMovement(Transform target) // Checks that the player can move to target and if so it then moves
     {
         bool connectionValid = FindConnectionBetweenTwoLocations(FindIndexOfLocation(lastTarget.transform.name), FindIndexOfLocation(target.transform.name));
         
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
             gameHandler.GetComponent<InGameTime>().UpdateTime(3); // Should probably be a public var, also should be a more dynamic time cost
             lastTarget = target;
         }
-        else { }
+        else { } // Probably shouldn't display an error message as that might get annoying
     }
 
     private int FindIndexOfLocation(string targetName) // Gets the index of a location and returns the index
@@ -71,9 +71,8 @@ public class PlayerMovement : MonoBehaviour
         return connectionFound;
     }
 
-    // To be decided if this should remain here
-    // Something is going very wrong here and I dont know how to correct it right now
-    int CalcFeulCost(Transform initialPos, Transform targetPos)
+    // This possibly may be moved to 'Economics.cs'
+    int CalcFeulCost(Transform initialPos, Transform targetPos) // Calculates the feul cost of traveling based on the distance travelled
     {
         int feulCost = 0; int multiplier = 1;
         int iPosX = Convert.ToInt32(initialPos.position.x); int iPosY = Convert.ToInt32(initialPos.position.y);

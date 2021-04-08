@@ -31,30 +31,30 @@ public class KeyboardControls : MonoBehaviour
             gameHandler.GetComponent<InGameTime>().UpdateTime(1);
         }
         else { }
-        if (Input.GetKeyDown("l"))
+        if (Input.GetKeyDown("l")) // Displays the current time in hours in the log
         {
             Debug.Log(gameHandler.GetComponent<InGameTime>().GetTimeInHours());
         }
         else { }
-        if (Input.GetKeyDown("q")) // Activates shop menu
+        if (Input.GetKeyDown("q")) // Toggles shop menu
         {
             canvasBackground.SetActive(!canvasBackground.activeSelf);
             shopUI.SetActive(!shopUI.activeSelf);
         }
         else { }
-        if (Input.GetKeyDown("w")) // Activates city menu
+        if (Input.GetKeyDown("w")) // Toggles city menu
         {
             canvasBackground.SetActive(!canvasBackground.activeSelf);
             cityUI.SetActive(!cityUI.activeSelf);
         }
         else { }
-        if (Input.GetKeyDown("e")) // activates escape menu
+        if (Input.GetKeyDown("e")) // Toggles escape menu
         {
             canvasBackground.SetActive(!canvasBackground.activeSelf);
             escMenu.SetActive(!escMenu.activeSelf);
         }
         else { }
-        if (Input.GetKeyDown("r")) // activates moneydisplay
+        if (Input.GetKeyDown("r")) // Toggles moneydisplay
         {
             moneyDisplay.SetActive(!moneyDisplay.activeSelf);
         }

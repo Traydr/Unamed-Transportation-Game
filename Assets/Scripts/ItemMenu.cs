@@ -54,7 +54,7 @@ public class ItemMenu : MonoBehaviour
         
     }
 
-    void WriteFromDBToMenu(string locIndex, GameObject menu, bool sellT_or_BuyF)
+    void WriteFromDBToMenu(string locIndex, GameObject menu, bool sellT_or_BuyF) // Takes a location and then matches it to the database and updates the menu so that it displays what a particular location has
     {
         string[,] arrMenuData = new string[4, 5]; int[] rowChildindex = new int[4]; string[,] getProduct = new string[1, 6]; string[] playerInv = new string[4];
         arrMenuData = gameHandler.GetComponent<DBconnector>().DBPDLTSelect("LocationID", locIndex);
@@ -201,14 +201,14 @@ public class ItemMenu : MonoBehaviour
         stockTMP.text = Convert.ToString(stockInt);
     }
 
-    void WipeInput(GameObject row)
+    void WipeInput(GameObject row) // Sets the input text field to contain nothing
     {
         GameObject input = row.transform.GetChild(3).gameObject;
         TMP_InputField inputTMPI = input.GetComponent<TMP_InputField>();
         inputTMPI.text = "";
     }
 
-    public void WipeAllInputs(GameObject menu)
+    public void WipeAllInputs(GameObject menu) // Wipes all inputs on all rows
     {
         int[] rowChildIndex = new int[numRowsInMenu];
         rowChildIndex = FindRowsWithinMenu(menu);

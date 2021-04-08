@@ -30,19 +30,19 @@ public class MouseClickDetection : MonoBehaviour
 
                 playerM.GetComponent<PlayerMovement>().PMovement(hit.transform);
 
-                switch (tempTag)
-                {
-                    case "Shops":
-                        Debug.Log("HIT SHOP " + test);
-                        break;
-                    case "Cities":
-                        Debug.Log("HIT CITY " + test);
-                        break;
-                    default:
-                        Debug.Log("Did not hit A city or shop");
-                        break;
+                //switch (tempTag)
+                //{
+                //    case "Shops":
+                //        Debug.Log("HIT S-" + test);
+                //        break;
+                //    case "Cities":
+                //        Debug.Log("HIT C-" + test);
+                //        break;
+                //    default:
+                //        Debug.Log("NO HIT");
+                //        break;
 
-                }
+                //}
             }
             else { }
         }

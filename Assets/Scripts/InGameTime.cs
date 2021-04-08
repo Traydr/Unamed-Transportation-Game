@@ -53,18 +53,18 @@ public class InGameTime : MonoBehaviour
         return storedTime;
     }
 
-    public void SetTime(int dayValue, int hourValue)
+    public void SetTime(int dayValue, int hourValue) // Changes the time displayed on the game screen
     {
         timeDisplay.text = string.Format("{0}D {1}H", dayValue, hourValue);
     }
 
-    public void SetTimeFromTotalHours(int totalHours)
+    public void SetTimeFromTotalHours(int totalHours) // Takes a number of hours and displays it as time elapsed
     {
         SetTime(0, 0);
         UpdateTime(totalHours);
     }
 
-    public int GetTimeInHours()
+    public int GetTimeInHours() // Takes the  time displayed and returns the time in hours
     {
         int totalHours = 0; int[] currentTime = new int[2];
         currentTime = GetTime();
