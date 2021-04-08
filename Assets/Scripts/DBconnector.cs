@@ -176,14 +176,14 @@ public class DBconnector : MonoBehaviour
         int currentTimeHours = gameHandler.GetComponent<InGameTime>().GetTimeInHours();
         int changeID = 0; changeID = DBPDCHGetMaxChangeID() + 1;
 
-        string combinedCommand = string.Format("INSERT INTO ProductChanges (ChangeID, ProductID, LocationID, NewPrice, NewStock, InGameTime) VALUES ({0}, {1}, {2}, {3}, {4}, {5})", changeID, productID, locationID, newPrice, newStock, currentTimeHours);
+        string combinedCommand = string.Format("INSERT INTO ProductChanges (ChangeID, ProductID, LocationID, NewPrice, NewStock, InGameTimeHours) VALUES ({0}, {1}, {2}, {3}, {4}, {5})", changeID, productID, locationID, newPrice, newStock, currentTimeHours);
         cmd.CommandText = combinedCommand;
 
         cmd.ExecuteNonQuery();
         connection.Close();
     }
 
-    int DBPDCHGetMaxChangeID()
+    public int DBPDCHGetMaxChangeID()
     {
         int maxChangeID = 0;
 

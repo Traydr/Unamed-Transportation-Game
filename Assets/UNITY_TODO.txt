@@ -1,5 +1,8 @@
 TO DO:
 
+// DATABASE
+	-> Add columns to several tables, so that data can be saved directly to them
+
 // OBJECT'S
 	-> ROADS
 		[DONE] Create between shops and cities 
@@ -8,7 +11,7 @@ TO DO:
 	-> VEHICLES
 		Weight limit KG
 		Volume limit Liters
-		Maintenance costs (Weakly/7D)
+		[SEMI] Maintenance costs (Weakly/7D)
 	-> WAREHOUSES
 		Volume limit
 		Not a place on the map, instead its a menu, where stuff can be taken out and put into storage at a cost, anywhere on the map
@@ -40,7 +43,7 @@ TO DO:
 
 -> COSTS OF TRAVEL
 	When a player moves between diffrent cities and shop, certain actions should be taken
-		Time moves in relation to the distance that the player has traveled
+		[SEMI] Time moves in relation to the distance that the player has traveled
 		[DONE] Cost incurred from travelling e.g. diesel/gas 
 		Diffrent vehicle upgrades might have a weight (changing multiplier) on the costs
 
