@@ -21,7 +21,6 @@ public class KeyboardControls : MonoBehaviour
         {
             gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(100, true);
         }
-        else { }
         if (Input.GetKey("h")) // Subtracts 100 money
         {
             gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(100, false);
@@ -30,34 +29,17 @@ public class KeyboardControls : MonoBehaviour
         {
             gameHandler.GetComponent<InGameTime>().UpdateTime(1);
         }
-        else { }
-        if (Input.GetKeyDown("l")) // Displays the current time in hours in the log
+        if (Input.GetKeyDown(KeyCode.Escape)) // Toggles escape menu
         {
-            Debug.Log(gameHandler.GetComponent<InGameTime>().GetTimeInHours());
-        }
-        else { }
-        if (Input.GetKeyDown("q")) // Toggles shop menu
-        {
-            canvasBackground.SetActive(!canvasBackground.activeSelf);
-            shopUI.SetActive(!shopUI.activeSelf);
-        }
-        else { }
-        if (Input.GetKeyDown("w")) // Toggles city menu
-        {
-            canvasBackground.SetActive(!canvasBackground.activeSelf);
-            cityUI.SetActive(!cityUI.activeSelf);
-        }
-        else { }
-        if (Input.GetKeyDown("e")) // Toggles escape menu
-        {
-            canvasBackground.SetActive(!canvasBackground.activeSelf);
+            canvasBackground.SetActive(true);
             escMenu.SetActive(!escMenu.activeSelf);
         }
-        else { }
-        if (Input.GetKeyDown("r")) // Toggles moneydisplay
+        if (Input.GetKeyDown("m"))
         {
-            moneyDisplay.SetActive(!moneyDisplay.activeSelf);
+            for (int i = 0; i < 6; i++)
+            {
+                Debug.Log(gameHandler.GetComponent<DBconnector>().DBPLSelect("ProductID", i.ToString()));
+            }
         }
-        else { }
     }
 }

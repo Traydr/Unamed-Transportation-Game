@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\DBconnector.cs" />
     <Compile Include="Assets\Scripts\Economics.cs" />
+    <Compile Include="Assets\Scripts\EscapeMenu.cs" />
     <Compile Include="Assets\Scripts\GUIWindowCreation.cs" />
     <Compile Include="Assets\Scripts\GameEventHandler.cs" />
     <Compile Include="Assets\Scripts\GameHandler.cs" />

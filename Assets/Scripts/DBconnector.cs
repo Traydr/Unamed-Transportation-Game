@@ -21,6 +21,12 @@ public class DBconnector : MonoBehaviour
 
         numAVG = ((avg * numItems) + (newValue * newNumItem)) / (numItems * newNumItem);
 
+        if (numAVG < 0)
+        {
+            numAVG = 0f;
+        }
+        else { }
+
         return numAVG;
     }
 
@@ -258,7 +264,7 @@ public class DBconnector : MonoBehaviour
                     float newPriceAVG = CalcNewAVG(int.Parse(invList[1]), int.Parse(invList[2]), priceAVG, -stock);
                     int newStock = int.Parse(invList[2]) - stock;
 
-                    DBPLUpdate("LastPrceAVG", Convert.ToString(newPriceAVG), "ProductID", Convert.ToString(productID));
+                    DBPLUpdate("LastPriceAVG", Convert.ToString(newPriceAVG), "ProductID", Convert.ToString(productID));
                     DBPLUpdate("Stock", Convert.ToString(newStock), "ProductID", Convert.ToString(productID));
                 }
             }
@@ -273,7 +279,7 @@ public class DBconnector : MonoBehaviour
         }
     }
 
-    void DBPLUpdate(string setCol, string setVal, string arCol1, string arVal1)
+    void DBPLUpdate(string setCol, string setVal, string arCol1, string arVal1) // SQL Error
     {
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
         connection.Open();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -14,44 +15,66 @@ public class ItemMenu : MonoBehaviour
     void Start()
     {
         Debug.Log("ItemMenu.Start");
-
-        // Testing below functions
-        int[] rowChildIndex = new int[numRowsInMenu];
-        rowChildIndex = FindRowsWithinMenu(sellMenu);
-        
-        for (int i = 0; i < rowChildIndex.Length; i++)
-        {
-            GameObject tempRow = sellMenu.transform.GetChild(rowChildIndex[i]).gameObject;
-            string[] rowData = new string[numColInMenu];
-            rowData = ReadRow(tempRow);
-
-            for (int x = 0; x < rowData.Length; x++)
-            {
-                Debug.Log(rowData[x]);
-            }
-
-            WriteRow(tempRow, "Test", 1.5f, 100);
-        }
-
-        WriteFromDBToMenu("3", sellMenu, false);
-        // End of Testing
     }
 
     public void UIDetection() // Needs to take the last target from public variable in the player movement script || DO NOT FORGET TO GET RID OF SETACTIVE City UI on OPEN UI Button
     {
         Transform currentlocation = player.GetComponent<PlayerMovement>().lastTarget;
+        string locIndex = FindLocationIDOfCurrentLocation();
 
         if (currentlocation.tag == "Shops") // Takes the tag to open correct menu, then gets the data from DB and then writes it to the menu
         {
-            // Make Shop UI Active
-            // Write data to shop ui
+            buyMenu.SetActive(true);
+            WriteFromDBToMenu(locIndex, buyMenu, false);
         }
         else if (currentlocation.tag == "Cities")
         {
-
+            sellMenu.SetActive(true);
+            WriteFromDBToMenu(locIndex, sellMenu, true);
         }
         else { }
         
+    }
+
+    string FindLocationIDOfCurrentLocation()
+    {
+        Transform currentlocation = player.GetComponent<PlayerMovement>().lastTarget;
+        string[,] locIndexArray = gameHandler.GetComponent<DBconnector>().DBLTSelect();
+        string locIndex = "-1";
+
+        for (int i = 0; i < 6; i++)
+        {
+            if (currentlocation.transform.name == locIndexArray[i, 1])
+            {
+                locIndex = locIndexArray[i, 0].ToString();
+            }
+            else { }
+        }
+
+        return locIndex;
+    }
+
+    string FindProductIDOfInputString(string productName)
+    {
+        string prodIndex = "-1"; int counter = 0; bool productNameFound = false;
+        string[,] productArray = new string[1,6];
+
+        while (productNameFound == false)
+        {
+            productArray = gameHandler.GetComponent<DBconnector>().DBPDSelect("ProductID", counter.ToString());
+
+            if (productArray[0, 1] == productName)
+            {
+                productNameFound = true;
+                prodIndex = productArray[0, 0];
+            }
+            else
+            {
+                counter += 1;
+            }
+        }
+
+        return prodIndex;
     }
 
     void WriteFromDBToMenu(string locIndex, GameObject menu, bool sellT_or_BuyF) // Takes a location and then matches it to the database and updates the menu so that it displays what a particular location has
@@ -87,6 +110,7 @@ public class ItemMenu : MonoBehaviour
     {
         int[] rowChildIndex = new int[numRowsInMenu];
         string[] rowElements = new string[numColInMenu];
+        string locationID = FindLocationIDOfCurrentLocation();
 
         rowChildIndex = FindRowsWithinMenu(menu);
 
@@ -98,8 +122,10 @@ public class ItemMenu : MonoBehaviour
             float itemPrice = float.Parse(rowElements[1]);
             int itemStockInInventory = int.Parse(rowElements[2]);
             int itemToSell = 0;
+            string currentProductID = FindProductIDOfInputString(itemName);
 
-            if (rowElements[3] == "") // Could be folded into the other if statement below
+            // Checks that itemToSell contains an integer value
+            if (rowElements[3] == "")
             {
                 itemToSell = 0;
             }
@@ -108,6 +134,7 @@ public class ItemMenu : MonoBehaviour
                 itemToSell = int.Parse(rowElements[3]);
             }
 
+            // Checks to make sure that certain conditions are met before activating the sell
             if (itemToSell < 0)
             {
                 gameHandler.GetComponent<GUIWindowCreation>().enabled = true;
@@ -125,17 +152,20 @@ public class ItemMenu : MonoBehaviour
                 WriteRow(tempRow, itemName, itemPrice, itemStockInInventory);
                 WipeInput(tempRow);
                 gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(revenue, true);
+                gameHandler.GetComponent<DBconnector>().DBPLInput(int.Parse(locationID), itemPrice, itemToSell, true, true);
+                gameHandler.GetComponent<DBconnector>().DBPDCHInsert(int.Parse(currentProductID), int.Parse(locationID), itemPrice, itemToSell);
             }
 
             WipeInput(tempRow);
         }
     }
 
-    public void ResolveBuy()
+    public void ResolveBuy(GameObject menu)
     {
 
     }
 
+    // Instead of reading the first 3 chars instead check the tag of the GameObject if it is of type 'Row'
     int[] FindRowsWithinMenu(GameObject menu) // Finds the child index of any game objects with the first 3 letters containing 'Row' and then returns an array of indexes
     {
         int menuChildCount = menu.transform.childCount;
