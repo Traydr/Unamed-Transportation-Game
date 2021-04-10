@@ -162,11 +162,60 @@ public class ItemMenu : MonoBehaviour
 
     public void ResolveBuy(GameObject menu)
     {
+        int[] rowChildIndex = new int[numRowsInMenu];
+        string[] rowElements = new string[numColInMenu];
+        string locationID = FindLocationIDOfCurrentLocation();
 
+        rowChildIndex = FindRowsWithinMenu(menu);
+
+        for (int i = 0; i < rowChildIndex.Length; i++)
+        {
+            GameObject tempRow = menu.transform.GetChild(rowChildIndex[i]).gameObject;
+            rowElements = ReadRow(tempRow);
+            string itemName = rowElements[0];
+            float itemPrice = float.Parse(rowElements[1]);
+            int itemStockInShop = int.Parse(rowElements[2]);
+            int itemToBuy = 0;
+            string currentProductID = FindProductIDOfInputString(itemName);
+
+            // Checks that itemToSell contains an integer value
+            if (rowElements[3] == "")
+            {
+                itemToBuy = 0;
+            }
+            else
+            {
+                itemToBuy = int.Parse(rowElements[3]);
+            }
+
+            // Checks to make sure that certain conditions are met before activating the sell
+            if (itemToBuy < 0)
+            {
+                gameHandler.GetComponent<GUIWindowCreation>().enabled = true;
+                gameHandler.GetComponent<GUIWindowCreation>().errorMessage = "Cannot buy a negative amount";
+            }
+            else if (itemToBuy > itemStockInShop)
+            {
+                gameHandler.GetComponent<GUIWindowCreation>().enabled = true;
+                gameHandler.GetComponent<GUIWindowCreation>().errorMessage = "Not enough stock in shop to buy";
+            }
+            else // Add changes to DB
+            {
+                int cost = Convert.ToInt32(Math.Round(itemToBuy * itemPrice));
+                itemStockInShop -= itemToBuy;
+                WriteRow(tempRow, itemName, itemPrice, itemStockInShop);
+                WipeInput(tempRow);
+                gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(cost, false);
+                gameHandler.GetComponent<DBconnector>().DBPLInput(int.Parse(locationID), itemPrice, itemToBuy, true, true);
+                gameHandler.GetComponent<DBconnector>().DBPDLTUpdate("Stock", itemStockInShop.ToString(), "ProductID", FindProductIDOfInputString(itemName), "LocationID", locationID);
+                gameHandler.GetComponent<DBconnector>().DBPDCHInsert(int.Parse(currentProductID), int.Parse(locationID), itemPrice, itemToBuy);
+            }
+
+            WipeInput(tempRow);
+        }
     }
 
-    // Instead of reading the first 3 chars instead check the tag of the GameObject if it is of type 'Row'
-    int[] FindRowsWithinMenu(GameObject menu) // Finds the child index of any game objects with the first 3 letters containing 'Row' and then returns an array of indexes
+    int[] FindRowsWithinMenu(GameObject menu) // Finds the child index of any game objects with the tag 'Row'
     {
         int menuChildCount = menu.transform.childCount;
         int[] rowChildIndex = new int[numRowsInMenu];
@@ -176,7 +225,7 @@ public class ItemMenu : MonoBehaviour
         {
             GameObject tempChild = menu.transform.GetChild(i).gameObject;
 
-            if (tempChild.transform.name.Substring(0, 3) == "Row")
+            if (tempChild.transform.CompareTag("Row"))
             {
                 rowChildIndex[currentIndex] = i;
                 currentIndex += 1;

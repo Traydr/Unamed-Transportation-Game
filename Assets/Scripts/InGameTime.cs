@@ -13,14 +13,6 @@ public class InGameTime : MonoBehaviour
     void Start()
     {
         Debug.Log("Time.Start");
-
-        // Testing Below
-        int[] dayHour = new int[2];
-        UpdateTime(25);
-        dayHour = GetTime();
-        string tempLog = string.Format("{0} days, {1} hours", dayHour[0], dayHour[1]);
-        Debug.Log(tempLog);
-
     }
 
     // Addition for UpdateTime, each time the loop is done, an event script should be called to evaluate the day !!

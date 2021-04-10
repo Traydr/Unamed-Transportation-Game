@@ -256,7 +256,7 @@ public class DBconnector : MonoBehaviour
             {
                 if (stock == int.Parse(invList[2]))
                 {
-                    DBPLUpdate("LastPrceAVG", "0", "ProductID", Convert.ToString(productID));
+                    DBPLUpdate("LastPriceAVG", "0", "ProductID", Convert.ToString(productID));
                     DBPLUpdate("Stock", "0", "ProductID", Convert.ToString(productID));
                 }
                 else
@@ -273,12 +273,13 @@ public class DBconnector : MonoBehaviour
                 float newPriceAVG = CalcNewAVG(int.Parse(invList[1]), int.Parse(invList[2]), priceAVG, stock);
                 int newStock = int.Parse(invList[2]) + stock;
 
-                DBPLUpdate("LastPrceAVG", Convert.ToString(newPriceAVG), "ProductID", Convert.ToString(productID));
+                DBPLUpdate("LastPriceAVG", Convert.ToString(newPriceAVG), "ProductID", Convert.ToString(productID));
                 DBPLUpdate("Stock", Convert.ToString(newStock), "ProductID", Convert.ToString(productID));
             }
         }
     }
 
+    // I guess I have to search sthrough the ids to find it and then output from that id
     void DBPLUpdate(string setCol, string setVal, string arCol1, string arVal1) // SQL Error
     {
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");

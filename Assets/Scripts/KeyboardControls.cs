@@ -29,11 +29,6 @@ public class KeyboardControls : MonoBehaviour
         {
             gameHandler.GetComponent<InGameTime>().UpdateTime(1);
         }
-        if (Input.GetKeyDown(KeyCode.Escape)) // Toggles escape menu
-        {
-            canvasBackground.SetActive(true);
-            escMenu.SetActive(!escMenu.activeSelf);
-        }
         if (Input.GetKeyDown("m"))
         {
             for (int i = 0; i < 6; i++)

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Shops
   - Cities
+  - Row
   layers:
   - Default
   - TransparentFX
