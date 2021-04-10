@@ -27,10 +27,10 @@ public class PlayerMovement : MonoBehaviour
             Vector3 targetPos = new Vector3(target.position.x + 10, target.position.y, 1);
             player.position = targetPos;
             gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(CalcFeulCost(lastTarget, target), false);
-            gameHandler.GetComponent<InGameTime>().UpdateTime(3); // Should probably be a public var, also should be a more dynamic time cost
+            gameHandler.GetComponent<InGameTime>().UpdateTime(CalcTimeCost(lastTarget, target));
             lastTarget = target;
         }
-        else { } // Probably shouldn't display an error message as that might get annoying
+        else { }
     }
 
     private int FindIndexOfLocation(string targetName) // Gets the index of a location and returns the index
@@ -75,12 +75,34 @@ public class PlayerMovement : MonoBehaviour
     int CalcFeulCost(Transform initialPos, Transform targetPos) // Calculates the feul cost of traveling based on the distance travelled
     {
         int feulCost = 0; int multiplier = 1;
+
+        float magnitude = GetMagnitudeBetweenTwoPoints(initialPos, targetPos);
+        feulCost = Convert.ToInt32(math.round(magnitude * multiplier));
+
+        return feulCost;
+    }
+
+    int CalcTimeCost(Transform initialPos, Transform targetPos) // Calculates the time taken to move between diffrent locations
+    {
+        int timeCost = 0;
+
+        float magnitude = GetMagnitudeBetweenTwoPoints(initialPos, targetPos);
+        timeCost = Convert.ToInt32(math.round(magnitude * 0.1f));
+
+        return timeCost;
+    }
+
+    float GetMagnitudeBetweenTwoPoints(Transform initialPos, Transform targetPos) // Gets the distance between 2 locations
+    {
+        float magnitude = 0f;
+
         int iPosX = Convert.ToInt32(initialPos.position.x); int iPosY = Convert.ToInt32(initialPos.position.y);
         int tPosX = Convert.ToInt32(targetPos.position.x); int tPosY = Convert.ToInt32(targetPos.position.y);
-        float deltaX = tPosX - iPosX; float deltaY = tPosY - iPosY;
+        float deltaX = tPosX - iPosX; 
+        float deltaY = tPosY - iPosY;
 
-        float tempFeul = math.round(math.sqrt(deltaX * deltaX + deltaY * deltaY) * multiplier);
-        feulCost = Convert.ToInt32(tempFeul);
-        return feulCost;
+        magnitude = math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        return magnitude;
     }
 }

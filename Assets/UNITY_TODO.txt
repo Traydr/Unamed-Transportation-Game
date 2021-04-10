@@ -25,10 +25,10 @@ TO DO:
 	
 // MENU'S
 	-> INVENTORY (DB)
-		A table with items that the player currently has on his vehicle
+		[DONE] A table with items that the player currently has on his vehicle
 		Display as a menu, attached to a hotkey e.g. 'e'
 	-> WISLIST (DB)
-		MAX number of tags - 6?
+		MAX number of tags - 6? (Make it 7 so I can reuse code from inv menu's)
 		A table that stores data on goods that the player wants to keep track of
 		Display as a menu, attached to a hotkey e.g. 'r'
 	-> EVALUATION MENU
@@ -53,6 +53,6 @@ TO DO:
 		Cities
 	-> TIME
 		Arrangment
-			Shown at the top right of the screen
+			[DONE] Shown at the top right of the screen
 		Denominations
-			Days, Hours (Possibility of weeks, to be decided)
+			[DONE] Days, Hours (Possibility of weeks, to be decided)

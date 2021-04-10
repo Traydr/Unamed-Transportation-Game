@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class InGameTime : MonoBehaviour
 {
-    public Text timeDisplay;
+    public Text timeDisplay; public GameObject gameHandler;
 
 
     // Time format {0}D {1}H
@@ -24,6 +24,7 @@ public class InGameTime : MonoBehaviour
             newHourValue -= 24;
             newDayValue += 1;
             // MAKE CALL HERE
+            gameHandler.GetComponent<GameEventHandler>().CallEventRequest("ELPC");
         }
 
         SetTime(newDayValue, newHourValue);

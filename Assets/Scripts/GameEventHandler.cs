@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameEventHandler : MonoBehaviour
 {
@@ -24,7 +26,7 @@ public class GameEventHandler : MonoBehaviour
         switch (requestType)
         {
             case "EVLU":
-                Debug.Log("Event EVLU"); // When adding the additional input data, make sure to add to these debug logs so that they represent whats happening
+                Debug.Log("Event EVLU"); // When adding the additional input data, make sure to add to these debug logs so that they show whats happening
                 EventLocationPriceUpdate();
                 break;
             case "ESSR":
@@ -45,16 +47,34 @@ public class GameEventHandler : MonoBehaviour
 
     void EventLocationPriceUpdate() // Should check for any changes in ProductChanges in the last 24 hrs and then update the prices of diffrent products at a location
     {
-
+        int currentTime = 0; int timeSinceLastCheck = 0;
+        currentTime = gameHandler.GetComponent<InGameTime>().GetTimeInHours();
+        timeSinceLastCheck = currentTime - 24;
     }
 
     void EventShopStockRefresh() // Should activate every 7D or 168H for each shop and add to the stock of each of the current items
     {
+        float successRate = 0.3f; // 0 to 1, a number higher than this will mean that the event succeeds
+        int numLocationsAffected = 0; // Wil randomise the number of locations that get affected by the event 1 to 6
+        int numItemsWithinLocationAffected = 0; // Will hold a random number from 1 to 4 that indicates how many items get affected
 
+        if (Random.Range(0f, 1f) > successRate)
+        {
+            numLocationsAffected = Random.Range(0, 6);
+            numItemsWithinLocationAffected = Random.Range(0, 4);
+        }
     }
 
     void EventLocationProductChange() // Should switch a product in a shop with another one and update the relevant columns in the table
     {
+        float successRate = 0.9f; // 0 to 1, a number higher than this will mean that the event succeeds
+        int numLocationsAffected = 0; // Wil randomise the number of locations that get affected by the event 1 to 6
+        int numItemsWithinLocationAffected = 0; // Will hold a random number from 1 to 4 that indicates how many items get affected
 
+        if (Random.Range(0f, 1f) > successRate)
+        {
+            numLocationsAffected = Random.Range(0, 6);
+            numItemsWithinLocationAffected = Random.Range(0, 4);
+        }
     }
 }
