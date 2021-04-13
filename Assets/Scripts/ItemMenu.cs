@@ -12,38 +12,35 @@ public class ItemMenu : MonoBehaviour
         Debug.Log("ItemMenu.Start");
     }
 
-    public void UIDetection() // Needs to take the last target from public variable in the player movement script || DO NOT FORGET TO GET RID OF SETACTIVE City UI on OPEN UI Button
+    public void UIDetection() // Needs to take the last target from public variable in the player movement script
     {
-        Transform currentlocation = player.GetComponent<PlayerMovement>().lastTarget;
+        Transform currentLocation = player.GetComponent<PlayerMovement>().lastTarget;
         string locIndex = FindLocationIDOfCurrentLocation();
 
-        if (currentlocation.tag == "Shops") // Takes the tag to open correct menu, then gets the data from DB and then writes it to the menu
+        if (currentLocation.CompareTag("Shops")) // Takes the tag to open correct menu, then gets the data from DB and then writes it to the menu
         {
             buyMenu.SetActive(true);
-            WriteFromDBToMenu(locIndex, buyMenu, false);
+            WriteFromDataBaseToMenu(locIndex, buyMenu, false);
         }
-        else if (currentlocation.tag == "Cities")
+        else if (currentLocation.CompareTag("Cities"))
         {
             sellMenu.SetActive(true);
-            WriteFromDBToMenu(locIndex, sellMenu, true);
+            WriteFromDataBaseToMenu(locIndex, sellMenu, true);
         }
-        else { }
-        
     }
 
     string FindLocationIDOfCurrentLocation()
     {
         Transform currentlocation = player.GetComponent<PlayerMovement>().lastTarget;
-        string[,] locIndexArray = gameHandler.GetComponent<DBconnector>().DBLTSelect();
+        string[,] locIndexArray = DBconnector.DataBaseLocationSelect();
         string locIndex = "-1";
 
         for (int i = 0; i < 6; i++)
         {
             if (currentlocation.transform.name == locIndexArray[i, 1])
             {
-                locIndex = locIndexArray[i, 0].ToString();
+                locIndex = locIndexArray[i, 0];
             }
-            else { }
         }
 
         return locIndex;
@@ -52,11 +49,11 @@ public class ItemMenu : MonoBehaviour
     string FindProductIDOfInputString(string productName)
     {
         string prodIndex = "-1"; int counter = 0; bool productNameFound = false;
-        string[,] productArray = new string[1,6];
+        string[,] productArray;
 
         while (productNameFound == false)
         {
-            productArray = gameHandler.GetComponent<DBconnector>().DBPDSelect("ProductID", counter.ToString());
+            productArray = DBconnector.DataBaseProductsSelect("ProductID", counter.ToString());
 
             if (productArray[0, 1] == productName)
             {
@@ -72,23 +69,36 @@ public class ItemMenu : MonoBehaviour
         return prodIndex;
     }
 
-    void WriteFromDBToMenu(string locIndex, GameObject menu, bool sellT_or_BuyF) // Takes a location and then matches it to the database and updates the menu so that it displays what a particular location has
+    void InitiateInventoryMenu()
     {
-        string[,] arrMenuData = new string[4, 5]; int[] rowChildindex = new int[4]; string[,] getProduct = new string[1, 6]; string[] playerInv = new string[4];
-        arrMenuData = gameHandler.GetComponent<DBconnector>().DBPDLTSelect("LocationID", locIndex);
-        rowChildindex = FindRowsWithinMenu(menu);
-        
+        string[,] rowElements = new string[7, 4];
 
+        for (int i = 0; i < 6; i++)
+        {
+            string[] tempElements = gameHandler.GetComponent<DBconnector>().DataBasePlayerInventorySelectForInventoryMenu(i.ToString());
+            rowElements[i, 0] = tempElements[0];
+            rowElements[i, 1] = tempElements[1];
+            rowElements[i, 2] = tempElements[2];
+            rowElements[i, 3] = tempElements[3];
+        }
+    }
+
+    void WriteFromDataBaseToMenu(string locIndex, GameObject menu, bool isSelling) // Takes a location and then matches it to the database and updates the menu so that it displays what a particular location has
+    {
+        string[,] getProduct; string[] playerInv;
+        string[,] arrMenuData = DBconnector.DataBaseProductLocationSelect("LocationID", locIndex);
+        int[] rowChildindex = FindRowsWithinMenu(menu);
+        
         for (int i = 0; i < 4; i++)
         {
             GameObject tempRow = menu.transform.GetChild(rowChildindex[i]).gameObject;
-            getProduct = gameHandler.GetComponent<DBconnector>().DBPDSelect("ProductID", arrMenuData[i, 0]);
-            playerInv = gameHandler.GetComponent<DBconnector>().DBPLSelect("ProductID", arrMenuData[i, 0]);
+            getProduct = DBconnector.DataBaseProductsSelect("ProductID", arrMenuData[i, 0]);
+            playerInv = gameHandler.GetComponent<DBconnector>().DataBasePlayerInventorySelect("ProductID", arrMenuData[i, 0]);
             string itemString = getProduct[0, 1];
             float priceFloat = float.Parse(arrMenuData[i, 3]);
             int stockInt = 0;
 
-            if (sellT_or_BuyF)
+            if (isSelling)
             {
                 stockInt = int.Parse(playerInv[2]);
             }
@@ -103,11 +113,10 @@ public class ItemMenu : MonoBehaviour
 
     public void ResolveSell(GameObject menu) // needs to check against vehicles weight and volume!!
     {
-        int[] rowChildIndex = new int[numRowsInMenu];
-        string[] rowElements = new string[numColInMenu];
+        string[] rowElements;
         string locationID = FindLocationIDOfCurrentLocation();
 
-        rowChildIndex = FindRowsWithinMenu(menu);
+        int[] rowChildIndex = FindRowsWithinMenu(menu);
 
         for (int i = 0; i < rowChildIndex.Length; i++)
         {
@@ -140,6 +149,10 @@ public class ItemMenu : MonoBehaviour
                 gameHandler.GetComponent<GUIWindowCreation>().enabled = true;
                 gameHandler.GetComponent<GUIWindowCreation>().errorMessage = "Not enough stock in inventory";
             }
+            else if (itemToSell == 0)
+            {
+
+            }
             else // Add changes to DB
             {
                 int revenue = Convert.ToInt32(Math.Round(itemToSell * itemPrice));
@@ -147,30 +160,26 @@ public class ItemMenu : MonoBehaviour
                 WriteRow(tempRow, itemName, itemPrice, itemStockInInventory);
                 WipeInput(tempRow);
                 gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(revenue, true);
-                gameHandler.GetComponent<DBconnector>().DBPLInput(int.Parse(locationID), itemPrice, itemToSell, true, true);
-                gameHandler.GetComponent<DBconnector>().DBPDCHInsert(int.Parse(currentProductID), int.Parse(locationID), itemPrice, itemToSell);
+                gameHandler.GetComponent<DBconnector>().DataBasePlayerInventoryInput(int.Parse(locationID), itemPrice, itemToSell, true, true);
+                gameHandler.GetComponent<DBconnector>().DataBaseProductChangesInsert(int.Parse(currentProductID), int.Parse(locationID), itemPrice, itemToSell);
             }
 
             WipeInput(tempRow);
         }
     }
 
-    public void ResolveBuy(GameObject menu)
+    public void ResolveBuy(GameObject menu) // Still losing 
     {
-        int[] rowChildIndex = new int[numRowsInMenu];
-        string[] rowElements = new string[numColInMenu];
         string locationID = FindLocationIDOfCurrentLocation();
-
-        rowChildIndex = FindRowsWithinMenu(menu);
+        int[] rowChildIndex = FindRowsWithinMenu(menu);
 
         for (int i = 0; i < rowChildIndex.Length; i++)
         {
             GameObject tempRow = menu.transform.GetChild(rowChildIndex[i]).gameObject;
-            rowElements = ReadRow(tempRow);
-            string itemName = rowElements[0];
-            float itemPrice = float.Parse(rowElements[1]);
-            int itemStockInShop = int.Parse(rowElements[2]);
-            int itemToBuy = 0;
+            string[] rowElements = ReadRow(tempRow);
+            
+            string itemName = rowElements[0]; float itemPrice = float.Parse(rowElements[1]);
+            int itemStockInShop = int.Parse(rowElements[2]); int itemToBuy = 0;
             string currentProductID = FindProductIDOfInputString(itemName);
 
             // Checks that itemToSell contains an integer value
@@ -194,6 +203,10 @@ public class ItemMenu : MonoBehaviour
                 gameHandler.GetComponent<GUIWindowCreation>().enabled = true;
                 gameHandler.GetComponent<GUIWindowCreation>().errorMessage = "Not enough stock in shop to buy";
             }
+            else if (itemToBuy == 0)
+            {
+
+            }
             else // Add changes to DB
             {
                 int cost = Convert.ToInt32(Math.Round(itemToBuy * itemPrice));
@@ -201,9 +214,9 @@ public class ItemMenu : MonoBehaviour
                 WriteRow(tempRow, itemName, itemPrice, itemStockInShop);
                 WipeInput(tempRow);
                 gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(cost, false);
-                gameHandler.GetComponent<DBconnector>().DBPLInput(int.Parse(locationID), itemPrice, itemToBuy, true, true);
-                gameHandler.GetComponent<DBconnector>().DBPDLTUpdate("Stock", itemStockInShop.ToString(), "ProductID", FindProductIDOfInputString(itemName), "LocationID", locationID);
-                gameHandler.GetComponent<DBconnector>().DBPDCHInsert(int.Parse(currentProductID), int.Parse(locationID), itemPrice, itemToBuy);
+                gameHandler.GetComponent<DBconnector>().DataBasePlayerInventoryInput(int.Parse(locationID), itemPrice, itemToBuy, true, false);
+                DBconnector.DataBaseProductLocationUpdate("Stock", itemStockInShop.ToString(), "ProductID", FindProductIDOfInputString(itemName), "LocationID", locationID);
+                gameHandler.GetComponent<DBconnector>().DataBaseProductChangesInsert(int.Parse(currentProductID), int.Parse(locationID), itemPrice, itemToBuy);
             }
 
             WipeInput(tempRow);
@@ -234,52 +247,26 @@ public class ItemMenu : MonoBehaviour
 
     string[] ReadRow(GameObject row) // Reads the item, price, stock and input values from the shop or city menu and then outputs them as an array of strings
     {
-        string[] rowElements = new string[numColInMenu];
+        string[] rowElements = new string[numColInMenu]; // Should collapse all these so they take up less space
         
-        GameObject item = row.transform.GetChild(0).gameObject;
-        TextMeshProUGUI itemTMP = item.GetComponent<TextMeshProUGUI>();
-        string itemString = itemTMP.text;
-
-        GameObject price = row.transform.GetChild(1).gameObject;
-        TextMeshProUGUI priceTMP = price.GetComponent<TextMeshProUGUI>();
-        float priceFloat = float.Parse(priceTMP.text);
-
-        GameObject stock = row.transform.GetChild(2).gameObject;
-        TextMeshProUGUI stockTMP = stock.GetComponent<TextMeshProUGUI>();
-        int stockInt = int.Parse(stockTMP.text);
-
-        GameObject input = row.transform.GetChild(3).gameObject;
-        TMP_InputField inputTMPI = input.GetComponent<TMP_InputField>();
-        string inputString = inputTMPI.text;
-
-        rowElements[0] = itemString;
-        rowElements[1] = Convert.ToString(priceFloat);
-        rowElements[2] = Convert.ToString(stockInt);
-        rowElements[3] = inputString;
+        rowElements[0] = row.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text;
+        rowElements[1] = row.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text;
+        rowElements[2] = row.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text;
+        rowElements[3] = row.transform.GetChild(3).gameObject.GetComponent<TMP_InputField>().text;
 
         return rowElements;
     }
 
     void WriteRow(GameObject row, string itemString, float priceFloat, int stockInt) // Writes to the shop or city menus
     {
-        GameObject item = row.transform.GetChild(0).gameObject;
-        TextMeshProUGUI itemTMP = item.GetComponent<TextMeshProUGUI>();
-        itemTMP.text = itemString;
-
-        GameObject price = row.transform.GetChild(1).gameObject;
-        TextMeshProUGUI priceTMP = price.GetComponent<TextMeshProUGUI>();
-        priceTMP.text = Convert.ToString(priceFloat);
-
-        GameObject stock = row.transform.GetChild(2).gameObject;
-        TextMeshProUGUI stockTMP = stock.GetComponent<TextMeshProUGUI>();
-        stockTMP.text = Convert.ToString(stockInt);
+        row.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = itemString;
+        row.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = priceFloat.ToString();
+        row.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = stockInt.ToString();
     }
 
     void WipeInput(GameObject row) // Sets the input text field to contain nothing
     {
-        GameObject input = row.transform.GetChild(3).gameObject;
-        TMP_InputField inputTMPI = input.GetComponent<TMP_InputField>();
-        inputTMPI.text = "";
+        row.transform.GetChild(3).gameObject.GetComponent<TMP_InputField>().text = "";
     }
 
     public void WipeAllInputs(GameObject menu) // Wipes all inputs on all rows

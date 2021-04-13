@@ -1,4 +1,9 @@
 TO DO:
+// Most important things
+	-> Parametrised SQL queries (multi table queries)
+	-> Saving to file (make it save only money and time) (MOST IMPORTANT)
+	-> Connect the economics with the game (MOST IMPORTANT)
+
 
 // DATABASE
 	-> Add columns to several tables, so that data can be saved directly to them

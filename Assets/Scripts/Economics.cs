@@ -14,10 +14,10 @@ public class Economics : MonoBehaviour
     {
         // Ped = % change in Qty Demanded / % change in Price so %CH Price = %CH QD / PED
         float resultantPrice = 0f;
-        float perCHQD = GetPercentageChangeInValue(lastStock, currentStock);
+        float percentChangeInQuantityDemanded = GetPercentageChangeInValue(lastStock, currentStock);
 
-        float perCHP = perCHQD / ped;
-        resultantPrice = currentPrice + (currentPrice * perCHP);
+        float percentChangeInPrice = percentChangeInQuantityDemanded / ped;
+        resultantPrice = currentPrice + (currentPrice * percentChangeInPrice);
 
         return resultantPrice;
     }

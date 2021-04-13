@@ -13,19 +13,17 @@ public class DBconnector : MonoBehaviour
 
     // General Function Start
 
-    float CalcNewAVG(float avg, int numItems, float newValue, int newNumItem)
+    float CalcNewAvg(float currentAvg, int currentMumItems, float newValue, int newNumItem) // I hate this function
     {
-        float numAVG = 0;
+        float numAvg = 0;
 
-        numAVG = ((avg * numItems) + (newValue * newNumItem)) / (numItems * newNumItem);
+        numAvg = ((currentAvg * currentMumItems) + (newValue * newNumItem)) / (currentMumItems * newNumItem);
 
-        if (numAVG < 0)
+        if (numAvg < 0)
         {
-            numAVG = 0f;
+            numAvg = 0f;
         }
-        else { }
-
-        return numAVG;
+        return numAvg;
     }
 
     // General Functions End
@@ -34,7 +32,7 @@ public class DBconnector : MonoBehaviour
     // SPECIFIC TABLES
     // LOCATION (Shorthand: LT)
 
-    public string[,] DBLTSelect()
+    public static string[,] DataBaseLocationSelect()
     {
         string[,] selectionResult = new string[6, 4]; int indexCounter = 0;
 
@@ -64,7 +62,7 @@ public class DBconnector : MonoBehaviour
 
     // PRODUCTS (Shorthand: PD)
 
-    public string[,] DBPDSelect(string colName, string whereValue)
+    public static string[,] DataBaseProductsSelect(string colName, string whereValue)
     {
         string[,] selectionResult = new string[1, 6]; int indexCounter = 0;
 
@@ -98,7 +96,7 @@ public class DBconnector : MonoBehaviour
 
     // PRODUCTLOCATION (Shorthand: PDLT)
 
-    public string[,] DBPDLTSelect(string colName, string whereValue)
+    public static string[,] DataBaseProductLocationSelect(string colName, string whereValue)
     {
         string[,] selectionResult = new string[24, 5]; int indexCounter = 0;
 
@@ -126,7 +124,7 @@ public class DBconnector : MonoBehaviour
         return selectionResult;
     }
 
-    public void DBPDLTUpdate(string setCol, string setVal, string arCol1, string arVal1, string arCol2, string arVal2)
+    public static void DataBaseProductLocationUpdate(string setCol, string setVal, string arCol1, string arVal1, string arCol2, string arVal2)
     {
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
         connection.Open();
@@ -142,7 +140,7 @@ public class DBconnector : MonoBehaviour
 
     // PRODUCTCHANGES (Shorthand: PDCH)
 
-    public string[,] DBPDCHSelect(string colName, string whereValue)
+    public static string[,] DataBaseProductChangesSelect(string colName, string whereValue)
     {
         string[,] selectionResult = new string[50, 6]; int indexCounter = 0;
 
@@ -171,14 +169,14 @@ public class DBconnector : MonoBehaviour
         return selectionResult;
     }
 
-    public void DBPDCHInsert(int productID, int locationID, float newPrice, int newStock)
+    public void DataBaseProductChangesInsert(int productID, int locationID, float newPrice, int newStock)
     {
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
         int currentTimeHours = gameHandler.GetComponent<InGameTime>().GetTimeInHours();
-        int changeID = 0; changeID = DBPDCHGetMaxChangeID() + 1;
+        int changeID = 0; changeID = DataBaseProductChangesGetMaxChangeID() + 1;
 
         string combinedCommand = string.Format("INSERT INTO ProductChanges (ChangeID, ProductID, LocationID, NewPrice, NewStock, InGameTimeHours) VALUES ({0}, {1}, {2}, {3}, {4}, {5})", changeID, productID, locationID, newPrice, newStock, currentTimeHours);
         cmd.CommandText = combinedCommand;
@@ -187,7 +185,7 @@ public class DBconnector : MonoBehaviour
         connection.Close();
     }
 
-    public int DBPDCHGetMaxChangeID()
+    public int DataBaseProductChangesGetMaxChangeID()
     {
         int maxChangeID = 0;
 
@@ -214,7 +212,7 @@ public class DBconnector : MonoBehaviour
     // PLAYER (Shorthand: PL)
     // IMPORTANT: CITIES DONT NEED STOCK
 
-    public string[] DBPLSelect(string colName, string whereValue)
+    public string[] DataBasePlayerInventorySelect(string colName, string whereValue)
     {
         string[] selectionResult = new string[4];
 
@@ -239,46 +237,72 @@ public class DBconnector : MonoBehaviour
         return selectionResult;
     }
 
-    public void DBPLInput(int productID, float priceAVG, int stock, bool pOrW, bool sellT_or_BuyF)
+    public string[] DataBasePlayerInventorySelectForInventoryMenu(string productID)
+    {
+        string[] combinedSelect = new string[4];
+        
+        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        connection.Open();
+        SQLiteCommand cmd = connection.CreateCommand();
+
+        string combinedCommand = string.Format("select Product.ProductName, Product.BasePrice, PlayerInventory.LastPriceAVG, PlayerInventory.Stock FROM PlayerInventory, Product WHERE PlayerInventory.ProductID = {0} AND Product.ProductID = {0} ORDER BY ProductID ASC", productID);
+        cmd.CommandText = combinedCommand;
+
+        SQLiteDataReader sqlReader = cmd.ExecuteReader();
+
+        while (sqlReader.Read())
+        {
+            combinedSelect[0] = sqlReader.GetString(0);
+            combinedSelect[1] = Convert.ToString(sqlReader.GetFloat(1));
+            combinedSelect[2] = Convert.ToString(sqlReader.GetFloat(2));
+            combinedSelect[3] = Convert.ToString(sqlReader.GetInt32(3));
+        }
+        
+        connection.Close();
+        return combinedSelect;
+    }
+
+    public void DataBasePlayerInventoryInput(int productID, float priceAvg, int stock, bool isWithinPlayer, bool isSelling)
     {
         string[] invList = new string[4];
-        invList = DBPLSelect("ProductID", Convert.ToString(productID));
+        invList = DataBasePlayerInventorySelect("ProductID", Convert.ToString(productID));
 
         if (invList[0] is null)
         {
-            DBPLInsert(productID, priceAVG, stock, pOrW);
+            DataBasePlayerInventoryInsert(productID, priceAvg, stock, isWithinPlayer);
         }
         else
         {
-            if (sellT_or_BuyF == true)
+            if (isSelling == true)
             {
                 if (stock == int.Parse(invList[2]))
                 {
-                    DBPLUpdate("LastPriceAVG", "0", "ProductID", Convert.ToString(productID));
-                    DBPLUpdate("Stock", "0", "ProductID", Convert.ToString(productID));
+                    DataBasePlayerInventoryUpdate("LastPriceAVG", "0", "ProductID", Convert.ToString(productID));
+                    DataBasePlayerInventoryUpdate("Stock", "0", "ProductID", Convert.ToString(productID));
                 }
                 else
                 {
-                    float newPriceAVG = CalcNewAVG(int.Parse(invList[1]), int.Parse(invList[2]), priceAVG, -stock);
+                    int tempStock = 0 - stock;
+                    float newPriceAvg = CalcNewAvg(float.Parse(invList[1]), int.Parse(invList[2]), priceAvg, tempStock); // I hate this function
                     int newStock = int.Parse(invList[2]) - stock;
 
-                    DBPLUpdate("LastPriceAVG", Convert.ToString(newPriceAVG), "ProductID", Convert.ToString(productID));
-                    DBPLUpdate("Stock", Convert.ToString(newStock), "ProductID", Convert.ToString(productID));
+                    DataBasePlayerInventoryUpdate("LastPriceAVG", Convert.ToString(newPriceAvg), "ProductID", Convert.ToString(productID));
+                    DataBasePlayerInventoryUpdate("Stock", Convert.ToString(newStock), "ProductID", Convert.ToString(productID));
                 }
             }
             else
             {
-                float newPriceAVG = CalcNewAVG(int.Parse(invList[1]), int.Parse(invList[2]), priceAVG, stock);
+                float newPriceAvg = CalcNewAvg(int.Parse(invList[1]), int.Parse(invList[2]), priceAvg, stock);
                 int newStock = int.Parse(invList[2]) + stock;
 
-                DBPLUpdate("LastPriceAVG", Convert.ToString(newPriceAVG), "ProductID", Convert.ToString(productID));
-                DBPLUpdate("Stock", Convert.ToString(newStock), "ProductID", Convert.ToString(productID));
+                DataBasePlayerInventoryUpdate("LastPriceAVG", Convert.ToString(newPriceAvg), "ProductID", Convert.ToString(productID));
+                DataBasePlayerInventoryUpdate("Stock", Convert.ToString(newStock), "ProductID", Convert.ToString(productID));
             }
         }
     }
 
-    // I guess I have to search sthrough the ids to find it and then output from that id
-    void DBPLUpdate(string setCol, string setVal, string arCol1, string arVal1) // SQL Error
+    // I guess I have to search through the ids to find it and then output from that id
+    private void DataBasePlayerInventoryUpdate(string setCol, string setVal, string arCol1, string arVal1) // SQL Error
     {
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
         connection.Open();
@@ -291,7 +315,7 @@ public class DBconnector : MonoBehaviour
         connection.Close();
     }
 
-    void DBPLInsert(int productID, float priceAVG, int stock, bool pOrW)
+    private void DataBasePlayerInventoryInsert(int productID, float priceAVG, int stock, bool pOrW)
     {
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
         connection.Open();
@@ -307,7 +331,7 @@ public class DBconnector : MonoBehaviour
 
     // UPGRADES (Shorthand: UG)
 
-    public string[,] DBUPSelect(string colName, string whereValue)
+    public string[,] DataBaseUpgradesSelect(string colName, string whereValue)
     {
         string[,] selectionResult = new string[10, 7];
 
@@ -339,7 +363,7 @@ public class DBconnector : MonoBehaviour
         return selectionResult;
     }
 
-    public void DBUPUpdate(string setCol, string setVal, string arCol1, string arVal1)
+    public void DataBaseUpgradesUpdate(string setCol, string setVal, string arCol1, string arVal1)
     {
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
         connection.Open();
@@ -351,4 +375,6 @@ public class DBconnector : MonoBehaviour
         cmd.ExecuteNonQuery();
         connection.Close();
     }
+
+    // MutiTable Queries
 }
