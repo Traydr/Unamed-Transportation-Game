@@ -26,14 +26,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="998431e6-b77a-4443-871e-cd739c440bed" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/FileHandler.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SaveGame0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.vs/Unamed Transportation Game/v16/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/Unamed Transportation Game/v16/.suo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/DataBase/UnamedTransportationGame.db" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DataBase/UnamedTransportationGame.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainGame.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/DBconnector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DBconnector.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Economics.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Economics.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FileHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FileHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ItemMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ItemMenu.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MoneyDisplayChange.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MoneyDisplayChange.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UNITY_TODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UNITY_TODO.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ArtifactDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ArtifactDB" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/Artifacts/07/078ed18e429b2ea0e9dd60f445b41f61" beforeDir="false" />
@@ -67,16 +72,12 @@
       <change beforePath="$PROJECT_DIR$/Library/Artifacts/e9/e966e3de4570b4902704f5c2114f73bb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/Artifacts/ef/ef7e153fa38cbabff2f139723aa220d4" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/CurrentLayout-default.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/Library/CurrentLayout-default.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/ProtocolInstance.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ProtocolInstance.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/SceneVisibilityState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SceneVisibilityState.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/BuiltinAssemblies.stamp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/SourceAssetDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SourceAssetDB" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/StateCache/Hierarchy/a5f061-mainStage.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/StateCache/Hierarchy/a5f061-mainStage.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/StateCache/SceneView/e1a37f-mainStage.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/StateCache/SceneView/e1a37f-mainStage.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/shadercompiler-UnityShaderCompiler.exe0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Library/shadercompiler-UnityShaderCompiler.exe0.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/shadercompiler-UnityShaderCompiler.exe1.log" beforeDir="false" afterPath="$PROJECT_DIR$/Library/shadercompiler-UnityShaderCompiler.exe1.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/shadercompiler-UnityShaderCompiler.exe2.log" beforeDir="false" afterPath="$PROJECT_DIR$/Library/shadercompiler-UnityShaderCompiler.exe2.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/shadercompiler-UnityShaderCompiler.exe3.log" beforeDir="false" afterPath="$PROJECT_DIR$/Library/shadercompiler-UnityShaderCompiler.exe3.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/shadercompiler-UnityShaderCompiler.exe4.log" beforeDir="false" afterPath="$PROJECT_DIR$/Library/shadercompiler-UnityShaderCompiler.exe4.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Unamed Transportation Game.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Unamed Transportation Game.sln" afterDir="false" />
@@ -92,6 +93,8 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MoneyDisplayChange.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FileHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Economics.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/DBconnector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ItemMenu.cs" root0="FORCE_HIGHLIGHTING" />
@@ -100,18 +103,24 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/Economics.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/DBconnector.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ItemMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MoneyDisplayChange.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/FileHandler.cs" />
       </list>
     </option>
   </component>
   <component name="ProjectId" id="1r732kQKa2iGVxO44MrVrsWRtIb" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="sqlite" />
     <property name="Discover.Launch.Via.Unity" value="true" />
@@ -144,7 +153,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1618313096939</updated>
-      <workItem from="1618313106586" duration="9659000" />
+      <workItem from="1618313106586" duration="12509000" />
     </task>
     <servers />
   </component>
@@ -177,6 +186,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -192,9 +202,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="196" height="455" key="HiddenNamespacesPopup/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618317105225" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1618317094546">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1618334863832">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618317094546" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618334863832" />
   </component>
 </project>

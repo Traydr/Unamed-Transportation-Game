@@ -28,13 +28,13 @@ public class MoneyDisplayChange : MonoBehaviour
         WriteMoney(currentMoney);
     }
 
-    int ReadMoney() // Reads the money that is currently displayed in the game
+    public int ReadMoney() // Reads the money that is currently displayed in the game
     {
         int currentMoney = int.Parse(money.text);
         return currentMoney;
     }
 
-    void WriteMoney(int moneyInput) // Writes the money to the text that displays the total money the player has
+    public void WriteMoney(int moneyInput) // Writes the money to the text that displays the total money the player has
     {
         money.text = moneyInput.ToString();
     }

@@ -2338,6 +2338,7 @@ GameObject:
   - component: {fileID: 343716361}
   - component: {fileID: 343716355}
   - component: {fileID: 343716353}
+  - component: {fileID: 343716362}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -2439,12 +2440,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameHandler: {fileID: 343716350}
-  row: {fileID: 1552784411}
-  canvasBackground: {fileID: 192307972}
-  shopUI: {fileID: 1692730876}
-  cityUI: {fileID: 1525501191}
-  escMenu: {fileID: 436648384}
-  moneyDisplay: {fileID: 770916784}
 --- !u!114 &343716357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2515,6 +2510,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b6dc879d1478ae4a827c674d0609c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &343716362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343716350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e4ed1356ad09984996304be608daf94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameHandler: {fileID: 343716350}
 --- !u!1 &346702537
 GameObject:
   m_ObjectHideFlags: 0

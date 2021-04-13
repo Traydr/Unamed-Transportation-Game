@@ -26,5 +26,10 @@ public class KeyboardControls : MonoBehaviour
         {
             gameHandler.GetComponent<InGameTime>().UpdateTime(1);
         }
+
+        if (Input.GetKeyDown("m"))
+        {
+            gameHandler.GetComponent<FileHandler>().SaveGame(0);
+        }
     }
 }
