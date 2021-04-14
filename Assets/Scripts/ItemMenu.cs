@@ -30,7 +30,7 @@ public class ItemMenu : MonoBehaviour
         }
     }
 
-    string FindLocationIDOfCurrentLocation()
+    string FindLocationIDOfCurrentLocation() // Finds the ID of the location that the player is currently in
     {
         Transform currentlocation = player.GetComponent<PlayerMovement>().lastTarget;
         string[,] locIndexArray = DBconnector.DataBaseLocationSelect();
@@ -47,7 +47,7 @@ public class ItemMenu : MonoBehaviour
         return locIndex;
     }
 
-    string FindProductIDOfInputString(string productName)
+    string FindProductIDOfInputString(string productName) // Finds the product ID from the name of a product
     {
         string prodIndex = "-1"; int counter = 0; bool productNameFound = false;
         string[,] productArray;
@@ -70,7 +70,7 @@ public class ItemMenu : MonoBehaviour
         return prodIndex;
     }
 
-    public void InitiateInventoryMenu()
+    public void InitiateInventoryMenu() // Updates items on the inventory menu from the database
     {
         string[,] rowElements = new string[7, 4];
         int[] rowChildIndex = FindRowsWithinMenu(inventoryMenu);
@@ -93,7 +93,7 @@ public class ItemMenu : MonoBehaviour
         // Find row indexes and then paste whats in rowElements onto those rows
     }
 
-    public void InventoryMenuToggleActive()
+    public void InventoryMenuToggleActive() // toggles the inventory menu being active
     {
         inventoryMenu.SetActive(!inventoryMenu.activeSelf);
     }
@@ -244,7 +244,7 @@ public class ItemMenu : MonoBehaviour
         int localNumRowsInMenu = numRowsInMenu;
         int currentIndex = 0;
 
-        if (menu == inventoryMenu)
+        if (menu == inventoryMenu) // An exception for inventory menu which has 7 rows insteand of 4
         {
             localNumRowsInMenu = 7;
         }

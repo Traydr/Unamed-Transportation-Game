@@ -18,30 +18,26 @@ public class KeyboardControls : MonoBehaviour
         {
             gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(100, true);
         }
+        
         if (Input.GetKey("h")) // Subtracts 100 money
         {
             gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(100, false);
         }
+        
         if (Input.GetKey("k")) // Increases in game time by 1 hour
         {
             gameHandler.GetComponent<InGameTime>().UpdateTime(1);
         }
 
-        if (Input.GetKeyDown("m"))
+        if (Input.GetKeyDown("m")) // Saves the game
         {
             gameHandler.GetComponent<FileHandler>().SaveGame();
         }
 
-        if (Input.GetKeyDown("n"))
+        if (Input.GetKeyDown("n")) // Loads a save game
         {
             gameHandler.GetComponent<FileHandler>().LoadGame();
         }
-
-        if (Input.GetKeyDown("i"))
-        {
-            gameHandler.GetComponent<ItemMenu>().InventoryMenuToggleActive();
-            gameHandler.GetComponent<ItemMenu>().InitiateInventoryMenu();
-            
-        }
+        
     }
 }

@@ -13,7 +13,7 @@ public class DBconnector : MonoBehaviour
 
     // General Function Start
 
-    float CalcNewAvg(float currentAvg, int currentMumItems, float newValue, int newNumItem) // I hate this function
+    float CalcNewAvg(float currentAvg, int currentMumItems, float newValue, int newNumItem)
     {
         float numAvg = 0;
 

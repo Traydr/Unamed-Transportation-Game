@@ -65,6 +65,7 @@ public class GameEventHandler : MonoBehaviour
                 gameHandler.GetComponent<DBconnector>().DataBaseProductLocationSelectSpecificProduct(selectResultFromChanges[i, 1], selectResultFromChanges[i, 2]);
 
             //allRelevantDataForLocations needs to be inputted with the data and also add up any changes
+            // to calculate the new price I need: PED, Current Price, Last Stock, Current Stock
         }
     }
 
