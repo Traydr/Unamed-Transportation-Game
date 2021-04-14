@@ -29,7 +29,12 @@ public class KeyboardControls : MonoBehaviour
 
         if (Input.GetKeyDown("m"))
         {
-            gameHandler.GetComponent<FileHandler>().SaveGame(0);
+            gameHandler.GetComponent<FileHandler>().SaveGame();
+        }
+
+        if (Input.GetKeyDown("n"))
+        {
+            gameHandler.GetComponent<FileHandler>().LoadGame();
         }
     }
 }

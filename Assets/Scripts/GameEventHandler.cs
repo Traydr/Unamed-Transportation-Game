@@ -48,8 +48,24 @@ public class GameEventHandler : MonoBehaviour
     void EventLocationPriceUpdate() // Should check for any changes in ProductChanges in the last 24 hrs and then update the prices of diffrent products at a location
     {
         int currentTime = 0; int timeSinceLastCheck = 0;
+        bool locFound = false; bool prodFound = false;
+        int currentIndexForDataArray = 0;
+        string[,] selectResultFromChanges;
+        string[] selectResultsFromProductLocation;
+        string[,] allRelevantDataForLocations = new string[24,5]; // ProductId, LocationId, ChangeInStock, CurrentPrice, CurrentStock
+        
         currentTime = gameHandler.GetComponent<InGameTime>().GetTimeInHours();
         timeSinceLastCheck = currentTime - 24;
+        selectResultFromChanges =
+            gameHandler.GetComponent<DBconnector>().DataBaseProductChangesSelectWithinLast24Hours(timeSinceLastCheck.ToString());
+
+        for (int i = 0; i < selectResultFromChanges.Length / 6; i++)
+        {
+            selectResultsFromProductLocation =
+                gameHandler.GetComponent<DBconnector>().DataBaseProductLocationSelectSpecificProduct(selectResultFromChanges[i, 1], selectResultFromChanges[i, 2]);
+
+            //allRelevantDataForLocations needs to be inputted with the data and also add up any changes
+        }
     }
 
     void EventShopStockRefresh() // Should activate every 7D or 168H for each shop and add to the stock of each of the current items

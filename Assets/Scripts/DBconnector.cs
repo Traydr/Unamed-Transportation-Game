@@ -123,6 +123,33 @@ public class DBconnector : MonoBehaviour
 
         return selectionResult;
     }
+    
+    public string[] DataBaseProductLocationSelectSpecificProduct(string productId, string locationId)
+    {
+        string[] selectionResult = new string[5]; int indexCounter = 0;
+
+        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        connection.Open();
+        SQLiteCommand cmd = connection.CreateCommand();
+
+        string combinedCommand = string.Format("SELECT * FROM ProductLocation WHERE ProductID = {0} AND LocationID = {1} ORDER BY ProductID ASC", productId, locationId);
+        cmd.CommandText = combinedCommand;
+
+        SQLiteDataReader sqlReader = cmd.ExecuteReader();
+
+        while (sqlReader.Read())
+        {
+            selectionResult[0] = Convert.ToString(sqlReader.GetInt32(0));
+            selectionResult[1] = Convert.ToString(sqlReader.GetInt32(1));
+            selectionResult[2] = Convert.ToString(sqlReader.GetInt32(2));
+            selectionResult[3] = Convert.ToString(sqlReader.GetFloat(3));
+            selectionResult[4] = Convert.ToString(sqlReader.GetValue(4));
+        }
+
+        connection.Close();
+
+        return selectionResult;
+    }
 
     public static void DataBaseProductLocationUpdate(string setCol, string setVal, string arCol1, string arVal1, string arCol2, string arVal2)
     {
@@ -140,7 +167,7 @@ public class DBconnector : MonoBehaviour
 
     // PRODUCTCHANGES (Shorthand: PDCH)
 
-    public static string[,] DataBaseProductChangesSelect(string colName, string whereValue)
+    public string[,] DataBaseProductChangesSelect(string colName, string whereValue)
     {
         string[,] selectionResult = new string[50, 6]; int indexCounter = 0;
 
@@ -148,7 +175,36 @@ public class DBconnector : MonoBehaviour
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
-        string combinedCommand = string.Format("SELECT * FROM ProductChanges WHERE {0} = {1} ORDER BY ProductID ASC", colName, whereValue);
+        string combinedCommand = string.Format("SELECT * FROM ProductChanges WHERE {0} = {1} ORDER BY ChangeID ASC", colName, whereValue);
+        cmd.CommandText = combinedCommand;
+
+        SQLiteDataReader sqlReader = cmd.ExecuteReader();
+
+        while (sqlReader.Read())
+        {
+            selectionResult[indexCounter, 0] = Convert.ToString(sqlReader.GetInt32(0));
+            selectionResult[indexCounter, 1] = Convert.ToString(sqlReader.GetInt32(1));
+            selectionResult[indexCounter, 2] = Convert.ToString(sqlReader.GetInt32(2));
+            selectionResult[indexCounter, 3] = Convert.ToString(sqlReader.GetFloat(3));
+            selectionResult[indexCounter, 4] = Convert.ToString(sqlReader.GetInt32(4));
+            selectionResult[indexCounter, 5] = Convert.ToString(sqlReader.GetInt32(5));
+            indexCounter += 1;
+        }
+
+        connection.Close();
+
+        return selectionResult;
+    }
+    
+    public string[,] DataBaseProductChangesSelectWithinLast24Hours(string timeSinceLastCheck)
+    {
+        string[,] selectionResult = new string[20, 6]; int indexCounter = 0;
+
+        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        connection.Open();
+        SQLiteCommand cmd = connection.CreateCommand();
+
+        string combinedCommand = string.Format("SELECT * FROM ProductChanges WHERE InGameTime >= {0} ORDER BY ChangeID ASC", timeSinceLastCheck);
         cmd.CommandText = combinedCommand;
 
         SQLiteDataReader sqlReader = cmd.ExecuteReader();
@@ -193,7 +249,7 @@ public class DBconnector : MonoBehaviour
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
-        string combinedCommand = string.Format("SELECT MAX(ChangeID) FROM ProductChanges");
+        string combinedCommand = "SELECT MAX(ChangeID) FROM ProductChanges";
         cmd.CommandText = combinedCommand;
 
         SQLiteDataReader sqlReader = cmd.ExecuteReader();

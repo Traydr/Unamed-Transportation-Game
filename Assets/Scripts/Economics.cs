@@ -24,10 +24,10 @@ public class Economics : MonoBehaviour
 
     float GetPercentageChangeInValue(float initialVal, float endVal) // Gets the percentage from a diffrence of 2 values
     {
-        float perChVal = 0f;
+        float perChangeInValue = 0f;
 
-        perChVal = 1 - (endVal / initialVal);
+        perChangeInValue = 1 - (endVal / initialVal);
 
-        return perChVal;
+        return perChangeInValue;
     }
 }
