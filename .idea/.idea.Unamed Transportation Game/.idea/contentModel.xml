@@ -13,6 +13,9 @@
             <e p="LICENSE.txt" t="Include" />
           </e>
         </e>
+        <e p="SaveGames" t="Include">
+          <e p="save0.txt" t="Include" />
+        </e>
         <e p="Scripts" t="Include">
           <e p="DBconnector.cs" t="Include" />
           <e p="Economics.cs" t="Include" />

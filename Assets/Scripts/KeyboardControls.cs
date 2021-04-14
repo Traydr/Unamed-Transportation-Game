@@ -36,5 +36,12 @@ public class KeyboardControls : MonoBehaviour
         {
             gameHandler.GetComponent<FileHandler>().LoadGame();
         }
+
+        if (Input.GetKeyDown("i"))
+        {
+            gameHandler.GetComponent<ItemMenu>().InventoryMenuToggleActive();
+            gameHandler.GetComponent<ItemMenu>().InitiateInventoryMenu();
+            
+        }
     }
 }

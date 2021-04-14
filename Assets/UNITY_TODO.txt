@@ -1,8 +1,8 @@
 TO DO:
 // Most important things
-	-> Parametrised SQL queries (multi table queries)
-	-> Saving to file (make it save only money and time) (MOST IMPORTANT)
-	-> Connect the economics with the game (MOST IMPORTANT)
+	-> [DONE]Parametrised SQL queries (multi table queries)
+	-> [DONE] Saving to file (make it save only money and time) (MOST IMPORTANT)
+	-> [In-progress]Connect the economics with the game (MOST IMPORTANT)
 
 
 // DATABASE

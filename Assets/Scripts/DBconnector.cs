@@ -301,7 +301,7 @@ public class DBconnector : MonoBehaviour
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
-        string combinedCommand = string.Format("select Product.ProductName, Product.BasePrice, PlayerInventory.LastPriceAVG, PlayerInventory.Stock FROM PlayerInventory, Product WHERE PlayerInventory.ProductID = {0} AND Product.ProductID = {0} ORDER BY ProductID ASC", productID);
+        string combinedCommand = string.Format("select Product.ProductName, Product.BasePrice, PlayerInventory.LastPriceAVG, PlayerInventory.Stock FROM PlayerInventory JOIN Product ON (PlayerInventory.ProductID = Product.ProductID) WHERE PlayerInventory.ProductID = {0} AND Product.ProductID = {0} ORDER BY Product.ProductID ASC", productID);
         cmd.CommandText = combinedCommand;
 
         SQLiteDataReader sqlReader = cmd.ExecuteReader();

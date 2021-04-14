@@ -71,9 +71,7 @@ public class FileHandler : MonoBehaviour
 
     string[] ReadFile(string filePath)
     {
-        string[] fileOutput = new string[2];
-
-        fileOutput = System.IO.File.ReadAllLines(filePath);
+        string[] fileOutput = System.IO.File.ReadAllLines(filePath);
 
         return fileOutput;
     }

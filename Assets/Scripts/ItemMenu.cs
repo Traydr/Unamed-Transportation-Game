@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemMenu : MonoBehaviour
 {
     public GameObject sellMenu; public GameObject buyMenu; public GameObject gameHandler; public GameObject player;
+    public GameObject inventoryMenu;
     public int numRowsInMenu = 4; public int numColInMenu = 4;
 
     void Start()
@@ -69,11 +70,12 @@ public class ItemMenu : MonoBehaviour
         return prodIndex;
     }
 
-    void InitiateInventoryMenu()
+    public void InitiateInventoryMenu()
     {
         string[,] rowElements = new string[7, 4];
+        int[] rowChildIndex = FindRowsWithinMenu(inventoryMenu);
 
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 7; i++)
         {
             string[] tempElements = gameHandler.GetComponent<DBconnector>().DataBasePlayerInventorySelectForInventoryMenu(i.ToString());
             rowElements[i, 0] = tempElements[0];
@@ -81,6 +83,19 @@ public class ItemMenu : MonoBehaviour
             rowElements[i, 2] = tempElements[2];
             rowElements[i, 3] = tempElements[3];
         }
+
+        for (int x = 0; x < rowChildIndex.Length; x++)
+        {
+            GameObject tempRow = inventoryMenu.transform.GetChild(rowChildIndex[x]).gameObject;
+            WriteRow(tempRow, rowElements[x, 0], float.Parse(rowElements[x, 2]),int.Parse(rowElements[x, 3]));
+        }
+        
+        // Find row indexes and then paste whats in rowElements onto those rows
+    }
+
+    public void InventoryMenuToggleActive()
+    {
+        inventoryMenu.SetActive(!inventoryMenu.activeSelf);
     }
 
     void WriteFromDataBaseToMenu(string locIndex, GameObject menu, bool isSelling) // Takes a location and then matches it to the database and updates the menu so that it displays what a particular location has
@@ -226,8 +241,15 @@ public class ItemMenu : MonoBehaviour
     int[] FindRowsWithinMenu(GameObject menu) // Finds the child index of any game objects with the tag 'Row'
     {
         int menuChildCount = menu.transform.childCount;
-        int[] rowChildIndex = new int[numRowsInMenu];
+        int localNumRowsInMenu = numRowsInMenu;
         int currentIndex = 0;
+
+        if (menu == inventoryMenu)
+        {
+            localNumRowsInMenu = 7;
+        }
+        
+        int[] rowChildIndex = new int[localNumRowsInMenu];
 
         for (int i = 0; i < menuChildCount; i++)
         {
@@ -238,8 +260,6 @@ public class ItemMenu : MonoBehaviour
                 rowChildIndex[currentIndex] = i;
                 currentIndex += 1;
             }
-            else { }
-
         }
 
         return rowChildIndex;
@@ -271,7 +291,7 @@ public class ItemMenu : MonoBehaviour
 
     public void WipeAllInputs(GameObject menu) // Wipes all inputs on all rows
     {
-        int[] rowChildIndex = new int[numRowsInMenu];
+        int[] rowChildIndex;
         rowChildIndex = FindRowsWithinMenu(menu);
 
         for (int i = 0; i < rowChildIndex.Length; i++)
