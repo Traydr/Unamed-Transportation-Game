@@ -26,7 +26,7 @@ public class Economics : MonoBehaviour
     {
         float perChangeInValue = 0f;
 
-        perChangeInValue = 1 - (endVal / initialVal);
+        perChangeInValue = (endVal / initialVal);
 
         return perChangeInValue;
     }

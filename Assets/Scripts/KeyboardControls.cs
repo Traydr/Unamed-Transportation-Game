@@ -29,12 +29,12 @@ public class KeyboardControls : MonoBehaviour
             gameHandler.GetComponent<InGameTime>().UpdateTime(1);
         }
 
-        if (Input.GetKeyDown("m")) // Saves the game
+        if (Input.GetKey("m")) // Saves the game
         {
             gameHandler.GetComponent<FileHandler>().SaveGame();
         }
 
-        if (Input.GetKeyDown("n")) // Loads a save game
+        if (Input.GetKey("n")) // Loads a save game
         {
             gameHandler.GetComponent<FileHandler>().LoadGame();
         }

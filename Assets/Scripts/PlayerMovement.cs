@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -30,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
             gameHandler.GetComponent<InGameTime>().UpdateTime(CalcTimeCost(lastTarget, target));
             lastTarget = target;
         }
-        else { }
     }
 
     private int FindIndexOfLocation(string targetName) // Gets the index of a location and returns the index

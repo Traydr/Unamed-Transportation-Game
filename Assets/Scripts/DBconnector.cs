@@ -15,9 +15,7 @@ public class DBconnector : MonoBehaviour
 
     float CalcNewAvg(float currentAvg, int currentMumItems, float newValue, int newNumItem)
     {
-        float numAvg = 0;
-
-        numAvg = ((currentAvg * currentMumItems) + (newValue * newNumItem)) / (currentMumItems * newNumItem);
+        float numAvg = ((currentAvg * currentMumItems) + (newValue * newNumItem)) / (currentMumItems * newNumItem);
 
         if (numAvg < 0)
         {
@@ -40,7 +38,7 @@ public class DBconnector : MonoBehaviour
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
-        string combinedCommand = string.Format("SELECT * FROM Location ORDER BY LocationID ASC");
+        string combinedCommand = "SELECT * FROM Location ORDER BY LocationID ASC";
         cmd.CommandText = combinedCommand;
 
         SQLiteDataReader sqlReader = cmd.ExecuteReader();
@@ -126,7 +124,7 @@ public class DBconnector : MonoBehaviour
     
     public string[] DataBaseProductLocationSelectSpecificProduct(string productId, string locationId)
     {
-        string[] selectionResult = new string[5]; int indexCounter = 0;
+        string[] selectionResult = new string[5];
 
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
         connection.Open();
@@ -196,6 +194,7 @@ public class DBconnector : MonoBehaviour
         return selectionResult;
     }
     
+    // This function selects all changes with an InGameTime greater than or equal to the inputted number
     public string[,] DataBaseProductChangesSelectWithinLast24Hours(string timeSinceLastCheck)
     {
         string[,] selectionResult = new string[20, 6]; int indexCounter = 0;
@@ -225,16 +224,17 @@ public class DBconnector : MonoBehaviour
         return selectionResult;
     }
 
-    public void DataBaseProductChangesInsert(int productID, int locationID, float newPrice, int newStock)
+    public void DataBaseProductChangesInsert(int productId, int locationId, float newPrice, int newStock)
     {
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
         int currentTimeHours = gameHandler.GetComponent<InGameTime>().GetTimeInHours();
-        int changeID = 0; changeID = DataBaseProductChangesGetMaxChangeID() + 1;
+        int changeId = 0; 
+        changeId = DataBaseProductChangesGetMaxChangeID() + 1;
 
-        string combinedCommand = string.Format("INSERT INTO ProductChanges (ChangeID, ProductID, LocationID, NewPrice, NewStock, InGameTimeHours) VALUES ({0}, {1}, {2}, {3}, {4}, {5})", changeID, productID, locationID, newPrice, newStock, currentTimeHours);
+        string combinedCommand = string.Format("INSERT INTO ProductChanges (ChangeID, ProductID, LocationID, NewPrice, NewStock, InGameTimeHours) VALUES ({0}, {1}, {2}, {3}, {4}, {5})", changeId, productId, locationId, newPrice, newStock, currentTimeHours);
         cmd.CommandText = combinedCommand;
 
         cmd.ExecuteNonQuery();
@@ -293,7 +293,7 @@ public class DBconnector : MonoBehaviour
         return selectionResult;
     }
 
-    public string[] DataBasePlayerInventorySelectForInventoryMenu(string productID)
+    public string[] DataBasePlayerInventorySelectForInventoryMenu(string productId)
     {
         string[] combinedSelect = new string[4];
         
@@ -301,7 +301,7 @@ public class DBconnector : MonoBehaviour
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
-        string combinedCommand = string.Format("select Product.ProductName, Product.BasePrice, PlayerInventory.LastPriceAVG, PlayerInventory.Stock FROM PlayerInventory JOIN Product ON (PlayerInventory.ProductID = Product.ProductID) WHERE PlayerInventory.ProductID = {0} AND Product.ProductID = {0} ORDER BY Product.ProductID ASC", productID);
+        string combinedCommand = string.Format("SELECT Product.ProductName, Product.BasePrice, PlayerInventory.LastPriceAVG, PlayerInventory.Stock FROM PlayerInventory JOIN Product ON (PlayerInventory.ProductID = Product.ProductID) WHERE PlayerInventory.ProductID = {0} AND Product.ProductID = {0} ORDER BY Product.ProductID ASC", productId);
         cmd.CommandText = combinedCommand;
 
         SQLiteDataReader sqlReader = cmd.ExecuteReader();
@@ -318,14 +318,13 @@ public class DBconnector : MonoBehaviour
         return combinedSelect;
     }
 
-    public void DataBasePlayerInventoryInput(int productID, float priceAvg, int stock, bool isWithinPlayer, bool isSelling)
+    public void DataBasePlayerInventoryInput(int productId, float priceAvg, int stock, bool isWithinPlayer, bool isSelling)
     {
-        string[] invList = new string[4];
-        invList = DataBasePlayerInventorySelect("ProductID", Convert.ToString(productID));
+        string[] invList = DataBasePlayerInventorySelect("ProductID", Convert.ToString(productId));
 
         if (invList[0] is null)
         {
-            DataBasePlayerInventoryInsert(productID, priceAvg, stock, isWithinPlayer);
+            DataBasePlayerInventoryInsert(productId, priceAvg, stock, isWithinPlayer);
         }
         else
         {
@@ -333,8 +332,8 @@ public class DBconnector : MonoBehaviour
             {
                 if (stock == int.Parse(invList[2]))
                 {
-                    DataBasePlayerInventoryUpdate("LastPriceAVG", "0", "ProductID", Convert.ToString(productID));
-                    DataBasePlayerInventoryUpdate("Stock", "0", "ProductID", Convert.ToString(productID));
+                    DataBasePlayerInventoryUpdate("LastPriceAVG", "0", "ProductID", Convert.ToString(productId));
+                    DataBasePlayerInventoryUpdate("Stock", "0", "ProductID", Convert.ToString(productId));
                 }
                 else
                 {
@@ -342,8 +341,8 @@ public class DBconnector : MonoBehaviour
                     float newPriceAvg = CalcNewAvg(float.Parse(invList[1]), int.Parse(invList[2]), priceAvg, tempStock); // I hate this function
                     int newStock = int.Parse(invList[2]) - stock;
 
-                    DataBasePlayerInventoryUpdate("LastPriceAVG", Convert.ToString(newPriceAvg), "ProductID", Convert.ToString(productID));
-                    DataBasePlayerInventoryUpdate("Stock", Convert.ToString(newStock), "ProductID", Convert.ToString(productID));
+                    DataBasePlayerInventoryUpdate("LastPriceAVG", Convert.ToString(newPriceAvg), "ProductID", Convert.ToString(productId));
+                    DataBasePlayerInventoryUpdate("Stock", Convert.ToString(newStock), "ProductID", Convert.ToString(productId));
                 }
             }
             else
@@ -351,8 +350,8 @@ public class DBconnector : MonoBehaviour
                 float newPriceAvg = CalcNewAvg(int.Parse(invList[1]), int.Parse(invList[2]), priceAvg, stock);
                 int newStock = int.Parse(invList[2]) + stock;
 
-                DataBasePlayerInventoryUpdate("LastPriceAVG", Convert.ToString(newPriceAvg), "ProductID", Convert.ToString(productID));
-                DataBasePlayerInventoryUpdate("Stock", Convert.ToString(newStock), "ProductID", Convert.ToString(productID));
+                DataBasePlayerInventoryUpdate("LastPriceAVG", Convert.ToString(newPriceAvg), "ProductID", Convert.ToString(productId));
+                DataBasePlayerInventoryUpdate("Stock", Convert.ToString(newStock), "ProductID", Convert.ToString(productId));
             }
         }
     }
@@ -371,13 +370,13 @@ public class DBconnector : MonoBehaviour
         connection.Close();
     }
 
-    private void DataBasePlayerInventoryInsert(int productID, float priceAVG, int stock, bool pOrW)
+    private void DataBasePlayerInventoryInsert(int productId, float priceAvg, int stock, bool pOrW)
     {
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
-        string combinedCommand = string.Format("INSERT INTO PlayerInventory (ProductID, LastPriceAVG, Stock, PlayerT_or_WarehouseF) VALUES ({0}, {1}, {2}, {3})", productID, priceAVG, stock, pOrW);
+        string combinedCommand = string.Format("INSERT INTO PlayerInventory (ProductID, LastPriceAVG, Stock, PlayerT_or_WarehouseF) VALUES ({0}, {1}, {2}, {3})", productId, priceAvg, stock, pOrW);
         cmd.CommandText = combinedCommand;
 
         cmd.ExecuteNonQuery();
@@ -431,6 +430,4 @@ public class DBconnector : MonoBehaviour
         cmd.ExecuteNonQuery();
         connection.Close();
     }
-
-    // MutiTable Queries
 }
