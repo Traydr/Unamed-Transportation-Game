@@ -13,6 +13,7 @@ public class DBconnector : MonoBehaviour
 
     // General Function Start
 
+    // This function is extremely annoying
     float CalcNewAvg(float currentAvg, int currentMumItems, float newValue, int newNumItem)
     {
         float numAvg = ((currentAvg * currentMumItems) + (newValue * newNumItem)) / (currentMumItems * newNumItem);
@@ -197,13 +198,13 @@ public class DBconnector : MonoBehaviour
     // This function selects all changes with an InGameTime greater than or equal to the inputted number
     public string[,] DataBaseProductChangesSelectWithinLast24Hours(string timeSinceLastCheck)
     {
-        string[,] selectionResult = new string[20, 6]; int indexCounter = 0;
+        string[,] selectionResult = new string[30, 3]; int indexCounter = 0;
 
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
-        string combinedCommand = string.Format("SELECT * FROM ProductChanges WHERE InGameTime >= {0} ORDER BY ChangeID ASC", timeSinceLastCheck);
+        string combinedCommand = string.Format("SELECT ProductID, LocationID, NewStock FROM ProductChanges WHERE InGameTime >= {0} ORDER BY ChangeID ASC", timeSinceLastCheck);
         cmd.CommandText = combinedCommand;
 
         SQLiteDataReader sqlReader = cmd.ExecuteReader();
@@ -213,9 +214,6 @@ public class DBconnector : MonoBehaviour
             selectionResult[indexCounter, 0] = Convert.ToString(sqlReader.GetInt32(0));
             selectionResult[indexCounter, 1] = Convert.ToString(sqlReader.GetInt32(1));
             selectionResult[indexCounter, 2] = Convert.ToString(sqlReader.GetInt32(2));
-            selectionResult[indexCounter, 3] = Convert.ToString(sqlReader.GetFloat(3));
-            selectionResult[indexCounter, 4] = Convert.ToString(sqlReader.GetInt32(4));
-            selectionResult[indexCounter, 5] = Convert.ToString(sqlReader.GetInt32(5));
             indexCounter += 1;
         }
 
@@ -328,7 +326,7 @@ public class DBconnector : MonoBehaviour
         }
         else
         {
-            if (isSelling == true)
+            if (isSelling)
             {
                 if (stock == int.Parse(invList[2]))
                 {
@@ -347,7 +345,7 @@ public class DBconnector : MonoBehaviour
             }
             else
             {
-                float newPriceAvg = CalcNewAvg(int.Parse(invList[1]), int.Parse(invList[2]), priceAvg, stock);
+                float newPriceAvg = CalcNewAvg(int.Parse(invList[1]), int.Parse(invList[2]), priceAvg, stock); // This function call and the one above are the cause of many bugs
                 int newStock = int.Parse(invList[2]) + stock;
 
                 DataBasePlayerInventoryUpdate("LastPriceAVG", Convert.ToString(newPriceAvg), "ProductID", Convert.ToString(productId));

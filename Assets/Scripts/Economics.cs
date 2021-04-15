@@ -10,7 +10,7 @@ public class Economics : MonoBehaviour
         Debug.Log("Economics.Start");
     }
 
-    float CalcChangeInPrice(float ped, float currentPrice, int lastStock, int currentStock) // Takes the PED and the % change in demand and then calculates the resultant price and returns it
+    public float CalcChangeInPrice(float ped, float currentPrice, int lastStock, int currentStock) // Takes the PED and the % change in demand and then calculates the resultant price and returns it
     {
         // Ped = % change in Qty Demanded / % change in Price so %CH Price = %CH QD / PED
         float resultantPrice = 0f;
