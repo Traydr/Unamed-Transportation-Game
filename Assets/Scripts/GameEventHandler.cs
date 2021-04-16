@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using TMPro.EditorUtilities;
-using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
