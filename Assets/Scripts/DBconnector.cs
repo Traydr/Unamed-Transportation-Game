@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Data.SQLite;
 using System;
+using Unity.Mathematics;
 
 public class DBconnector : MonoBehaviour
 {
@@ -122,7 +123,7 @@ public class DBconnector : MonoBehaviour
             selectionResult[indexCounter, 0] = Convert.ToString(sqlReader.GetInt32(0));
             selectionResult[indexCounter, 1] = Convert.ToString(sqlReader.GetInt32(1));
             selectionResult[indexCounter, 2] = Convert.ToString(sqlReader.GetInt32(2));
-            selectionResult[indexCounter, 3] = Convert.ToString(sqlReader.GetFloat(3));
+            selectionResult[indexCounter, 3] = (sqlReader.GetFloat(3).ToString("n2"));
             selectionResult[indexCounter, 4] = Convert.ToString(sqlReader.GetValue(4));
             indexCounter += 1;
         }
@@ -207,7 +208,7 @@ public class DBconnector : MonoBehaviour
     // This function selects all changes with an InGameTime greater than or equal to the inputted number
     public string[,] DataBaseProductChangesSelectWithinLast24Hours(string timeSinceLastCheck)
     {
-        string[,] selectionResult = new string[30, 3]; int indexCounter = 0;
+        string[,] selectionResult = new string[100, 3]; int indexCounter = 0;
 
         SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
         connection.Open();

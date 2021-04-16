@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using TMPro.EditorUtilities;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -64,19 +65,19 @@ public class GameEventHandler : MonoBehaviour
         
         // Goes through ProductLocation database and copies all relevant data to a 2d Array
         // These items include the productId, LocaitonId, CurrentPrice, CurrentStock and PED here
-        for (int x = 0; x < 5; x++) 
+        for (int x = 0; x < 6; x++) 
         {
             string[,] resultsFromProducLocationForLocation =
                 DBconnector.DataBaseProductLocationSelect("LocationID", x.ToString());
 
-            for (int z = 0; z < 3; z++)
+            for (int z = 0; z < 4; z++)
             {
                 string[,] tempProduct = DBconnector.DataBaseProductsSelect("ProductID", resultsFromProducLocationForLocation[z, 0]);
                 allRelevantDataForLocations[indexCounter, 0] = resultsFromProducLocationForLocation[z, 0];
                 allRelevantDataForLocations[indexCounter, 1] = resultsFromProducLocationForLocation[z, 1];
-                allRelevantDataForLocations[indexCounter, 2] = resultsFromProducLocationForLocation[z, 4];
-                allRelevantDataForLocations[indexCounter, 3] = resultsFromProducLocationForLocation[z, 3];
-                allRelevantDataForLocations[indexCounter, 4] = 1.ToString();
+                allRelevantDataForLocations[indexCounter, 2] = resultsFromProducLocationForLocation[z, 3];
+                allRelevantDataForLocations[indexCounter, 3] = resultsFromProducLocationForLocation[z, 2];
+                allRelevantDataForLocations[indexCounter, 4] = 0.ToString();
                 allRelevantDataForLocations[indexCounter, 5] = tempProduct[0, 5];
                 indexCounter += 1;
             }
@@ -113,6 +114,12 @@ public class GameEventHandler : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log(selectResultFromChanges[i, 2]);
+                    Debug.Log(productLocationIndex);
+                    Debug.Log(i);
+                    Debug.Log(allRelevantDataForLocations[productLocationIndex, 4]);
+                    
+                    
                     allRelevantDataForLocations[productLocationIndex, 4] = Convert.ToString(int.Parse(allRelevantDataForLocations[productLocationIndex, 4]) + int.Parse(selectResultFromChanges[i, 2]));
                 }
                 
@@ -120,7 +127,7 @@ public class GameEventHandler : MonoBehaviour
             }
         }
 
-        for (int v = 0; v < allRelevantDataForLocations.Length / 5; v++)
+        for (int v = 0; v < allRelevantDataForLocations.Length / 6; v++)
         {
             if (allRelevantDataForLocations[v, 4] == "0")
             {
@@ -128,10 +135,17 @@ public class GameEventHandler : MonoBehaviour
             }
             else
             {
+                float tempCurrentPrice = 0f; 
+                
                 string tempProductId = allRelevantDataForLocations[v, 0];
                 string tempLocationId = allRelevantDataForLocations[v, 1];
                 float tempPed = float.Parse(allRelevantDataForLocations[v, 5]);
-                float tempCurrentPrice = float.Parse(allRelevantDataForLocations[v, 2]);
+                bool hasCurrentPriceFailed = float.TryParse(allRelevantDataForLocations[v, 2], out tempCurrentPrice);
+                // TESTING
+                Debug.Log(hasCurrentPriceFailed);
+                Debug.Log(allRelevantDataForLocations[v, 3]); Debug.Log(allRelevantDataForLocations[v, 4]);
+                
+                //float tempCurrentPrice = float.TryParse(allRelevantDataForLocations[v, 2], hasCurrentPriceFailed);
                 int tempLaststock = int.Parse(allRelevantDataForLocations[v, 3]) + int.Parse(allRelevantDataForLocations[v, 4]);
                 int tempCurrentStock = int.Parse(allRelevantDataForLocations[v, 3]);
                 
