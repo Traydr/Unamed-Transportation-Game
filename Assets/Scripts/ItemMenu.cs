@@ -229,7 +229,7 @@ public class ItemMenu : MonoBehaviour
                 WriteRow(tempRow, itemName, itemPrice, itemStockInShop);
                 WipeInput(tempRow);
                 gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(cost, false);
-                gameHandler.GetComponent<DBconnector>().DataBasePlayerInventoryInput(int.Parse(locationID), itemPrice, itemToBuy, true, false);
+                gameHandler.GetComponent<DBconnector>().DataBasePlayerInventoryInput(int.Parse(FindProductIDOfInputString(itemName)), itemPrice, itemToBuy, true, false);
                 DBconnector.DataBaseProductLocationUpdate("Stock", itemStockInShop.ToString(), "ProductID", FindProductIDOfInputString(itemName), "LocationID", locationID);
                 gameHandler.GetComponent<DBconnector>().DataBaseProductChangesInsert(int.Parse(currentProductID), int.Parse(locationID), itemPrice, itemToBuy);
             }

@@ -24,7 +24,7 @@ public class InGameTime : MonoBehaviour
             newHourValue -= 24;
             newDayValue += 1;
             // MAKE CALL HERE
-            gameHandler.GetComponent<GameEventHandler>().CallEventRequest("ELPC");
+            gameHandler.GetComponent<GameEventHandler>().CallEventRequest("ELPU");
         }
 
         SetTime(newDayValue, newHourValue);

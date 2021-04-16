@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using Unity.Mathematics;
@@ -25,8 +26,8 @@ public class GameEventHandler : MonoBehaviour
     {
         switch (requestType)
         {
-            case "EVLU":
-                Debug.Log("Event EVLU"); // When adding the additional input data, make sure to add to these debug logs so that they show whats happening
+            case "ELPU":
+                Debug.Log("Event ELPU"); // When adding the additional input data, make sure to add to these debug logs so that they show whats happening
                 EventLocationPriceUpdate();
                 break;
             case "ESSR":
@@ -75,7 +76,7 @@ public class GameEventHandler : MonoBehaviour
                 allRelevantDataForLocations[indexCounter, 1] = resultsFromProducLocationForLocation[z, 1];
                 allRelevantDataForLocations[indexCounter, 2] = resultsFromProducLocationForLocation[z, 4];
                 allRelevantDataForLocations[indexCounter, 3] = resultsFromProducLocationForLocation[z, 3];
-                allRelevantDataForLocations[indexCounter, 4] = 0.ToString();
+                allRelevantDataForLocations[indexCounter, 4] = 1.ToString();
                 allRelevantDataForLocations[indexCounter, 5] = tempProduct[0, 5];
                 indexCounter += 1;
             }
@@ -106,7 +107,16 @@ public class GameEventHandler : MonoBehaviour
                     }
                 }
 
-                allRelevantDataForLocations[productLocationIndex, 4] = (int.Parse(allRelevantDataForLocations[productLocationIndex, 4]) + int.Parse(selectResultFromChanges[i, 2])).ToString();
+                if (i == 0)
+                {
+                    
+                }
+                else
+                {
+                    allRelevantDataForLocations[productLocationIndex, 4] = Convert.ToString(int.Parse(allRelevantDataForLocations[productLocationIndex, 4]) + int.Parse(selectResultFromChanges[i, 2]));
+                }
+                
+                
             }
         }
 
@@ -127,6 +137,7 @@ public class GameEventHandler : MonoBehaviour
                 
                 float newPrice = gameHandler.GetComponent<Economics>().CalcChangeInPrice(tempPed, tempCurrentPrice, tempLaststock, tempCurrentStock);
                 
+                // Product Location is not updating
                 DBconnector.DataBaseProductLocationUpdate("LocalPrice", newPrice.ToString(), "ProductID", tempProductId, "LocationID", tempLocationId);
                 gameHandler.GetComponent<DBconnector>().DataBaseProductChangesInsert(int.Parse(tempProductId), int.Parse(tempLocationId), newPrice, tempCurrentStock);
             }

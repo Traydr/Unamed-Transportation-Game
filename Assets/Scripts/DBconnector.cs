@@ -16,7 +16,16 @@ public class DBconnector : MonoBehaviour
     // This function is extremely annoying
     float CalcNewAvg(float currentAvg, int currentMumItems, float newValue, int newNumItem)
     {
-        float numAvg = ((currentAvg * currentMumItems) + (newValue * newNumItem)) / (currentMumItems * newNumItem);
+        float numAvg = 0;
+        
+        if (currentMumItems + newNumItem == 0)
+        {
+            numAvg = 0f;
+        }
+        else
+        {
+            numAvg = ((currentAvg * currentMumItems) + (newValue * newNumItem)) / (currentMumItems + newNumItem);
+        }
 
         if (numAvg < 0)
         {
@@ -204,7 +213,7 @@ public class DBconnector : MonoBehaviour
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
-        string combinedCommand = string.Format("SELECT ProductID, LocationID, NewStock FROM ProductChanges WHERE InGameTime >= {0} ORDER BY ChangeID ASC", timeSinceLastCheck);
+        string combinedCommand = string.Format("SELECT ProductID, LocationID, NewStock FROM ProductChanges WHERE InGameTimeHours >= {0} ORDER BY ChangeID ASC", timeSinceLastCheck);
         cmd.CommandText = combinedCommand;
 
         SQLiteDataReader sqlReader = cmd.ExecuteReader();
@@ -345,7 +354,7 @@ public class DBconnector : MonoBehaviour
             }
             else
             {
-                float newPriceAvg = CalcNewAvg(int.Parse(invList[1]), int.Parse(invList[2]), priceAvg, stock); // This function call and the one above are the cause of many bugs
+                float newPriceAvg = CalcNewAvg(float.Parse(invList[1]), int.Parse(invList[2]), priceAvg, stock); // This function call and the one above are the cause of many bugs
                 int newStock = int.Parse(invList[2]) + stock;
 
                 DataBasePlayerInventoryUpdate("LastPriceAVG", Convert.ToString(newPriceAvg), "ProductID", Convert.ToString(productId));
