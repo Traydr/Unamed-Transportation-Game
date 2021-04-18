@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Data.SQLite;
 using System;
-using Unity.Mathematics;
 
 public class DBconnector : MonoBehaviour
 {
