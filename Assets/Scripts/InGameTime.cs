@@ -12,8 +12,10 @@ public class InGameTime : MonoBehaviour
         Debug.Log("Time.Start");
     }
 
-    // Addition for UpdateTime, each time the loop is done, an event script should be called to evaluate the day !!
-    public void UpdateTime(int advanceTimeByNumHours) // Takes in a number of hours to add to the current time, then it correctly calculates how it should be displayed and dsiplays it
+    // Takes in the number of hours the in game time should be advanced by
+    // It gets the data and then adds the hours to the current hours and runs a while loop to make sure the hours dont exceed 24
+    // If they do then a day is added to the in game time. Then the values are sent to SetTime() function
+    public void UpdateTime(int advanceTimeByNumHours)
     {
         int newDayValue = 0; int newHourValue = 0; int[] storedTime = new int[2];
         storedTime = GetTime(); newHourValue = storedTime[1]; newDayValue = storedTime[0];
@@ -30,6 +32,8 @@ public class InGameTime : MonoBehaviour
         SetTime(newDayValue, newHourValue);
     }
 
+    // Get the integer values in time by splitting the text string by the space
+    // It then removes the end letter of the numbers and stores them in an array of integers and returns that array
     public int[] GetTime() // Gets the time from display on UI
     {
         string[] currentTime = timeDisplay.text.Split(' ');
@@ -43,18 +47,21 @@ public class InGameTime : MonoBehaviour
         return storedTime;
     }
 
-    public void SetTime(int dayValue, int hourValue) // Changes the time displayed on the game screen
+    // Set the time by formating the input data into the string in the correct format, then sets the displayed text to it
+    public void SetTime(int dayValue, int hourValue)
     {
         timeDisplay.text = string.Format("{0}D {1}H", dayValue, hourValue);
     }
 
-    public void SetTimeFromTotalHours(int totalHours) // Takes a number of hours and displays it as time elapsed
+    // Sets the time to 0 and then advances the amount of time by the integer given
+    public void SetTimeFromTotalHours(int totalHours)
     {
         SetTime(0, 0);
         UpdateTime(totalHours);
     }
 
-    public int GetTimeInHours() // Takes the  time displayed and returns the time in hours
+    // Takes the  time displayed and returns the total time in hours
+    public int GetTimeInHours() 
     {
         int totalHours = 0; int[] currentTime = new int[2];
         currentTime = GetTime();

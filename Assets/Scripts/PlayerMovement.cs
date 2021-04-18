@@ -13,24 +13,34 @@ public class PlayerMovement : MonoBehaviour
         PMovement(initialStart);
     }
 
-    public void PMovement(Transform target) // Checks that the player can move to target and if so it then moves
+    // Moves the player from 1 location to another
+    public void PMovement(Transform target)
     {
+        // Checks if the player is able to move the clicked location, by getting the indexes of the locations and then checking it in the FindConnectionBetweenTwoLocations() functions
         bool connectionValid = FindConnectionBetweenTwoLocations(FindIndexOfLocation(lastTarget.transform.name), FindIndexOfLocation(target.transform.name));
         
+        // If the connection is valid the following code is executed
         if (connectionValid == true)
         {
+            // The Player position goes to the target position with an offset of 10x
             Vector3 targetPos = new Vector3(target.position.x + 10, target.position.y, 1);
             player.position = targetPos;
+            
+            // The Money is subtracted by the distance moved, the time also changes depending on the distance moved
             gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(CalcFeulCost(lastTarget, target), false);
             gameHandler.GetComponent<InGameTime>().UpdateTime(CalcTimeCost(lastTarget, target));
+            
+            // The lastTarget becomes the current position where the player is located
             lastTarget = target;
         }
     }
 
-    private int FindIndexOfLocation(string targetName) // Gets the index of a location and returns the index
+    // Finds the index of targets name by searching for it within an array of strings
+    // If its not found an index of -1 is returned | If its found then the correct index is returned
+    private int FindIndexOfLocation(string targetName)
     {
         int locationIndex = -1;
-        string[] locationIndexArr = new string[] { "City", "City (1)", "City (2)", "Shop", "Shop (1)", "Shop (2)" };
+        string[] locationIndexArr = { "City", "City (1)", "City (2)", "Shop", "Shop (1)", "Shop (2)" };
 
         for (int i = 0; i < locationIndexArr.Length; i++)
         {
@@ -38,12 +48,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 locationIndex = i;
             }
-            else { }
         }
         return locationIndex;
     }
 
-    private bool FindConnectionBetweenTwoLocations(int indexinitial, int indexTarget) // Finds if there is a conection between 2 locations and returns true or false
+    // Finds if the is a connection between 2 locations by getting their indexes
+    // Those indexes are put into a 2d array and if the array has a 1 on the positions then there is a connection
+    // If there is a 0 then there isnt a connection
+    private bool FindConnectionBetweenTwoLocations(int indexinitial, int indexTarget)
     {
         bool connectionFound = false;
         int[,] locationConnectionArray = new int[,] 
@@ -60,13 +72,12 @@ public class PlayerMovement : MonoBehaviour
         {
             connectionFound = true;
         }
-        else { }
 
         return connectionFound;
     }
-
-    // This possibly may be moved to 'Economics.cs'
-    int CalcFeulCost(Transform initialPos, Transform targetPos) // Calculates the feul cost of traveling based on the distance travelled
+    
+    // Calculates the feul cost of traveling based on the distance travelled and multiplies it by a multiplier
+    int CalcFeulCost(Transform initialPos, Transform targetPos) 
     {
         int feulCost = 0; int multiplier = 1;
 
@@ -76,7 +87,8 @@ public class PlayerMovement : MonoBehaviour
         return feulCost;
     }
 
-    int CalcTimeCost(Transform initialPos, Transform targetPos) // Calculates the time taken to move between diffrent locations
+    // Calculates the time taken to move between diffrent locations depending on the distance 
+    int CalcTimeCost(Transform initialPos, Transform targetPos) 
     {
         int timeCost = 0;
 
@@ -86,7 +98,8 @@ public class PlayerMovement : MonoBehaviour
         return timeCost;
     }
 
-    float GetMagnitudeBetweenTwoPoints(Transform initialPos, Transform targetPos) // Gets the distance between 2 locations
+    // Gets the magnitude of the distance between 2 locations by using Pythagoras's theorem
+    float GetMagnitudeBetweenTwoPoints(Transform initialPos, Transform targetPos) 
     {
         float magnitude = 0f;
 

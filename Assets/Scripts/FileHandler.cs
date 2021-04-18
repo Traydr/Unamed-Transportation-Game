@@ -14,8 +14,9 @@ public class FileHandler : MonoBehaviour
     {
         Debug.Log("FileHandler.Start");
     }
-
-    public void SaveGame() // Saves the game by copying the amount of money and the current time in hours and then sends it to WriteFile()
+    
+    // Saves the game by copying the amount of money and the current time in hours into an array and then calls the WriteFile() function
+    public void SaveGame() 
     {
         Debug.Log("SaveGame Called");
         int tempMoney = gameHandler.GetComponent<MoneyDisplayChange>().ReadMoney();
@@ -24,52 +25,60 @@ public class FileHandler : MonoBehaviour
 
         WriteFile(saveData, CreateFilePath(currentGameId));
     }
-
-    public void LoadGame() // gets saveData from the file and then writes it to the money being displayed and sets the time
+    
+    // gets saveData from the file and then writes it to the money being displayed and sets the time
+    public void LoadGame() 
     {
         string[] saveData = ReadFile(CreateFilePath(currentGameId));
         
         gameHandler.GetComponent<MoneyDisplayChange>().WriteMoney(int.Parse(saveData[0]));
         gameHandler.GetComponent<InGameTime>().SetTimeFromTotalHours(int.Parse(saveData[1]));
     }
-
-    string CreateFilePath(int gameId) // Creates a filepath from diffrent strings and returns it as a single string
+    
+    // Creates a filepath from diffrent strings and returns it as a single string
+    string CreateFilePath(int gameId) 
     {
         string finalPath = saveGameFilePath + gameId + saveGameFileExtention;
         return finalPath;
     }
 
-    void CreateFile(string filePath) // Creates a specific file
+    // Creates a specific file
+    void CreateFile(string filePath)
     {
         File.CreateText(filePath).Close();
     }
-
-    void CreateFolder(string filePath) // Creates the folders leading to a file
+ 
+    // Creates the folders leading to a file
+    void CreateFolder(string filePath)
     {
         Directory.CreateDirectory(filePath);
     }
 
-    bool CheckFile(string filePath) // Checks if the file exists
+    // Checks if the file exists
+    bool CheckFile(string filePath) 
     {
         bool fileExists;
         fileExists = System.IO.File.Exists(filePath);
         return fileExists;
     }
 
-    bool CheckFolder(string filePath) // Checks if the folder exists
+    // Checks if the folder exists
+    bool CheckFolder(string filePath) 
     {
         bool folderExists;
         folderExists = System.IO.Directory.Exists(filePath);
         return folderExists;
     }
 
-    void WriteFile(string[] saveData, string filePath) // Writes the inputed data to file
+    // Writes the inputed data to file
+    void WriteFile(string[] saveData, string filePath) 
     {
         string saveDataString = saveData[0] + Environment.NewLine + saveData[1];
         File.WriteAllText(filePath, saveDataString);
     }
 
-    string[] ReadFile(string filePath) // Reads the data from file and returns it as an array of strings
+    // Reads the data from file and returns it as an array of strings
+    string[] ReadFile(string filePath) 
     {
         string[] fileOutput = System.IO.File.ReadAllLines(filePath);
 

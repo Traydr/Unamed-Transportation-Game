@@ -14,7 +14,7 @@ public class MoneyDisplayChange : MonoBehaviour
         money.text = "50000"; // starting amount of money
     }
 
-    public void MoneyChange(int amount, bool postiveValue) // Takes an amount of money and wether this is addition or subtraction and does the corresponding action and then changes the money displayed
+    public void MoneyChange(int amount, bool postiveValue) // Takes an amount of money and weather this is addition or subtraction and does the corresponding action and then changes the money displayed
     {
         int currentMoney = ReadMoney();
         if (postiveValue == true)

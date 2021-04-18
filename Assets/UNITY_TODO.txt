@@ -2,7 +2,7 @@ TO DO:
 // Most important things
 	-> [DONE]Parametrised SQL queries (multi table queries)
 	-> [DONE] Saving to file (make it save only money and time) (MOST IMPORTANT)
-	-> [In-progress]Connect the economics with the game (MOST IMPORTANT)
+	-> [DONE]Connect the economics with the game (MOST IMPORTANT)
 
 
 // DATABASE
