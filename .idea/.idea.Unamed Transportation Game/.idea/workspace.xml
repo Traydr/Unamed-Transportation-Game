@@ -27,15 +27,6 @@
   <component name="ChangeListManager">
     <list default="true" id="998431e6-b77a-4443-871e-cd739c440bed" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MoneyDisplayChange.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MoneyDisplayChange.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MouseClickDetection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MouseClickDetection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/ProtocolInstance.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ProtocolInstance.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/BuiltinAssemblies.stamp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/SourceAssetDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SourceAssetDB" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,11 +57,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/DBconnector.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Economics.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/EscapeMenu.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/FileHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GUIWindowCreation.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/InGameTime.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameEventHandler.cs" />
@@ -80,6 +67,10 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/MoneyDisplayChange.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GUIWindowCreation.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EscapeMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Economics.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/DBconnector.cs" />
       </list>
     </option>
   </component>
@@ -133,7 +124,7 @@
       <workItem from="1618514620446" duration="4582000" />
       <workItem from="1618557976123" duration="9461000" />
       <workItem from="1618575031447" duration="915000" />
-      <workItem from="1618747998578" duration="9605000" />
+      <workItem from="1618747998578" duration="10538000" />
     </task>
     <servers />
   </component>
@@ -251,10 +242,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="196" height="455" key="HiddenNamespacesPopup/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618317105225" />
-    <state x="461" y="165" key="SettingsEditor" timestamp="1618432755310">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2289" y="123" key="SettingsEditor" timestamp="1618775029066">
+      <screen x="1920" y="0" width="1536" height="832" />
     </state>
     <state x="461" y="165" key="SettingsEditor/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618432755310" />
+    <state x="2289" y="123" key="SettingsEditor/1920.0.1536.832/0.0.1920.1040@1920.0.1536.832" timestamp="1618775029066" />
     <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1618572089077">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
