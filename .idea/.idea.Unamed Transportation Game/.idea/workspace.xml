@@ -26,40 +26,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="998431e6-b77a-4443-871e-cd739c440bed" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DataBase.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseCreation.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseCreation.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ErrorGUI.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ErrorGUI.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GeneralMathFunctions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GeneralMathFunctions.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GuiScripts.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GuiScripts/DebugGui.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GuiScripts/DebugGui.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Handlers.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/MenuScripts.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/DataBase/UnamedTransportationGame.db" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DataBase/UnamedTransportationGame.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DBconnector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseConnector.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DBconnector.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseConnector.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Economics.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Economics.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FileHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FileHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GUIWindowCreation.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GUIWindowCreation.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameEventHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameEventHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ItemMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ItemMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DataBase.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DataBaseScripts.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseConnector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DataBaseScripts/DataBaseConnector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseConnector.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DataBaseScripts/DataBaseConnector.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseCreation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DataBaseScripts/DataBaseCreation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseCreation.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DataBaseScripts/DataBaseCreation.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ErrorGUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GuiScripts/ErrorGui.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ErrorGUI.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GuiScripts/ErrorGUI.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EscapeMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MenuScripts/EscapeMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EscapeMenu.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MenuScripts/EscapeMenu.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FileHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Handlers/FileHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FileHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Handlers/FileHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameEventHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Handlers/GameEventHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameEventHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Handlers/GameEventHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Handlers/GameHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Handlers/GameHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InGameTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Handlers/GameTimeHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InGameTime.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Handlers/GameTimeHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ItemMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MenuScripts/ItemMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ItemMenu.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MenuScripts/ItemMenu.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/ArtifactDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ArtifactDB" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/Artifacts/63/63c36764cc5d011f7d7da80ee00487c2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/Artifacts/6b/6b4401f0a305efd85178716e74aab8b3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/Artifacts/be/be3fbc5b3386177db6a16d183e377d20" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/Library/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MenuScripts/MainMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainMenu.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MenuScripts/MainMenu.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MoneyDisplayChange.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Handlers/GameMoneyHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MoneyDisplayChange.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Handlers/GameMoneyHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MouseClickDetection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Handlers/GameMouseHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MouseClickDetection.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Handlers/GameMouseHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RoadGen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RoadGeneration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RoadGen.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RoadGeneration.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/ProtocolInstance.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/BuiltinAssemblies.stamp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/SourceAssetDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SourceAssetDB" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/StateCache/Hierarchy/a5f061-mainStage.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/StateCache/Hierarchy/a5f061-mainStage.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/StateCache/SceneView/e1a37f-mainStage.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/StateCache/SceneView/e1a37f-mainStage.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,23 +81,24 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ErrorGUI.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MoneyDisplayChange.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MouseClickDetection.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MenuScripts/MainMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GuiScripts/ErrorGui.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Handlers/GameMoneyHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Handlers/GameMouseHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/RoadGen.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FileHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/RoadGeneration.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Handlers/FileHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Unity/Hub/Editor/2019.4.15f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/EventSystem/ExecuteEvents.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseConnector.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseCreation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DataBaseScripts/DataBaseConnector.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DataBaseScripts/DataBaseCreation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GeneralMathFunctions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Economics.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EscapeMenu.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameEventHandler.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameHandler.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/InGameTime.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ItemMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MenuScripts/EscapeMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GuiScripts/DebugGui.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Handlers/GameEventHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Handlers/GameHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Handlers/GameTimeHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MenuScripts/ItemMenu.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -96,7 +107,6 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameEventHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/UNITY_TODO.txt" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/MouseClickDetection.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MoneyDisplayChange.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GUIWindowCreation.cs" />
@@ -111,6 +121,16 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/DataBaseConnector.cs" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/e5190881-cf2c-42b4-a34b-3f6529c1ae9f/console.sql" />
         <option value="$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseCreation.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameTimeHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Handlers/FileHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Handlers/GameEventHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/RoadGeneration.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MouseClickDetection.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GuiScripts/ErrorGui.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GuiScripts/DebugGui.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameMoneyHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MenuScripts/ItemMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Handlers/GameMouseHandler.cs" />
       </list>
     </option>
   </component>
@@ -165,7 +185,7 @@
       <workItem from="1618557976123" duration="9461000" />
       <workItem from="1618575031447" duration="915000" />
       <workItem from="1618747998578" duration="10538000" />
-      <workItem from="1622832353595" duration="6123000" />
+      <workItem from="1622832353595" duration="7467000" />
     </task>
     <servers />
   </component>

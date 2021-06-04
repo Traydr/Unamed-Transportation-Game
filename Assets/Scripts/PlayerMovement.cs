@@ -27,8 +27,8 @@ public class PlayerMovement : MonoBehaviour
             player.position = targetPos;
             
             // The Money is subtracted by the distance moved, the time also changes depending on the distance moved
-            gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(CalcFeulCost(lastTarget, target), false);
-            gameHandler.GetComponent<InGameTime>().UpdateTime(CalcTimeCost(lastTarget, target));
+            gameHandler.GetComponent<GameMoneyHandler>().MoneyChange(CalcFeulCost(lastTarget, target), false);
+            gameHandler.GetComponent<GameTimeHandler>().UpdateTime(CalcTimeCost(lastTarget, target));
             
             // The lastTarget becomes the current position where the player is located
             lastTarget = target;
