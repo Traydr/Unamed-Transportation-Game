@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 
-public class GUIWindowCreation : MonoBehaviour
+public class ErrorGUI : MonoBehaviour
 {
     public string errorMessage = ""; public Transform selfObject;
     
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("GUIWindowCreation.Start");
+        Debug.Log("ErrorGUI.Start");
     }
     
     // Defines the rectangles of the window and the button
-    public Rect windowRect = new Rect(20, 20, 120, 50);
-    public Rect buttonRect = new Rect(10, 10, 150, 20);
+    public Rect windowRect = new Rect(400, 200, 300, 100);
+    public Rect buttonRect = new Rect(10, 20, 275, 40);
 
     void OnGUI() // Is called every frame and displays the below GUI elements
     {
@@ -20,15 +20,15 @@ public class GUIWindowCreation : MonoBehaviour
         windowRect = GUI.Window(0, windowRect, DoMyWindow, "Error");
     }
 
-    // Creates the contents of the window e.g. the button
-    void DoMyWindow(int windowID)
+    // Creates the contents of the window
+    void DoMyWindow(int windowId)
     {
         // If the button is pressed then the error is acknowledged and this GUI script is disabled
         if (GUI.Button(buttonRect, errorMessage))
         {
-            string toPrint = string.Format("Confirmed recieved error | ERROR: {0}", errorMessage);
+            string toPrint = $"Confirmed received error | ERROR: {errorMessage}";
             print(toPrint);
-            selfObject.GetComponent<GUIWindowCreation>().enabled = !selfObject.GetComponent<GUIWindowCreation>().enabled;
+            selfObject.GetComponent<ErrorGUI>().enabled = !selfObject.GetComponent<ErrorGUI>().enabled;
         }
     }
     

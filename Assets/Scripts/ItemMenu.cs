@@ -18,7 +18,7 @@ public class ItemMenu : MonoBehaviour
     public void UIDetection()
     {
         Transform currentLocation = player.GetComponent<PlayerMovement>().lastTarget;
-        string locIndex = FindLocationIDOfCurrentLocation();
+        string locIndex = FindLocationIdOfCurrentLocation();
 
         if (currentLocation.CompareTag("Shops")) // Takes the tag to open correct menu, then gets the data from DB and then writes it to the menu
         {
@@ -32,15 +32,15 @@ public class ItemMenu : MonoBehaviour
         }
     }
 
-    string FindLocationIDOfCurrentLocation() // Finds the ID of the location that the player is currently in
+    private string FindLocationIdOfCurrentLocation() // Finds the ID of the location that the player is currently in
     {
-        Transform currentlocation = player.GetComponent<PlayerMovement>().lastTarget;
-        string[,] locIndexArray = DBconnector.DataBaseLocationSelect();
+        Transform currentLocation = player.GetComponent<PlayerMovement>().lastTarget;
+        string[,] locIndexArray = DataBaseConnector.DataBaseLocationSelect();
         string locIndex = "-1";
 
         for (int i = 0; i < 6; i++)
         {
-            if (currentlocation.transform.name == locIndexArray[i, 1])
+            if (currentLocation.transform.name == locIndexArray[i, 1])
             {
                 locIndex = locIndexArray[i, 0];
             }
@@ -49,14 +49,14 @@ public class ItemMenu : MonoBehaviour
         return locIndex;
     }
 
-    string FindProductIDOfInputString(string productName) // Finds the product ID from the name of a product
+    private string FindProductIdOfInputString(string productName) // Finds the product ID from the name of a product
     {
         string prodIndex = "-1"; int counter = 0; bool productNameFound = false;
         string[,] productArray;
 
         while (productNameFound == false)
         {
-            productArray = DBconnector.DataBaseProductsSelect("ProductID", counter.ToString());
+            productArray = DataBaseConnector.DataBaseProductsSelect("ProductID", counter.ToString());
 
             if (productArray[0, 1] == productName)
             {
@@ -80,7 +80,7 @@ public class ItemMenu : MonoBehaviour
         // Goes through all the items in the PlayerInvetory table and assignes them to the 2d array of strings
         for (int i = 0; i < 7; i++)
         {
-            string[] tempElements = gameHandler.GetComponent<DBconnector>().DataBasePlayerInventorySelectForInventoryMenu(i.ToString());
+            string[] tempElements = gameHandler.GetComponent<DataBaseConnector>().DataBasePlayerInventorySelectForInventoryMenu(i.ToString());
             rowElements[i, 0] = tempElements[0];
             rowElements[i, 1] = tempElements[1];
             rowElements[i, 2] = tempElements[2];
@@ -107,15 +107,15 @@ public class ItemMenu : MonoBehaviour
     void WriteFromDataBaseToMenu(string locIndex, GameObject menu, bool isSelling) 
     {
         string[,] getProduct; string[] playerInv;
-        string[,] arrMenuData = DBconnector.DataBaseProductLocationSelect("LocationID", locIndex);
+        string[,] arrMenuData = DataBaseConnector.DataBaseProductLocationSelect("LocationID", locIndex);
         int[] rowChildindex = FindRowsWithinMenu(menu);
         
         // Goes through each item in a city or shop and writes them to each row
         for (int i = 0; i < 4; i++)
         {
             GameObject tempRow = menu.transform.GetChild(rowChildindex[i]).gameObject;
-            getProduct = DBconnector.DataBaseProductsSelect("ProductID", arrMenuData[i, 0]);
-            playerInv = gameHandler.GetComponent<DBconnector>().DataBasePlayerInventorySelect("ProductID", arrMenuData[i, 0]);
+            getProduct = DataBaseConnector.DataBaseProductsSelect("ProductID", arrMenuData[i, 0]);
+            playerInv = gameHandler.GetComponent<DataBaseConnector>().DataBasePlayerInventorySelect("ProductID", arrMenuData[i, 0]);
             string itemString = getProduct[0, 1];
             float priceFloat = float.Parse(arrMenuData[i, 3]);
             int stockInt = 0;
@@ -140,7 +140,7 @@ public class ItemMenu : MonoBehaviour
     public void ResolveSell(GameObject menu)
     {
         string[] rowElements;
-        string locationID = FindLocationIDOfCurrentLocation();
+        string locationId = FindLocationIdOfCurrentLocation();
 
         int[] rowChildIndex = FindRowsWithinMenu(menu);
 
@@ -153,7 +153,7 @@ public class ItemMenu : MonoBehaviour
             float itemPrice = float.Parse(rowElements[1]);
             int itemStockInInventory = int.Parse(rowElements[2]);
             int itemToSell = 0;
-            string currentProductID = FindProductIDOfInputString(itemName);
+            string currentProductId = FindProductIdOfInputString(itemName);
 
             // If the input field was empty then itemToSell is assigned 0
             // if it wasn't empty then it takes whatever value was in it
@@ -169,13 +169,13 @@ public class ItemMenu : MonoBehaviour
             // Checks to make sure that certain conditions are met before activating the sell
             if (itemToSell < 0) // if the number of items to sell is negative then an error message is displayed
             {
-                gameHandler.GetComponent<GUIWindowCreation>().enabled = true;
-                gameHandler.GetComponent<GUIWindowCreation>().errorMessage = "To Sell is negative";
+                gameHandler.GetComponent<ErrorGUI>().enabled = true;
+                gameHandler.GetComponent<ErrorGUI>().errorMessage = "To Sell is negative";
             }
             else if (itemToSell > itemStockInInventory) // If there are more items to sell than in inventory an error message is displayed
             {
-                gameHandler.GetComponent<GUIWindowCreation>().enabled = true;
-                gameHandler.GetComponent<GUIWindowCreation>().errorMessage = "Not enough stock in inventory";
+                gameHandler.GetComponent<ErrorGUI>().enabled = true;
+                gameHandler.GetComponent<ErrorGUI>().errorMessage = "Not enough stock in inventory";
             }
             else if (itemToSell == 0) // If the items to sell was 0 then it is skipped
             {
@@ -195,8 +195,8 @@ public class ItemMenu : MonoBehaviour
                 gameHandler.GetComponent<MoneyDisplayChange>().MoneyChange(revenue, true);
                 
                 // The stock changes in PlayerInventory and the change is recorded in the Changes table
-                gameHandler.GetComponent<DBconnector>().DataBasePlayerInventoryInput(int.Parse(locationID), itemPrice, itemToSell, true, true);
-                gameHandler.GetComponent<DBconnector>().DataBaseProductChangesInsert(int.Parse(currentProductID), int.Parse(locationID), itemPrice, itemToSell);
+                gameHandler.GetComponent<DataBaseConnector>().DataBasePlayerInventoryInput(int.Parse(locationId), itemPrice, itemToSell, true, true);
+                gameHandler.GetComponent<DataBaseConnector>().DataBaseProductChangesInsert(int.Parse(currentProductId), int.Parse(locationId), itemPrice, itemToSell);
             }
 
             // The Input field in the row is wiped weather or not the sale succeeds
@@ -208,7 +208,7 @@ public class ItemMenu : MonoBehaviour
     // Takes the items from the menu and then resolve what was bought and what actions should be taken
     public void ResolveBuy(GameObject menu) 
     {
-        string locationID = FindLocationIDOfCurrentLocation();
+        string locationId = FindLocationIdOfCurrentLocation();
         int[] rowChildIndex = FindRowsWithinMenu(menu);
 
         for (int i = 0; i < rowChildIndex.Length; i++)
@@ -218,7 +218,7 @@ public class ItemMenu : MonoBehaviour
             
             string itemName = rowElements[0]; float itemPrice = float.Parse(rowElements[1]);
             int itemStockInShop = int.Parse(rowElements[2]); int itemToBuy = 0;
-            string currentProductID = FindProductIDOfInputString(itemName);
+            string currentProductId = FindProductIdOfInputString(itemName);
 
             // If the input field was empty then itemToSell is assigned 0
             // if it wasn't empty then it takes whatever value was in it
@@ -234,13 +234,13 @@ public class ItemMenu : MonoBehaviour
             // Checks to make sure that certain conditions are met before activating the buying of stock
             if (itemToBuy < 0) // if the number of items to buy is negative then an error message is displayed
             {
-                gameHandler.GetComponent<GUIWindowCreation>().enabled = true;
-                gameHandler.GetComponent<GUIWindowCreation>().errorMessage = "Cannot buy a negative amount";
+                gameHandler.GetComponent<ErrorGUI>().enabled = true;
+                gameHandler.GetComponent<ErrorGUI>().errorMessage = "Cannot buy a negative amount";
             }
             else if (itemToBuy > itemStockInShop) // If there are more items to buy than in inventory an error message is displayed
             {
-                gameHandler.GetComponent<GUIWindowCreation>().enabled = true;
-                gameHandler.GetComponent<GUIWindowCreation>().errorMessage = "Not enough stock in shop to buy";
+                gameHandler.GetComponent<ErrorGUI>().enabled = true;
+                gameHandler.GetComponent<ErrorGUI>().errorMessage = "Not enough stock in shop to buy";
             }
             else if (itemToBuy == 0) // If the items to sell was 0 then it is skipped
             {
@@ -262,9 +262,9 @@ public class ItemMenu : MonoBehaviour
                 // The correct amount of items are added to the player inventory
                 // The correct amount of items are removed from the locations stock in productLocations table
                 // The change is recorded in the ProductChanges Table
-                gameHandler.GetComponent<DBconnector>().DataBasePlayerInventoryInput(int.Parse(FindProductIDOfInputString(itemName)), itemPrice, itemToBuy, true, false);
-                DBconnector.DataBaseProductLocationUpdate("Stock", itemStockInShop.ToString(), "ProductID", FindProductIDOfInputString(itemName), "LocationID", locationID);
-                gameHandler.GetComponent<DBconnector>().DataBaseProductChangesInsert(int.Parse(currentProductID), int.Parse(locationID), itemPrice, itemToBuy);
+                gameHandler.GetComponent<DataBaseConnector>().DataBasePlayerInventoryInput(int.Parse(FindProductIdOfInputString(itemName)), itemPrice, itemToBuy, true, false);
+                DataBaseConnector.DataBaseProductLocationUpdate("Stock", itemStockInShop.ToString(), "ProductID", FindProductIdOfInputString(itemName), "LocationID", locationId);
+                gameHandler.GetComponent<DataBaseConnector>().DataBaseProductChangesInsert(int.Parse(currentProductId), int.Parse(locationId), itemPrice, itemToBuy);
             }
 
             WipeInput(tempRow);
@@ -326,12 +326,11 @@ public class ItemMenu : MonoBehaviour
 
     public void WipeAllInputs(GameObject menu) // Wipes all inputs on all rows in a certain menu
     {
-        int[] rowChildIndex;
-        rowChildIndex = FindRowsWithinMenu(menu);
+        int[] rowChildIndex = FindRowsWithinMenu(menu);
 
-        for (int i = 0; i < rowChildIndex.Length; i++)
+        foreach (int tempIndex in rowChildIndex)
         {
-            GameObject tempRow = menu.transform.GetChild(rowChildIndex[i]).gameObject;
+            GameObject tempRow = menu.transform.GetChild(tempIndex).gameObject;
             WipeInput(tempRow);
         }
     }

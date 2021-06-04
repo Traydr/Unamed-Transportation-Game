@@ -29,12 +29,12 @@ public class KeyboardControls : MonoBehaviour
 
         if (Input.GetKey("m")) // Saves the game if m key is pressed
         {
-            gameHandler.GetComponent<FileHandler>().SaveGame();
+            gameHandler.GetComponent<FileHandler>().FileAction('s');
         }
 
         if (Input.GetKey("n")) // Loads a save game if n key is pressed 
         {
-            gameHandler.GetComponent<FileHandler>().LoadGame();
+            gameHandler.GetComponent<FileHandler>().FileAction('l');
         }
         
     }

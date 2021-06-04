@@ -58,13 +58,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\DBconnector.cs" />
+     <Compile Include="Assets\Scripts\DataBase\DataBaseConnector.cs" />
+     <Compile Include="Assets\Scripts\DataBase\DataBaseCreation.cs" />
      <Compile Include="Assets\Scripts\Economics.cs" />
+     <Compile Include="Assets\Scripts\ErrorGUI.cs" />
      <Compile Include="Assets\Scripts\EscapeMenu.cs" />
      <Compile Include="Assets\Scripts\FileHandler.cs" />
-     <Compile Include="Assets\Scripts\GUIWindowCreation.cs" />
      <Compile Include="Assets\Scripts\GameEventHandler.cs" />
      <Compile Include="Assets\Scripts\GameHandler.cs" />
+     <Compile Include="Assets\Scripts\GeneralMathFunctions.cs" />
      <Compile Include="Assets\Scripts\InGameTime.cs" />
      <Compile Include="Assets\Scripts\ItemMenu.cs" />
      <Compile Include="Assets\Scripts\KeyboardControls.cs" />

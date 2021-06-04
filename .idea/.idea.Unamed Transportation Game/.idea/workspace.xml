@@ -26,7 +26,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="998431e6-b77a-4443-871e-cd739c440bed" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DataBase.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseCreation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseCreation.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ErrorGUI.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ErrorGUI.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GeneralMathFunctions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GeneralMathFunctions.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unamed Transportation Game/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/DataBase/UnamedTransportationGame.db" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DataBase/UnamedTransportationGame.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DBconnector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseConnector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DBconnector.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseConnector.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Economics.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Economics.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FileHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FileHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GUIWindowCreation.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GUIWindowCreation.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameEventHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameEventHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ItemMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ItemMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/ArtifactDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ArtifactDB" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/Artifacts/63/63c36764cc5d011f7d7da80ee00487c2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/Artifacts/6b/6b4401f0a305efd85178716e74aab8b3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/Artifacts/be/be3fbc5b3386177db6a16d183e377d20" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/Library/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/SourceAssetDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SourceAssetDB" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/StateCache/Hierarchy/a5f061-mainStage.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/StateCache/Hierarchy/a5f061-mainStage.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/StateCache/SceneView/e1a37f-mainStage.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/StateCache/SceneView/e1a37f-mainStage.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,16 +72,18 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ErrorGUI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MoneyDisplayChange.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MouseClickDetection.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/RoadGen.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/FileHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Unity/Hub/Editor/2019.4.15f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/EventSystem/ExecuteEvents.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DBconnector.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseConnector.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseCreation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GeneralMathFunctions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Economics.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/EscapeMenu.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GUIWindowCreation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameEventHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/InGameTime.cs" root0="FORCE_HIGHLIGHTING" />
@@ -57,20 +92,25 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/FileHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/InGameTime.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameEventHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/UNITY_TODO.txt" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ItemMenu.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MouseClickDetection.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MoneyDisplayChange.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GUIWindowCreation.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/EscapeMenu.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Economics.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/DBconnector.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ErrorGUI.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/KeyboardControls.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/FileHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Economics.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ItemMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GeneralMathFunctions.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/DataBaseConnector.cs" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/e5190881-cf2c-42b4-a34b-3f6529c1ae9f/console.sql" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/DataBase/DataBaseCreation.cs" />
       </list>
     </option>
   </component>
@@ -125,6 +165,7 @@
       <workItem from="1618557976123" duration="9461000" />
       <workItem from="1618575031447" duration="915000" />
       <workItem from="1618747998578" duration="10538000" />
+      <workItem from="1622832353595" duration="6123000" />
     </task>
     <servers />
   </component>
@@ -166,30 +207,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="348" y="361" key="#SQL_Dialects/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618313852316" />
-    <state x="552" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1618313815269">
+    <state x="552" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1622837729456">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618313815269" />
+    <state x="552" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1622837729456" />
     <state width="522" height="464" key="DebuggerActiveHint" timestamp="1618573268957">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="522" height="464" key="DebuggerActiveHint/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618573268957" />
-    <state width="1877" height="375" key="GridCell.Tab.0.bottom" timestamp="1618574601863">
+    <state width="1293" height="282" key="GridCell.Tab.0.bottom" timestamp="1622837774057">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="375" key="GridCell.Tab.0.bottom/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618574601863" />
-    <state width="1877" height="375" key="GridCell.Tab.0.center" timestamp="1618574601862">
+    <state width="1293" height="282" key="GridCell.Tab.0.bottom/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1622837774057" />
+    <state width="1293" height="282" key="GridCell.Tab.0.center" timestamp="1622837774057">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="375" key="GridCell.Tab.0.center/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618574601862" />
-    <state width="1877" height="375" key="GridCell.Tab.0.left" timestamp="1618574601862">
+    <state width="1293" height="282" key="GridCell.Tab.0.center/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1622837774057" />
+    <state width="1293" height="282" key="GridCell.Tab.0.left" timestamp="1622837774057">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="375" key="GridCell.Tab.0.left/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618574601862" />
-    <state width="1877" height="375" key="GridCell.Tab.0.right" timestamp="1618574601863">
+    <state width="1293" height="282" key="GridCell.Tab.0.left/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1622837774057" />
+    <state width="1293" height="282" key="GridCell.Tab.0.right" timestamp="1622837774057">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="375" key="GridCell.Tab.0.right/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618574601863" />
+    <state width="1293" height="282" key="GridCell.Tab.0.right/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1622837774057" />
     <state width="1877" height="375" key="GridCell.Tab.1.bottom" timestamp="1618574601863">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -238,22 +279,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="375" key="GridCell.Tab.3.right/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618574601864" />
-    <state width="196" height="455" key="HiddenNamespacesPopup" timestamp="1618317105225">
+    <state width="196" height="455" key="HiddenNamespacesPopup" timestamp="1622837614725">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="196" height="455" key="HiddenNamespacesPopup/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618317105225" />
+    <state width="196" height="455" key="HiddenNamespacesPopup/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1622837614725" />
     <state x="2289" y="123" key="SettingsEditor" timestamp="1618775029066">
       <screen x="1920" y="0" width="1536" height="832" />
     </state>
     <state x="461" y="165" key="SettingsEditor/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618432755310" />
     <state x="2289" y="123" key="SettingsEditor/1920.0.1536.832/0.0.1920.1040@1920.0.1536.832" timestamp="1618775029066" />
+    <state x="92" y="92" width="1736" height="856" key="VCS.FileHistoryDialog" timestamp="1622833839930">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="VCS.FileHistoryDialog/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1622833839930" />
     <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1618572089077">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="968" height="528" key="XDebugger.FullValuePopup/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618572089077" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1618472462772">
+    <state x="638" y="122" width="644" height="795" key="find.popup" timestamp="1622836215264">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1618472462772" />
+    <state x="638" y="122" width="644" height="795" key="find.popup/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1622836215264" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1622835542456">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1622835542456" />
   </component>
 </project>

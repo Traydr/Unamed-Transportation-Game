@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="UnamedTransportationGame.db" uuid="a2433fb6-1d19-4cf1-a82a-e899f5b0483e">
+    <data-source source="LOCAL" name="UnamedTransportationGame" uuid="e5190881-cf2c-42b4-a34b-3f6529c1ae9f">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/Assets/DataBase/UnamedTransportationGame.db</jdbc-url>
-    </data-source>
-    <data-source source="LOCAL" name="SQLite - identifier.sqlite" uuid="3337a00b-a035-466e-8414-bda2fcaa510a">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:identifier.sqlite</jdbc-url>
     </data-source>
   </component>
 </project>

@@ -17,13 +17,17 @@
           <e p="save0.txt" t="Include" />
         </e>
         <e p="Scripts" t="Include">
-          <e p="DBconnector.cs" t="Include" />
+          <e p="DataBase" t="Include">
+            <e p="DataBaseConnector.cs" t="Include" />
+            <e p="DataBaseCreation.cs" t="Include" />
+          </e>
           <e p="Economics.cs" t="Include" />
+          <e p="ErrorGUI.cs" t="Include" />
           <e p="EscapeMenu.cs" t="Include" />
           <e p="FileHandler.cs" t="Include" />
           <e p="GameEventHandler.cs" t="Include" />
           <e p="GameHandler.cs" t="Include" />
-          <e p="GUIWindowCreation.cs" t="Include" />
+          <e p="GeneralMathFunctions.cs" t="Include" />
           <e p="InGameTime.cs" t="Include" />
           <e p="ItemMenu.cs" t="Include" />
           <e p="KeyboardControls.cs" t="Include" />

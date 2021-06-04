@@ -2,36 +2,14 @@
 using System.Data.SQLite;
 using System;
 
-public class DBconnector : MonoBehaviour
+public class DataBaseConnector : MonoBehaviour
 {
     public GameObject gameHandler;
+    private GeneralMathFunctions _gmf;
 
     void Start()
     {
-        Debug.Log("DBconnector.Start");
-    }
-    // Calculates a new average number from a set of inputs
-    float CalcNewAvg(float currentAvg, int currentMumItems, float newValue, int newNumItem)
-    {
-        float numAvg = 0;
-        
-        // If the number of items that are being bought or sold is equal to the stock held, set the average to 0 otherwise
-        // perform the calculation
-        if (currentMumItems + newNumItem == 0) 
-        {
-            numAvg = 0f;
-        }
-        else
-        {
-            numAvg = ((currentAvg * currentMumItems) + (newValue * newNumItem)) / (currentMumItems + newNumItem);
-        }
-
-        // If the average is negative set the average to 0
-        if (numAvg < 0)
-        {
-            numAvg = 0f;
-        }
-        return numAvg;
+        Debug.Log("DataBaseConnector.Start");
     }
 
     // SPECIFIC TABLES
@@ -399,7 +377,7 @@ public class DBconnector : MonoBehaviour
                 else // In any other case we have to calculate the new price and new stock numbers
                 {
                     int tempStock = 0 - stock;
-                    float newPriceAvg = CalcNewAvg(float.Parse(invList[1]), int.Parse(invList[2]), priceAvg, tempStock); // I hate this function
+                    float newPriceAvg = _gmf.GetAdditionToExistingAverage(float.Parse(invList[1]), int.Parse(invList[2]), priceAvg, tempStock); // I hate this function
                     int newStock = int.Parse(invList[2]) - stock;
 
                     DataBasePlayerInventoryUpdate("LastPriceAVG", Convert.ToString(newPriceAvg), "ProductID", Convert.ToString(productId));
@@ -408,7 +386,7 @@ public class DBconnector : MonoBehaviour
             }
             else // If we are buying we need to calculate the new price and new stock
             {
-                float newPriceAvg = CalcNewAvg(float.Parse(invList[1]), int.Parse(invList[2]), priceAvg, stock); // This function call and the one above are the cause of many bugs
+                float newPriceAvg = _gmf.GetAdditionToExistingAverage(float.Parse(invList[1]), int.Parse(invList[2]), priceAvg, stock); // This function call and the one above are the cause of many bugs
                 int newStock = int.Parse(invList[2]) + stock;
 
                 DataBasePlayerInventoryUpdate("LastPriceAVG", Convert.ToString(newPriceAvg), "ProductID", Convert.ToString(productId));
