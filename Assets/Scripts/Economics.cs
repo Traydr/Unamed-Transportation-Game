@@ -2,8 +2,8 @@
 
 public class Economics : MonoBehaviour
 {
-    private GeneralMathFunctions _gmf;
-    
+    readonly GeneralMathFunctions _generalMathFunctions = new GeneralMathFunctions();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +15,7 @@ public class Economics : MonoBehaviour
     {
         // Ped = % change in Qty Demanded / % change in Price so %CH Price = %CH QD / PED
         float resultantPrice = 0f;
-        float percentChangeInQuantityDemanded = _gmf.GetPercentageChangeInValue(lastStock, currentStock);
+        float percentChangeInQuantityDemanded = _generalMathFunctions.GetPercentageChangeInValue(lastStock, currentStock);
 
         float percentChangeInPrice = percentChangeInQuantityDemanded / ped;
         resultantPrice = currentPrice + (currentPrice * percentChangeInPrice);

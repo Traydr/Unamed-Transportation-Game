@@ -5,7 +5,7 @@ using System;
 public class DataBaseConnector : MonoBehaviour
 {
     public GameObject gameHandler;
-    private GeneralMathFunctions _gmf;
+    readonly GeneralMathFunctions _generalMathFunctions = new GeneralMathFunctions();
 
     void Start()
     {
@@ -377,7 +377,7 @@ public class DataBaseConnector : MonoBehaviour
                 else // In any other case we have to calculate the new price and new stock numbers
                 {
                     int tempStock = 0 - stock;
-                    float newPriceAvg = _gmf.GetAdditionToExistingAverage(float.Parse(invList[1]), int.Parse(invList[2]), priceAvg, tempStock); // I hate this function
+                    float newPriceAvg = _generalMathFunctions.GetAdditionToExistingAverage(float.Parse(invList[1]), int.Parse(invList[2]), priceAvg, tempStock); // I hate this function
                     int newStock = int.Parse(invList[2]) - stock;
 
                     DataBasePlayerInventoryUpdate("LastPriceAVG", Convert.ToString(newPriceAvg), "ProductID", Convert.ToString(productId));
@@ -386,7 +386,7 @@ public class DataBaseConnector : MonoBehaviour
             }
             else // If we are buying we need to calculate the new price and new stock
             {
-                float newPriceAvg = _gmf.GetAdditionToExistingAverage(float.Parse(invList[1]), int.Parse(invList[2]), priceAvg, stock); // This function call and the one above are the cause of many bugs
+                float newPriceAvg = _generalMathFunctions.GetAdditionToExistingAverage(float.Parse(invList[1]), int.Parse(invList[2]), priceAvg, stock); // This function call and the one above are the cause of many bugs
                 int newStock = int.Parse(invList[2]) + stock;
 
                 DataBasePlayerInventoryUpdate("LastPriceAVG", Convert.ToString(newPriceAvg), "ProductID", Convert.ToString(productId));

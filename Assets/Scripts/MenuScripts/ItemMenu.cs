@@ -106,7 +106,6 @@ public class ItemMenu : MonoBehaviour
     // so that it displays what a particular location has
     void WriteFromDataBaseToMenu(string locIndex, GameObject menu, bool isSelling) 
     {
-        string[,] getProduct; string[] playerInv;
         string[,] arrMenuData = DataBaseConnector.DataBaseProductLocationSelect("LocationID", locIndex);
         int[] rowChildindex = FindRowsWithinMenu(menu);
         
@@ -114,23 +113,16 @@ public class ItemMenu : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             GameObject tempRow = menu.transform.GetChild(rowChildindex[i]).gameObject;
-            getProduct = DataBaseConnector.DataBaseProductsSelect("ProductID", arrMenuData[i, 0]);
-            playerInv = gameHandler.GetComponent<DataBaseConnector>().DataBasePlayerInventorySelect("ProductID", arrMenuData[i, 0]);
+            string[,] getProduct = DataBaseConnector.DataBaseProductsSelect("ProductID", arrMenuData[i, 0]);
+            string[] playerInv = gameHandler.GetComponent<DataBaseConnector>().DataBasePlayerInventorySelect("ProductID", arrMenuData[i, 0]);
             string itemString = getProduct[0, 1];
             float priceFloat = float.Parse(arrMenuData[i, 3]);
             int stockInt = 0;
 
             // If the location is a city then take the stock from the player inventory
             // Otherwise take the stock from the productLocation table
-            if (isSelling)
-            {
-                stockInt = int.Parse(playerInv[2]);
-            }
-            else
-            {
-                stockInt = int.Parse(arrMenuData[i, 2]);
-            }
-            
+            stockInt = int.Parse(isSelling ? playerInv[2] : arrMenuData[i, 2]);
+
             WriteRow(tempRow, itemString, priceFloat, stockInt);
         }
     }
@@ -157,14 +149,7 @@ public class ItemMenu : MonoBehaviour
 
             // If the input field was empty then itemToSell is assigned 0
             // if it wasn't empty then it takes whatever value was in it
-            if (rowElements[3] == "")
-            {
-                itemToSell = 0;
-            }
-            else
-            {
-                itemToSell = int.Parse(rowElements[3]);
-            }
+            itemToSell = rowElements[3] == "" ? 0 : int.Parse(rowElements[3]);
 
             // Checks to make sure that certain conditions are met before activating the sell
             if (itemToSell < 0) // if the number of items to sell is negative then an error message is displayed
