@@ -5,10 +5,18 @@ using Random = UnityEngine.Random;
 public class GameEventHandler : MonoBehaviour
 {
     public GameObject gameHandler;
-    
+    private DataBaseConnector _dataBaseConnector;
+    private Economics _economics;
+    private GameTimeHandler _gameTimeHandler;
+    private ErrorGui _errorGui;
+
     // Start is called before the first frame update
     void Start()
     {
+        _errorGui = gameHandler.GetComponent<ErrorGui>();
+        _gameTimeHandler = gameHandler.GetComponent<GameTimeHandler>();
+        _economics = gameHandler.GetComponent<Economics>();
+        _dataBaseConnector = gameHandler.GetComponent<DataBaseConnector>();
         Debug.Log("GameEventHandler.Start");
     }
 
@@ -36,8 +44,8 @@ public class GameEventHandler : MonoBehaviour
                 break;
             default:
                 Debug.Log("ERROR, INVALID EVENT REQUEST");
-                gameHandler.GetComponent<ErrorGui>().enabled = true;
-                gameHandler.GetComponent<ErrorGui>().errorMessage = "INVALID EVENT REQUEST";
+                _errorGui.enabled = true;
+                _errorGui.errorMessage = "INVALID EVENT REQUEST";
                 break;
         }
     }
@@ -48,20 +56,20 @@ public class GameEventHandler : MonoBehaviour
         int indexCounter = 0;
         string[,] allRelevantDataForLocations = new string[24,6]; // ProductId, LocationId, CurrentPrice, CurrentStock, ChangeInStock, PED
         
-        currentTime = gameHandler.GetComponent<GameTimeHandler>().GetTimeInHours();
+        currentTime = _gameTimeHandler.GetTimeInHours();
         timeSinceLastCheck = currentTime - 24;
-        string[,] selectResultFromChanges = gameHandler.GetComponent<DataBaseConnector>().DataBaseProductChangesSelectWithinLast24Hours(timeSinceLastCheck.ToString());
+        string[,] selectResultFromChanges = _dataBaseConnector.DataBaseProductChangesSelectWithinLast24Hours(timeSinceLastCheck.ToString());
         
         // Goes through ProductLocation database and copies all relevant data to a 2d Array
         // These items include the productId, LocaitonId, CurrentPrice, CurrentStock and PED here
         for (int x = 0; x < 6; x++) 
         {
             string[,] resultsFromProducLocationForLocation =
-                DataBaseConnector.DataBaseProductLocationSelect("LocationID", x.ToString());
+                _dataBaseConnector.DataBaseProductLocationSelect("LocationID", x.ToString());
 
             for (int z = 0; z < 4; z++)
             {
-                string[,] tempProduct = DataBaseConnector.DataBaseProductsSelect("ProductID", resultsFromProducLocationForLocation[z, 0]);
+                string[,] tempProduct = _dataBaseConnector.DataBaseProductsSelect("ProductID", resultsFromProducLocationForLocation[z, 0]);
                 allRelevantDataForLocations[indexCounter, 0] = resultsFromProducLocationForLocation[z, 0];
                 allRelevantDataForLocations[indexCounter, 1] = resultsFromProducLocationForLocation[z, 1];
                 allRelevantDataForLocations[indexCounter, 2] = resultsFromProducLocationForLocation[z, 3];
@@ -121,15 +129,15 @@ public class GameEventHandler : MonoBehaviour
                 string tempLocationId = allRelevantDataForLocations[v, 1];
                 float tempPed = float.Parse(allRelevantDataForLocations[v, 5]);
                 bool hasCurrentPriceFailed = float.TryParse(allRelevantDataForLocations[v, 2], out tempCurrentPrice);
-                int tempLaststock = int.Parse(allRelevantDataForLocations[v, 3]) + int.Parse(allRelevantDataForLocations[v, 4]);
+                int tempLastStock = int.Parse(allRelevantDataForLocations[v, 3]) + int.Parse(allRelevantDataForLocations[v, 4]);
                 int tempCurrentStock = int.Parse(allRelevantDataForLocations[v, 3]);
                 
                 // Calculate the change in price
-                float newPrice = gameHandler.GetComponent<Economics>().CalcChangeInPrice(tempPed, tempCurrentPrice, tempLaststock, tempCurrentStock);
+                float newPrice = _economics.CalcChangeInPrice(tempPed, tempCurrentPrice, tempLastStock, tempCurrentStock);
                 
                 // Update the intry in the productLocaiton table and Insert a new entry in the productChanges table
-                DataBaseConnector.DataBaseProductLocationUpdate("LocalPrice", newPrice.ToString(), "ProductID", tempProductId, "LocationID", tempLocationId);
-                gameHandler.GetComponent<DataBaseConnector>().DataBaseProductChangesInsert(int.Parse(tempProductId), int.Parse(tempLocationId), newPrice, tempCurrentStock);
+                _dataBaseConnector.DataBaseProductLocationUpdate("LocalPrice", newPrice.ToString(), "ProductID", tempProductId, "LocationID", tempLocationId);
+                _dataBaseConnector.DataBaseProductChangesInsert(int.Parse(tempProductId), int.Parse(tempLocationId), newPrice, tempCurrentStock);
             }
         }
     }

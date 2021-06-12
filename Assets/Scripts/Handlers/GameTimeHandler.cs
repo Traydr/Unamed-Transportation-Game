@@ -3,12 +3,15 @@ using UnityEngine.UI;
 
 public class GameTimeHandler : MonoBehaviour
 {
-    public Text timeDisplay; public GameObject gameHandler;
+    public Text timeDisplay; 
+    public GameObject gameHandler;
+    private GameEventHandler _gameEventHandler;
 
 
     // Time format {0}D {1}H
     void Start()
     {
+        _gameEventHandler = gameHandler.GetComponent<GameEventHandler>();
         Debug.Log("Time.Start");
     }
 
@@ -26,7 +29,7 @@ public class GameTimeHandler : MonoBehaviour
             newHourValue -= 24;
             newDayValue += 1;
             // MAKE CALL HERE
-            gameHandler.GetComponent<GameEventHandler>().CallEventRequest("ELPU");
+            _gameEventHandler.CallEventRequest("ELPU");
         }
 
         SetTime(newDayValue, newHourValue);
@@ -47,7 +50,7 @@ public class GameTimeHandler : MonoBehaviour
         return storedTime;
     }
 
-    // Set the time by formating the input data into the string in the correct format, then sets the displayed text to it
+    // Set the time by formatting the input data into the string in the correct format, then sets the displayed text to it
     public void SetTime(int dayValue, int hourValue)
     {
         timeDisplay.text = string.Format("{0}D {1}H", dayValue, hourValue);
@@ -63,8 +66,8 @@ public class GameTimeHandler : MonoBehaviour
     // Takes the  time displayed and returns the total time in hours
     public int GetTimeInHours() 
     {
-        int totalHours = 0; int[] currentTime = new int[2];
-        currentTime = GetTime();
+        int totalHours = 0;
+        int[] currentTime = GetTime();
 
         totalHours = (currentTime[0] * 24) + (currentTime[1]);
 

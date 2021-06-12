@@ -2266,16 +2266,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 343716357}
-        m_MethodName: InventoryMenuToggleActive
-        m_Mode: 1
+      - m_Target: {fileID: 619652433}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 343716357}
         m_MethodName: InitiateInventoryMenu
@@ -3322,7 +3322,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fab43bb437846d24d83c0ea6e986b32f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameHandler: {fileID: 343716350}
 --- !u!4 &343716352
 Transform:
   m_ObjectHideFlags: 0
@@ -3488,8 +3487,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameHandler: {fileID: 343716350}
-  saveGameFilePath: Assets/SaveGames/save
-  saveGameFileExtention: .txt
   currentGameId: 0
 --- !u!1 &346702537
 GameObject:
@@ -5058,7 +5055,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 457516269}
-  playerM: {fileID: 783787197}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

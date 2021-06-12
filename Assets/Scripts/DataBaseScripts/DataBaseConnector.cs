@@ -5,10 +5,13 @@ using System;
 public class DataBaseConnector : MonoBehaviour
 {
     public GameObject gameHandler;
-    readonly GeneralMathFunctions _generalMathFunctions = new GeneralMathFunctions();
+    private string dbFilePath = @"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;";
+    private readonly GeneralMathFunctions _generalMathFunctions = new GeneralMathFunctions();
+    private GameTimeHandler _gameTimeHandler;
 
     void Start()
     {
+        _gameTimeHandler = gameHandler.GetComponent<GameTimeHandler>();
         Debug.Log("DataBaseConnector.Start");
     }
 
@@ -16,12 +19,12 @@ public class DataBaseConnector : MonoBehaviour
     // LOCATION (Shorthand: LT)
 
     // SQL Select command for the table 'Location'
-    public static string[,] DataBaseLocationSelect()
+    public string[,] DataBaseLocationSelect()
     {
         string[,] selectionResult = new string[6, 4]; int indexCounter = 0;
-
+        
         // Creating the connection to the database
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
@@ -50,12 +53,12 @@ public class DataBaseConnector : MonoBehaviour
     // PRODUCTS (Shorthand: PD)
 
     // SQL select command for the 'products' table
-    public static string[,] DataBaseProductsSelect(string colName, string whereValue)
+    public string[,] DataBaseProductsSelect(string colName, string whereValue)
     {
         string[,] selectionResult = new string[1, 6]; int indexCounter = 0;
 
         // Creating the connection to the database
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
@@ -86,12 +89,12 @@ public class DataBaseConnector : MonoBehaviour
     // PRODUCTLOCATION (Shorthand: PDLT)
     
     // A SQL select command for the 'ProductLocation' table
-    public static string[,] DataBaseProductLocationSelect(string colName, string whereValue)
+    public string[,] DataBaseProductLocationSelect(string colName, string whereValue)
     {
         string[,] selectionResult = new string[24, 5]; int indexCounter = 0;
 
         // Creating the connection to the database
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
@@ -124,7 +127,7 @@ public class DataBaseConnector : MonoBehaviour
         string[] selectionResult = new string[5];
 
         // connection to the database is made
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
@@ -152,10 +155,10 @@ public class DataBaseConnector : MonoBehaviour
 
     // SQL command to update and item in the 'ProductLocation' table
     // Takes in what item needs to be updated along side where the item is e.g. LocalPrice, 1 at ProductID, 0 and LocationID, 0
-    public static void DataBaseProductLocationUpdate(string setCol, string setVal, string arCol1, string arVal1, string arCol2, string arVal2)
+    public void DataBaseProductLocationUpdate(string setCol, string setVal, string arCol1, string arVal1, string arCol2, string arVal2)
     {
         // Creation of the connection
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
@@ -176,7 +179,7 @@ public class DataBaseConnector : MonoBehaviour
         string[,] selectionResult = new string[50, 6]; int indexCounter = 0;
 
         // Creating the connection to the database
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
@@ -211,7 +214,7 @@ public class DataBaseConnector : MonoBehaviour
         string[,] selectionResult = new string[100, 3]; int indexCounter = 0;
 
         // Creation of the connection to the database
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
@@ -241,12 +244,12 @@ public class DataBaseConnector : MonoBehaviour
     public void DataBaseProductChangesInsert(int productId, int locationId, float newPrice, int newStock)
     {
         // Creating the connection to the database
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
         // Getting the current time in hours to be put into table
-        int currentTimeHours = gameHandler.GetComponent<GameTimeHandler>().GetTimeInHours();
+        int currentTimeHours = _gameTimeHandler.GetTimeInHours();
         // Getting the id of the last change and then adding 1 to it to get the next empty id
         int changeId = 0; 
         changeId = DataBaseProductChangesGetMaxChangeID() + 1;
@@ -265,7 +268,7 @@ public class DataBaseConnector : MonoBehaviour
         int maxChangeID = 0;
 
         // Creating the connection to the database
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
@@ -296,7 +299,7 @@ public class DataBaseConnector : MonoBehaviour
         string[] selectionResult = new string[4];
 
         // Creating the connection to the database
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
@@ -327,7 +330,7 @@ public class DataBaseConnector : MonoBehaviour
         string[] combinedSelect = new string[4];
         
         // Creating the conection
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
@@ -399,7 +402,7 @@ public class DataBaseConnector : MonoBehaviour
     private void DataBasePlayerInventoryUpdate(string setCol, string setVal, string arCol1, string arVal1) // SQL Error
     {
         // Creating the connection to the database
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
@@ -416,7 +419,7 @@ public class DataBaseConnector : MonoBehaviour
     private void DataBasePlayerInventoryInsert(int productId, float priceAvg, int stock, bool pOrW)
     {
         // Creating the connection
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
@@ -440,7 +443,7 @@ public class DataBaseConnector : MonoBehaviour
         int indexCounter = 0;
 
         // Creating the connection
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
@@ -473,7 +476,7 @@ public class DataBaseConnector : MonoBehaviour
     public void DataBaseUpgradesUpdate(string setCol, string setVal, string arCol1, string arVal1)
     {
         // Creates the connection to the database
-        SQLiteConnection connection = new SQLiteConnection(@"Data Source=Assets/DataBase/UnamedTransportationGame.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection(dbFilePath);
         connection.Open();
         SQLiteCommand cmd = connection.CreateCommand();
 
