@@ -318,5 +318,4 @@ public class ItemMenu : MonoBehaviour
             WipeInput(tempRow);
         }
     }
-    
 }

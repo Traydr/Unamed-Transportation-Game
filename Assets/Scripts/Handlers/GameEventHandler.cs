@@ -20,7 +20,7 @@ public class GameEventHandler : MonoBehaviour
         Debug.Log("GameEventHandler.Start");
     }
 
-    // This function recieves a string of an event name and then redirects it to the correct event
+    // This function receives a string of an event name and then redirects it to the correct event
     // If the event does not exists it enables the error message
     public void CallEventRequest(string requestType)
     {
@@ -52,28 +52,25 @@ public class GameEventHandler : MonoBehaviour
 
     void EventLocationPriceUpdate() // Should check for any changes in ProductChanges in the last 24 hrs and then update the prices of diffrent products at a location
     {
-        int currentTime = 0; int timeSinceLastCheck = 0;
         int indexCounter = 0;
         string[,] allRelevantDataForLocations = new string[24,6]; // ProductId, LocationId, CurrentPrice, CurrentStock, ChangeInStock, PED
         
-        currentTime = _gameTimeHandler.GetTimeInHours();
-        timeSinceLastCheck = currentTime - 24;
+        int timeSinceLastCheck = _gameTimeHandler.GetTimeInHours() - 24;
         string[,] selectResultFromChanges = _dataBaseConnector.DataBaseProductChangesSelectWithinLast24Hours(timeSinceLastCheck.ToString());
         
         // Goes through ProductLocation database and copies all relevant data to a 2d Array
-        // These items include the productId, LocaitonId, CurrentPrice, CurrentStock and PED here
+        // These items include the productId, LocationId, CurrentPrice, CurrentStock and PED here
         for (int x = 0; x < 6; x++) 
         {
-            string[,] resultsFromProducLocationForLocation =
-                _dataBaseConnector.DataBaseProductLocationSelect("LocationID", x.ToString());
+            string[,] resultsFromProductLocationForLocation = _dataBaseConnector.DataBaseProductLocationSelect("LocationID", x.ToString());
 
             for (int z = 0; z < 4; z++)
             {
-                string[,] tempProduct = _dataBaseConnector.DataBaseProductsSelect("ProductID", resultsFromProducLocationForLocation[z, 0]);
-                allRelevantDataForLocations[indexCounter, 0] = resultsFromProducLocationForLocation[z, 0];
-                allRelevantDataForLocations[indexCounter, 1] = resultsFromProducLocationForLocation[z, 1];
-                allRelevantDataForLocations[indexCounter, 2] = resultsFromProducLocationForLocation[z, 3];
-                allRelevantDataForLocations[indexCounter, 3] = resultsFromProducLocationForLocation[z, 2];
+                string[,] tempProduct = _dataBaseConnector.DataBaseProductsSelect("ProductID", resultsFromProductLocationForLocation[z, 0]);
+                allRelevantDataForLocations[indexCounter, 0] = resultsFromProductLocationForLocation[z, 0];
+                allRelevantDataForLocations[indexCounter, 1] = resultsFromProductLocationForLocation[z, 1];
+                allRelevantDataForLocations[indexCounter, 2] = resultsFromProductLocationForLocation[z, 3];
+                allRelevantDataForLocations[indexCounter, 3] = resultsFromProductLocationForLocation[z, 2];
                 allRelevantDataForLocations[indexCounter, 4] = 0.ToString();
                 allRelevantDataForLocations[indexCounter, 5] = tempProduct[0, 5];
                 indexCounter += 1;
@@ -83,62 +80,51 @@ public class GameEventHandler : MonoBehaviour
         // Finds the correct index where the changes will be inputted to
         for (int i = 0; i < selectResultFromChanges.Length / 3; i++)
         {
-            if (selectResultFromChanges[i, 0] is null) // if there is nothing in the specificed index then this index is skipped
-            {
+            // if there is nothing in the specified index then this index is skipped
+            if (selectResultFromChanges[i, 0] is null) continue;
+            
+            int locationStartIndex = int.Parse(selectResultFromChanges[i, 1]) * 4;
+            int productLocationIndex = locationStartIndex;
+            bool productLocationIndexFound = false;
                 
-            }
-            else
+            // The location indexes increase every 4 indexes therefore we only need the check the products for the next 4 indexes
+            for (int c = locationStartIndex; c < locationStartIndex + 4; c++)
             {
-                int locationStartIndex = int.Parse(selectResultFromChanges[i, 1]) * 4;
-                int productLocationIndex = locationStartIndex;
-                bool productLocationIndexFound = false;
-
-                // The location indexes increase every 4 indexes therefore we only need the check the products for the next 4 indexes
-                for (int c = locationStartIndex; c < locationStartIndex + 4; c++)
+                // If the correct index is found then the correct indexes are found, if its not advance the index
+                if (allRelevantDataForLocations[locationStartIndex, 0] == selectResultFromChanges[i, 0])
                 {
-                    // If the correct index is found then the correct indexes are found, if its not advance the index
-                    if (allRelevantDataForLocations[locationStartIndex, 0] == selectResultFromChanges[i, 0])
-                    {
-                        productLocationIndexFound = true;
-                    }
-                    else if (productLocationIndexFound != true)
-                    {
-                        productLocationIndex += 1;
-                    }
+                    productLocationIndexFound = true;
                 }
-
-                // Adds the changed stock amount to the already existing amount of changed stock
-                allRelevantDataForLocations[productLocationIndex, 4] = Convert.ToString(int.Parse(allRelevantDataForLocations[productLocationIndex, 4]) + int.Parse(selectResultFromChanges[i, 2]));
+                else if (productLocationIndexFound != true)
+                {
+                    productLocationIndex += 1;
+                }
             }
+                
+            // Adds the changed stock amount to the already existing amount of changed stock
+            allRelevantDataForLocations[productLocationIndex, 4] = Convert.ToString(int.Parse(allRelevantDataForLocations[productLocationIndex, 4]) + int.Parse(selectResultFromChanges[i, 2]));
         }
 
         // Check through all indexes in the array
         for (int v = 0; v < allRelevantDataForLocations.Length / 6; v++)
         {
             // If the changed stock is 0 then skip the index
-            if (allRelevantDataForLocations[v, 4] == "0")
-            {
+            if (allRelevantDataForLocations[v, 4] == "0") continue;
+
+            // Get all the relevant data and assign then to temporary variables to make reading easier
+            string tempProductId = allRelevantDataForLocations[v, 0];
+            string tempLocationId = allRelevantDataForLocations[v, 1];
+            float tempPed = float.Parse(allRelevantDataForLocations[v, 5]);
+            bool hasCurrentPriceFailed = float.TryParse(allRelevantDataForLocations[v, 2], out float tempCurrentPrice);
+            int tempLastStock = int.Parse(allRelevantDataForLocations[v, 3]) + int.Parse(allRelevantDataForLocations[v, 4]);
+            int tempCurrentStock = int.Parse(allRelevantDataForLocations[v, 3]);
+            
+            // Calculate the change in price
+            float newPrice = _economics.CalcChangeInPrice(tempPed, tempCurrentPrice, tempLastStock, tempCurrentStock);
                 
-            }
-            else
-            {
-                float tempCurrentPrice = 0f; 
-                
-                // Get all the relevant data and assign then to temporary variables to make reading easier
-                string tempProductId = allRelevantDataForLocations[v, 0];
-                string tempLocationId = allRelevantDataForLocations[v, 1];
-                float tempPed = float.Parse(allRelevantDataForLocations[v, 5]);
-                bool hasCurrentPriceFailed = float.TryParse(allRelevantDataForLocations[v, 2], out tempCurrentPrice);
-                int tempLastStock = int.Parse(allRelevantDataForLocations[v, 3]) + int.Parse(allRelevantDataForLocations[v, 4]);
-                int tempCurrentStock = int.Parse(allRelevantDataForLocations[v, 3]);
-                
-                // Calculate the change in price
-                float newPrice = _economics.CalcChangeInPrice(tempPed, tempCurrentPrice, tempLastStock, tempCurrentStock);
-                
-                // Update the intry in the productLocaiton table and Insert a new entry in the productChanges table
-                _dataBaseConnector.DataBaseProductLocationUpdate("LocalPrice", newPrice.ToString(), "ProductID", tempProductId, "LocationID", tempLocationId);
-                _dataBaseConnector.DataBaseProductChangesInsert(int.Parse(tempProductId), int.Parse(tempLocationId), newPrice, tempCurrentStock);
-            }
+            // Update the entry in the productLocation table and Insert a new entry in the productChanges table
+            _dataBaseConnector.DataBaseProductLocationUpdate("LocalPrice", newPrice.ToString(), "ProductID", tempProductId, "LocationID", tempLocationId);
+            _dataBaseConnector.DataBaseProductChangesInsert(int.Parse(tempProductId), int.Parse(tempLocationId), newPrice, tempCurrentStock);
         }
     }
 

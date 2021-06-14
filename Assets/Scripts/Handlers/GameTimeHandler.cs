@@ -20,16 +20,21 @@ public class GameTimeHandler : MonoBehaviour
     // If they do then a day is added to the in game time. Then the values are sent to SetTime() function
     public void UpdateTime(int advanceTimeByNumHours)
     {
-        int newDayValue = 0; int newHourValue = 0; int[] storedTime = new int[2];
-        storedTime = GetTime(); newHourValue = storedTime[1]; newDayValue = storedTime[0];
+        int[] storedTime = GetTime();
+        int newDayValue = storedTime[0];
+        int newHourValue = storedTime[1];
         newHourValue += advanceTimeByNumHours;
 
-        while (newHourValue > 24)
+        while (newHourValue >= 24)
         {
             newHourValue -= 24;
             newDayValue += 1;
-            // MAKE CALL HERE
             _gameEventHandler.CallEventRequest("ELPU");
+            if (newDayValue % 7 == 0)
+            {
+                Debug.Log("Activated Eval Event");
+                // MAKE CALL HERE
+            }
         }
 
         SetTime(newDayValue, newHourValue);
@@ -37,7 +42,7 @@ public class GameTimeHandler : MonoBehaviour
 
     // Get the integer values in time by splitting the text string by the space
     // It then removes the end letter of the numbers and stores them in an array of integers and returns that array
-    public int[] GetTime() // Gets the time from display on UI
+    private int[] GetTime() // Gets the time from display on UI
     {
         string[] currentTime = timeDisplay.text.Split(' ');
         int[] storedTime = new int[2];
@@ -51,9 +56,9 @@ public class GameTimeHandler : MonoBehaviour
     }
 
     // Set the time by formatting the input data into the string in the correct format, then sets the displayed text to it
-    public void SetTime(int dayValue, int hourValue)
+    private void SetTime(int dayValue, int hourValue)
     {
-        timeDisplay.text = string.Format("{0}D {1}H", dayValue, hourValue);
+        timeDisplay.text = $"{dayValue}D {hourValue}H";
     }
 
     // Sets the time to 0 and then advances the amount of time by the integer given
